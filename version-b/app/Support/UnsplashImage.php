@@ -12,6 +12,9 @@ final class UnsplashImage
     /** Candidate widths of the card srcset (HANDOFF §4.3). */
     public const WIDTHS = [384, 750, 1200];
 
+    /** JPEG/AVIF quality: next/image's default (75), the one version-a serves (was the dataset's 80). */
+    public const QUALITY = 75;
+
     /** Rendered card width per breakpoint (DESIGN-SPEC §6.2), the same `sizes` as version-a. */
     public const CARD_SIZES = '(min-width: 1280px) 360px, (min-width: 1024px) 31vw, (min-width: 768px) 46vw, calc(100vw - 2rem)';
 
@@ -25,6 +28,7 @@ final class UnsplashImage
         unset($query['fm']);
         $query['w'] = $width;
         $query['h'] = $height ?? (int) round($width * $ratio);
+        $query['q'] = self::QUALITY;
         $query['auto'] = 'format';
 
         return "{$parts['scheme']}://{$parts['host']}{$parts['path']}?".http_build_query($query);

@@ -37,7 +37,8 @@ const TARGETS = { css: 'build/css', js: 'build/js', fonts: 'fonts' };
 
 /** JS bundle order replaces imports: vendor → pure lib → modules (config first) → entry point. */
 const SCRIPTS = [
-  'node_modules/jquery/dist/jquery.js',
+  // jQuery 4 slim: no ajax, effects or Deferred, none of which version B uses (docs/ASSUMPTIONS.md B33).
+  'node_modules/jquery/dist/jquery.slim.js',
   'resources/js/lib/**/*.js',
   'resources/js/modules/config.js',
   'resources/js/modules/**/*.js',

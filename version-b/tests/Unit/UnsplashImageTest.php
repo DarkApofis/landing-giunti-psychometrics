@@ -14,7 +14,7 @@ class UnsplashImageTest extends TestCase
     public function it_resizes_keeping_the_3_2_crop_and_lets_the_cdn_pick_the_format(): void
     {
         $this->assertSame(
-            'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?fit=crop&w=384&h=256&q=80&auto=format',
+            'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?fit=crop&w=384&h=256&q=75&auto=format',
             UnsplashImage::url(self::SRC, 384),
         );
     }
