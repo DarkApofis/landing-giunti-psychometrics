@@ -35,7 +35,13 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 | ✓ | 2.2–2.3 `format.ts` (TDD: en rojo → en verde) | 18 tests |
 | ✓ | 2.5–2.6 `search.ts`, `catalog.ts` (TDD) | 18 tests |
 | ✓ | 2.8/2.10 Datos (12 productos) + test de integridad y lista negra | 8 tests |
-| ☐ | 0.6 Playwright, 2.4 validación, 2.7 carrito, fases 3–6 | pendiente |
+| ✓ | 0.6 Playwright + axe-core (`npm run e2e`, `npm run e2e:screenshots`) | 22 e2e + 6 capturas en verde |
+| ✓ | 1.5 Skip link + landmarks (`header`/`main#main`/`footer`) | e2e “skip link…”, “landmarks…” |
+| ✓ | 3.1 `Button` (5 variantes, `href` → `<a>`), 3.6 `Logo` | e2e + revisión visual |
+| ✓ | 4.3 `CatalogFiltersProvider` (sin URL todavía; la sincronización va con 5.10) | e2e del buscador |
+| ✓ | 5.1–5.3 Header, MainNav, SearchBox, MobileMenu | e2e de teclado, de trampa de foco y de alturas por breakpoint; capturas 375/768/1280 |
+| ✓ | 5.6 Hero + HeroIllustration | capturas; axe sin violaciones |
+| ☐ | 2.4 validación, 2.7 carrito, 3.2–3.5, 4.1–4.2, 5.4–5.5, 5.7–5.14, fase 6 | pendiente |
 
 ---
 

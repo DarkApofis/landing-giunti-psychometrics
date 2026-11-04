@@ -57,6 +57,7 @@
 
   /* §3 Layout */
   --container-page: 75rem;
+  --spacing-header-mobile: 7.5rem; /* 64px row + 56px search row (< 768px) */
   --spacing-header: 4rem;
   --spacing-header-lg: 4.5rem;
 

@@ -1,20 +1,32 @@
-// Temporary placeholder: verifies tokens and typography until the sections are built (PLAN phase 5).
+import { Hero } from '@/components/sections/Hero';
+import { SECTION_IDS } from '@/data/navigation';
+
 export default function Home() {
   return (
-    <main id="main" className="container-page py-16">
-      <p className="font-display text-eyebrow font-semibold tracking-(--text-eyebrow--letter-spacing) text-ink-muted uppercase">
-        Catalogo 2026/27
-      </p>
-      <h1 className="mt-2 text-display font-bold">Giunti Psychometrics</h1>
-      <p className="mt-4 max-w-prose text-lg">
-        Test psicologici e formazione per professionisti. Sito in costruzione.
-      </p>
-      <a
-        href="#main"
-        className="mt-6 inline-flex min-h-11 items-center rounded-md bg-primary px-5 font-display font-semibold text-white hover:bg-primary-hover"
+    <>
+      <Hero />
+
+      {/* Temporary anchors so navigation can be verified; replaced by PLAN tasks 5.7–5.12. */}
+      <section
+        id={SECTION_IDS.catalog}
+        aria-labelledby="catalogo-title"
+        className="container-page min-h-[60vh] py-16"
       >
-        Esplora il catalogo
-      </a>
-    </main>
+        <h2 id="catalogo-title" className="text-h2 font-bold">
+          Catalogo
+        </h2>
+        <p className="mt-2 text-ink-muted">La griglia dei prodotti è in costruzione.</p>
+      </section>
+      <section
+        id={SECTION_IDS.contact}
+        aria-labelledby="contatti-title"
+        className="container-page min-h-[40vh] py-16"
+      >
+        <h2 id="contatti-title" className="text-h2 font-bold">
+          Contatti
+        </h2>
+        <p className="mt-2 text-ink-muted">Il modulo di contatto è in costruzione.</p>
+      </section>
+    </>
   );
 }

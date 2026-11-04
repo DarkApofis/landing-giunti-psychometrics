@@ -3,9 +3,15 @@
 
 @layer base {
   html {
-    /* Anchored sections are not hidden under the sticky header (§6.8). */
-    scroll-padding-top: calc(var(--spacing-header) + 1rem);
+    /* Anchored sections are not hidden under the sticky header (§6.8). Header height per breakpoint. */
+    scroll-padding-top: calc(var(--spacing-header-mobile) + 1rem);
     -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 48rem) {
+    html {
+      scroll-padding-top: calc(var(--spacing-header) + 1rem);
+    }
   }
 
   @media (min-width: 64rem) {
@@ -52,6 +58,16 @@
     outline-color: var(--color-white);
   }
 
+  /* <main tabindex="-1"> receives focus from the skip link; it is not a control, so no ring. */
+  main:focus {
+    outline: none;
+  }
+
+  /* The search box provides its own clear button (§6.4): hide the native one. */
+  input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
+  }
+
   /* §5 Reduced motion: no transforms/animations, instant transitions. */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -63,6 +79,26 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/*
+ * §6.9 Hero background: ink → primary gradient, decorative accent glow (top-right)
+ * and a subtle dot pattern. Text contrast is checked against the lightest stop (primary).
+ */
+@utility hero-surface {
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(
+      circle at 85% 15%,
+      color-mix(in oklab, var(--color-accent) 35%, transparent) 0,
+      transparent 45%
+    ),
+    radial-gradient(color-mix(in oklab, var(--color-white) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(135deg, var(--color-ink) 0%, var(--color-primary) 100%);
+  background-size:
+    auto,
+    22px 22px,
+    auto;
 }
 
 /* §3 Page container: max 75rem, gutters 16 / 24 / 32 px. */
