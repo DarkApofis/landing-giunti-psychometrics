@@ -47,6 +47,11 @@
 
     @yield('footer')
 
+    @include('partials.cart-drawer')
+
+    {{-- One polite live region for transient events ("… aggiunto al carrello"): resources/js/modules/announcer.js. --}}
+    <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-announcer></div>
+
     <script type="application/json" id="app-config">@json($appConfig)</script>
 </body>
 </html>

@@ -97,6 +97,32 @@ return [
         'action_label' => ':action: :name',
     ],
 
+    // src/components/sections/ProductDialog.tsx
+    'dialog' => [
+        'close' => 'Chiudi',
+        'administration' => 'Somministrazione',
+        'administration_value' => 'circa :count minuti',
+        'format' => 'Formato',
+        'vat_note' => 'IVA inclusa · acquisto previa verifica della qualifica',
+        'request' => 'Richiedi informazioni',
+    ],
+
+    // src/components/layout/CartDrawer.tsx, src/components/ui/QuantityStepper.tsx, AddToCartButton.tsx
+    // (the rest of the cart copy is in content.json → cart)
+    'cart' => [
+        'added' => ':name aggiunto al carrello',
+        'removed' => ':name rimosso dal carrello',
+        'remove' => 'Rimuovi :name dal carrello',
+        'remove_visible' => 'Rimuovi',
+        'stepper' => 'Quantità di :name',
+        'decrease' => 'Diminuisci la quantità di :name',
+        'increase' => 'Aumenta la quantità di :name',
+        'quantity' => 'Quantità: :count',
+        'unit_sr' => 'cad.',
+        'unit_visible' => '/ cad.',
+        'line_total' => 'Totale riga:',
+    ],
+
     // src/components/sections/HeroIllustration.tsx (decorative SVG, aria-hidden)
     'hero_illustration' => [
         'percentile_label' => 'Percentile',

@@ -59,6 +59,60 @@ final class ProductPresenter
     }
 
     /**
+     * What the JS needs per product (embedded in the page configuration): the details dialog of the
+     * tests and the cart lines of the courses. Every visible value is already formatted here; the JS
+     * only computes money totals (in cents, from the raw prices).
+     *
+     * @return array<string, array<string, mixed>> keyed by product id
+     */
+    public function forScript(): array
+    {
+        $result = [];
+        foreach ($this->content->products() as $product) {
+            $card = $this->present($product);
+            $entry = [
+                'id' => $product['id'],
+                'type' => $product['type'],
+                'name' => $product['name'],
+                'format' => $card['format'],
+                'originalPrice' => $product['originalPrice'],
+                'discountPrice' => $product['discountPrice'],
+                'image' => [
+                    'alt' => $product['image']['alt'],
+                    // 64px square thumbnail, object-fit cover: a 192×128 crop covers it up to 2× density.
+                    'thumb' => UnsplashImage::url($product['image']['src'], 192),
+                ],
+            ];
+
+            if ($product['type'] === 'test') {
+                $qualification = $this->content->content("qualifications.{$product['qualification']}");
+                $entry += [
+                    'categoryLabel' => $card['categoryLabel'],
+                    'description' => $product['description'],
+                    'author' => $product['author'],
+                    'age' => Format::ageRange($product['ageRange']),
+                    'administration' => __('ui.dialog.administration_value', ['count' => $product['administrationMinutes']]),
+                    'qualification' => ['label' => $qualification['label'], 'description' => $qualification['description']],
+                    'price' => $card['price'],
+                    'dialogImage' => [
+                        'src' => UnsplashImage::url($product['image']['src'], 1200),
+                        'srcset' => UnsplashImage::srcset($product['image']['src']),
+                    ],
+                ];
+            } else {
+                $entry += [
+                    'startDate' => $product['startDate'],
+                    'startDateShort' => Format::dateShort($product['startDate']),
+                ];
+            }
+
+            $result[$product['id']] = $entry;
+        }
+
+        return $result;
+    }
+
+    /**
      * Final price first (24/700), then the struck original and the saving chip; every part carries its
      * sr-only prefix so screen readers hear "Prezzo scontato …, prezzo originale …, risparmi il 15%".
      *

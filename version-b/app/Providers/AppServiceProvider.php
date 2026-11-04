@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
             static fn (): ContentRepository => new ContentRepository(resource_path('data')),
         );
 
+        // One instance per request: the JS configuration is built once even though several views use it.
+        $this->app->singleton(AppComposer::class);
+
         $this->app->singleton(
             Icons::class,
             static fn (): Icons => new Icons(resource_path('svg/lucide')),
