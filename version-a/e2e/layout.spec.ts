@@ -36,7 +36,9 @@ test.describe('layout: landmarks and skip link', () => {
 test.describe('header: desktop 1280', () => {
   test.use({ viewport: VIEWPORTS.desktop });
 
-  test('keyboard order: skip → logo → nav → search → Accedi → hero CTAs', async ({ page }) => {
+  test('keyboard order: skip → logo → nav → search → Accedi → cart → hero CTAs', async ({
+    page,
+  }) => {
     await page.goto('/');
     await expect(page.getByRole('button', { name: /menu/i })).toBeHidden();
     const expected = [
@@ -48,6 +50,7 @@ test.describe('header: desktop 1280', () => {
       'Contatti',
       '', // search input (no text content)
       'Accedi',
+      'Apri il carrello, nessun articolo',
       'Esplora il catalogo',
       'Scopri la formazione',
     ];

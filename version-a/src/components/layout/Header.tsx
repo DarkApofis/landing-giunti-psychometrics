@@ -2,6 +2,7 @@ import { UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/ui/Logo';
 import { mainNav } from '@/data/navigation';
+import { CartButton } from './CartButton';
 import { MainNav } from './MainNav';
 import { MobileMenu } from './MobileMenu';
 import { SearchBox } from './SearchBox';
@@ -10,9 +11,9 @@ import { SearchBox } from './SearchBox';
  * Sticky header (DESIGN-SPEC §6.8). Server Component: only SearchBox and MobileMenu are client islands.
  * Fixed row heights (64px, 72px ≥1024; search on a second 56px row < 768) → no layout shift.
  *
- *  < 768   : [logo ········· menu]  /  [search ············]
- *  768–1023: [logo · search ········· Accedi · menu]
- *  ≥ 1024  : [logo · nav ···· search · Accedi]
+ *  < 768   : [logo ····· cart · menu]  /  [search ············]
+ *  768–1023: [logo · search ····· Accedi · cart · menu]
+ *  ≥ 1024  : [logo · nav ···· search · Accedi · cart]
  */
 export function Header() {
   return (
@@ -38,6 +39,7 @@ export function Header() {
               Accedi
             </Button>
           </div>
+          <CartButton />
           <MobileMenu items={mainNav} className="lg:hidden" />
         </div>
       </div>

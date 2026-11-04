@@ -46,7 +46,8 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 | ✓ | 5.7–5.10 `ProductCard` (memo), `AddToCartButton`, `ProductGrid`, `CategoryFilter`, `ResultsStatus`, `EmptyState`, `ProductDialog`, `Catalog`, `CatalogSection`, `CatalogLink`; sincronización con la URL | 9 tests de componente, 18 e2e del catálogo (filtros, deep link, diálogo, CLS, `sizes`, axe), capturas 375/768/1280 |
 | ✓ | 2.4 `lib/validators.ts` (TDD, 31 tests) · 3.4 `TextField`/`TextArea` · 5.11–5.12 `ContactForm` + `ContactSection` · franja de confianza · 5.13 Footer completo + 404 en italiano | 7 tests de componente + 11 e2e (flujo completo solo con teclado, axe con errores y con éxito, footer) |
 | ✓ | 6.2–6.4 + 6.5 (parcial) Auditoría de accesibilidad y rendimiento → `docs/AUDIT.md`; 4 hallazgos corregidos (H1–H4); `e2e/audit.spec.ts` (21 pruebas) | Lighthouse móvil/escritorio 100 ×4 (mediana de 3); axe 0 violaciones en 8 estados |
-| ☐ | 3.5, 4.1 (persistencia), 5.4–5.5 carrito (drawer + contador), 6.7 README, 6.8 revisión final | pendiente |
+| ✓ | 3.5 `QuantityStepper` · 4.1 persistencia · 5.4 `CartButton` · 5.5 `CartDrawer` · hook `useModalDialog` | TDD 17 tests nuevos de `lib/cart.ts`; 11 tests de componente; `e2e/cart.spec.ts` (8, flujo completo solo con teclado) |
+| ☐ | 6.7 README, 6.8 revisión final | pendiente |
 
 ---
 

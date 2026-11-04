@@ -75,7 +75,7 @@ export function CategoryFilter({
                 // Audit fix: scroll-snap pulled keyboard-focused pills back off-screen on mobile.
                 // Bring the focused pill fully into the scroller (scroll-padding is respected).
                 onFocus={(event) =>
-                  event.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+                  event.currentTarget.scrollIntoView?.({ block: 'nearest', inline: 'nearest' })
                 }
                 className={cn(
                   'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-4 font-display text-[0.9375rem] font-medium whitespace-nowrap',

@@ -4,7 +4,7 @@ Cada mejora incluye su justificación, para trasladarla al README.
 
 | # | Mejora | Justificación |
 |---|---|---|
-| M1 | Carrito funcional: drawer `<dialog>`, cantidades, subtotal, ahorro y persistencia en localStorage | Convierte “Aggiungi al carrello” en un flujo real y verificable. `<dialog>` aporta trampa de foco y Esc de forma nativa y accesible. |
+| M1 | **Mini-carrito** (implementado el 2026-11-04): contador en el header con `aria-live` (“1 articolo nel carrello”), drawer `<dialog>` modal con cantidades, subtotal y ahorro en formato italiano, quitar línea, vaciar, “Procedi all’ordine” solo visual, persistencia en localStorage | Convierte “Aggiungi al carrello” en un flujo real y verificable. Store mínimo (`useReducer` + context, sin librerías): una sola lista no justifica Redux/Zustand. `<dialog>` aporta `aria-modal`, fondo inerte y Esc de forma nativa; el hook `useModalDialog` añade trampa de Tab, clic fuera y retorno del foco. |
 | M2 | Filtro en la URL (`?categoria=`) y enlaces del nav que aplican el filtro | Deep linking, botón atrás predecible y enlaces compartibles. |
 | M3 | Contador de resultados en `aria-live` y estado vacío con “Azzera filtri” | Feedback para todos los usuarios; evita quedarse en un callejón sin salida. |
 | M4 | Chip de descuento (−20 %) e información de ahorro en el carrito | Refuerza la jerarquía del precio que la prueba valora. |
@@ -21,3 +21,8 @@ Cada mejora incluye su justificación, para trasladarla al README.
 | M15 | Mensajes de error concretos (“ne mancano 6 caratteri”, ejemplo de email válido) y textos de ayuda visibles | El usuario sabe exactamente qué corregir; los textos de ayuda evitan el error antes de que ocurra. |
 | M16 | Resumen de errores + foco en el primer campo inválido + revalidación en vivo solo tras el primer intento | No se muestran errores prematuros mientras se escribe por primera vez; tras el primer intento, el feedback es inmediato. |
 | M17 | Página 404 en italiano para las rutas institucionales del footer | Ningún enlace lleva a una página rota sin explicación. |
+| M18 | Dinero en **céntimos enteros** (`toCents` con normalización de ruido binario) | `19,99 × 3` en coma flotante da `59.97000000000001`; `1.005 × 100` da `100.4999…`. Con céntimos los totales son exactos (tests de TDD). |
+| M19 | **Persistencia defensiva**: `try/catch` en todo acceso a localStorage, lectura que descarta JSON corrupto, ids desconocidos y cantidades inválidas, versión en el formato, sincronización entre pestañas (`storage`) | El carrito funciona aunque el almacenamiento esté bloqueado o lleno (probado con un `localStorage` que lanza excepciones) y nunca rompe por datos viejos o manipulados. |
+| M20 | **Sin errores de hidratación**: SSR y primer render siempre con el carrito vacío; se restaura tras el montaje; el badge es absoluto (sin CLS) y la restauración **no** se anuncia | Evita el desajuste servidor/cliente típico de localStorage; el lector de pantalla solo anuncia cambios reales. |
+| M21 | Gestión del foco en el drawer: al quitar una línea el foco pasa a la siguiente (o a la anterior, o a “Scopri i corsi” si queda vacío); “−” usa `aria-disabled` en 1 para no perder el foco | El usuario de teclado nunca se queda “en el vacío” (`<body>`). |
+| M22 | Diálogo de los tests con “Richiedi informazioni” en lugar de compra directa | Los tests requieren verificar la cualificación A/B/C; los cursos sí se compran desde el carrito. |

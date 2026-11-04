@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { products } from '@/data/products';
 import { AnnouncerProvider } from './Announcer';
 import { CartProvider } from './CartProvider';
 import { CatalogFiltersProvider } from './CatalogFiltersProvider';
@@ -7,7 +8,7 @@ import { CatalogFiltersProvider } from './CatalogFiltersProvider';
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <AnnouncerProvider>
-      <CartProvider>
+      <CartProvider products={products}>
         <CatalogFiltersProvider>{children}</CatalogFiltersProvider>
       </CartProvider>
     </AnnouncerProvider>

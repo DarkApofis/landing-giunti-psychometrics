@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 import { useCatalogFilters } from '@/components/providers/CatalogFiltersProvider';
 import type { CategoryFilter } from '@/types/product';
 
@@ -10,6 +10,7 @@ interface CatalogLinkProps {
   category?: CategoryFilter;
   onNavigate?: () => void;
   className?: string;
+  ref?: Ref<HTMLAnchorElement>;
   children: ReactNode;
 }
 
@@ -17,10 +18,18 @@ interface CatalogLinkProps {
  * Plain in-page anchor that also applies a catalogue category. The browser still performs the
  * native jump/smooth scroll to the hash (no JS needed for that); without JS it simply scrolls.
  */
-export function CatalogLink({ href, category, onNavigate, className, children }: CatalogLinkProps) {
+export function CatalogLink({
+  href,
+  category,
+  onNavigate,
+  className,
+  ref,
+  children,
+}: CatalogLinkProps) {
   const { setCategory } = useCatalogFilters();
   return (
     <a
+      ref={ref}
       href={href}
       className={className}
       onClick={() => {

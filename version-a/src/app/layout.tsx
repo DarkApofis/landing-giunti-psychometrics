@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Figtree, Noto_Sans } from 'next/font/google';
+import { CartDrawer } from '@/components/layout/CartDrawer';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { SkipLink } from '@/components/layout/SkipLink';
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             {children}
           </main>
           <Footer />
+          <CartDrawer />
         </AppProviders>
       </body>
     </html>

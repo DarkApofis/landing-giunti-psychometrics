@@ -1,14 +1,15 @@
 'use client';
 
-import { X } from 'lucide-react';
+import { Mail, X } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useRef, type MouseEvent } from 'react';
+import { buttonClasses } from '@/components/ui/Button';
 import { FormatBadge } from '@/components/ui/FormatBadge';
 import { Price } from '@/components/ui/Price';
+import { SECTION_IDS } from '@/data/navigation';
 import { qualifications } from '@/data/qualifications';
+import { useModalDialog } from '@/hooks/useModalDialog';
 import { formatAgeRange } from '@/lib/format';
 import type { TestProduct } from '@/types/product';
-import { AddToCartButton } from './AddToCartButton';
 
 interface ProductDialogProps {
   product: TestProduct | null;
@@ -17,40 +18,22 @@ interface ProductDialogProps {
 }
 
 /**
- * "Scopri di più" for tests: a native modal <dialog> (focus trap, Esc, inert background for free).
- * Tests require a professional qualification, so it is explained here before adding to the cart.
- * Focus returns to the triggering button on close.
+ * "Scopri di più" for tests: a native modal <dialog> driven by useModalDialog (focus trap, Esc,
+ * backdrop click, focus return). Tests are not sold through the cart: they require a professional
+ * qualification check, so the dialog explains the requirement and routes to the contact form.
  */
 export function ProductDialog({ product, categoryLabel, onClose }: ProductDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const returnFocusRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !product || dialog.open) return;
-    returnFocusRef.current = document.activeElement as HTMLElement | null;
-    dialog.showModal();
-  }, [product]);
-
-  function handleClose() {
-    onClose();
-    returnFocusRef.current?.focus();
-    returnFocusRef.current = null;
-  }
-
-  // A click whose target is the <dialog> itself landed on the backdrop (content fills the box).
-  function handleBackdropClick(event: MouseEvent<HTMLDialogElement>) {
-    if (event.target === event.currentTarget) event.currentTarget.close();
-  }
+  const { ref, dialogProps, closeWithoutReturningFocus } = useModalDialog(
+    product !== null,
+    onClose,
+  );
 
   const titleId = product ? `dialog-${product.id}-title` : undefined;
 
   return (
     <dialog
-      ref={dialogRef}
+      {...dialogProps}
       aria-labelledby={titleId}
-      onClose={handleClose}
-      onClick={handleBackdropClick}
       className="m-auto max-h-[calc(100dvh-2rem)] w-[min(40rem,calc(100vw-2rem))] overflow-y-auto rounded-lg bg-surface p-0 text-ink shadow-overlay backdrop:bg-backdrop"
     >
       {product && (
@@ -59,7 +42,7 @@ export function ProductDialog({ product, categoryLabel, onClose }: ProductDialog
           <button
             type="button"
             aria-label="Chiudi"
-            onClick={() => dialogRef.current?.close()}
+            onClick={() => ref.current?.close()}
             className="absolute top-3 right-3 z-10 grid size-11 cursor-pointer place-items-center rounded-full bg-surface text-ink shadow-card transition-colors duration-(--duration-fast) hover:bg-primary-subtle"
           >
             <X aria-hidden="true" className="size-5" />
@@ -109,9 +92,18 @@ export function ProductDialog({ product, categoryLabel, onClose }: ProductDialog
                   originalPrice={product.originalPrice}
                   discountPrice={product.discountPrice}
                 />
-                <p className="mt-1 text-xs text-ink-muted">IVA inclusa</p>
+                <p className="mt-1 text-xs text-ink-muted">
+                  IVA inclusa · acquisto previa verifica della qualifica
+                </p>
               </div>
-              <AddToCartButton productId={product.id} productName={product.name} />
+              <a
+                href={`#${SECTION_IDS.contact}`}
+                onClick={closeWithoutReturningFocus}
+                className={buttonClasses('primary')}
+              >
+                <Mail aria-hidden="true" className="size-5" />
+                Richiedi informazioni
+              </a>
             </div>
           </div>
         </div>

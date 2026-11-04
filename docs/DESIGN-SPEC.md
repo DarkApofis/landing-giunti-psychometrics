@@ -231,13 +231,15 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 
 ### 6.7 Drawer del carrito
 
-- Abre con el botón del header (icono `ShoppingBag` y contador `accent` con texto `ink`).
+- Solo los cursos se añaden (los tests usan “Scopri di più”). Abre con el botón del header (icono `ShoppingBag` y contador `accent` con texto `ink`, posición absoluta → sin CLS); región `aria-live="polite"` con “N articoli nel carrello” cuando cambia (no al restaurar).
   El `aria-label` es dinámico: “Carrello, 3 articoli”.
 - `<dialog>` nativo con `showModal()`: trampa de foco, Esc para cerrar, `::backdrop` en `ink` al 50 %. Al cerrar, el foco vuelve al botón.
 - Lateral derecho, ancho `min(26rem, 100vw)`, `shadow-overlay`.
-- Cada línea: miniatura 64 px, nombre, formato, stepper − cantidad + (44 px) y “Rimuovi”.
+- Cada línea: miniatura 64 px (`alt=""`, decorativa: el nombre ya está en texto), nombre, formato · fecha, precio unitario, stepper − cantidad + (44 px; “−” con `aria-disabled` en 1), total de línea y “Rimuovi” (`danger`). Al quitar, el foco pasa a la línea siguiente.
+- Vacío: icono, “Il carrello è vuoto” y “Scopri i corsi” (aplica el filtro Formazione).
+- Diálogo controlado por `useModalDialog` (compartido con la ficha de los tests): Esc, clic fuera, trampa de Tab, retorno del foco.
 - Pie: subtotal, “Risparmi X €” en `success`, nota “IVA inclusa” y el botón “Procedi all'ordine”, que solo informa de que es una demo.
-- Persistencia en `localStorage`, con hidratación protegida (sin mismatch SSR).
+- Persistencia en `localStorage` (clave `giunti-cart`, con versión), `try/catch`, lectura defensiva y sincronización entre pestañas; hidratación protegida (sin mismatch SSR). Dinero en céntimos enteros.
 
 ### 6.8 Header
 
