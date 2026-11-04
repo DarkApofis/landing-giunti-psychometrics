@@ -1,0 +1,20 @@
+{
+  "name": "parity",
+  "private": true,
+  "type": "module",
+  "description": "Visual and computed-style parity between version-a (Next.js) and version-b (Laravel).",
+  "scripts": {
+    "capture": "node capture.mjs",
+    "computed": "node computed.mjs",
+    "report": "node report.mjs",
+    "all": "node capture.mjs && node computed.mjs && node report.mjs"
+  },
+  "engines": {
+    "node": ">=24.16.0 <25"
+  },
+  "dependencies": {
+    "pixelmatch": "8.0.0",
+    "playwright": "1.64.1",
+    "pngjs": "7.0.0"
+  }
+}
