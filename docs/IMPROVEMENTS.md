@@ -18,3 +18,6 @@ Cada mejora incluye su justificación, para trasladarla al README.
 | M12 | Conteos por pill que reflejan la búsqueda (“Formazione 4”) | El usuario sabe cuántos resultados hay en cada área antes de hacer clic. |
 | M13 | `ProductCard` memoizada, **con medición** | Un test cuenta los renders: sin `memo`, cada tecla en el buscador re-renderiza las 12 cards; con `memo`, 0 (las cards visibles reciben las mismas props y un callback estable). |
 | M14 | Enlaces “Test”/“Formazione” del nav y CTA “Scopri la formazione” que aplican el filtro | Atajos reales al contenido que se busca, sin recargar la página. |
+| M15 | Mensajes de error concretos (“ne mancano 6 caratteri”, ejemplo de email válido) y textos de ayuda visibles | El usuario sabe exactamente qué corregir; los textos de ayuda evitan el error antes de que ocurra. |
+| M16 | Resumen de errores + foco en el primer campo inválido + revalidación en vivo solo tras el primer intento | No se muestran errores prematuros mientras se escribe por primera vez; tras el primer intento, el feedback es inmediato. |
+| M17 | Página 404 en italiano para las rutas institucionales del footer | Ningún enlace lleva a una página rota sin explicación. |

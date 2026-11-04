@@ -224,8 +224,10 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - Label visible encima (Noto 500 14 px, `ink`), asterisco con texto `sr-only` “obbligatorio”.
 - Input: alto 44 px (textarea 140 px), borde 1 px `border-strong`, `radius-sm`, fondo `surface`, texto 16 px (evita el zoom en iOS).
 - Error: borde de 2 px en `danger`, mensaje debajo en `danger` 14 px con icono `AlertCircle`, `aria-invalid="true"`, `aria-describedby` hacia el mensaje.
-- Validación: en el submit; después de un primer error, revalida al cambiar o al salir del campo. Al enviar con errores, el foco va al primer campo inválido.
-- Éxito: el panel `success-subtle` sustituye al formulario, con icono `CheckCircle2`, un h3 enfocado programáticamente y el botón “Invia un altro messaggio”.
+- Validación (`lib/validators.ts`, pura y testeada; `noValidate` en el form): en el submit; después de un primer error, revalida al cambiar o al salir del campo. Al enviar con errores aparece un resumen `role="alert"` (“Il modulo contiene N errori…”) encima del botón y el foco va al primer campo inválido, que lee su error por `aria-describedby`.
+- Enviando (simulado, 900 ms): el botón muestra spinner + “Invio in corso…” con `aria-disabled` (no `disabled`: así no pierde el foco), los campos pasan a `readOnly` y el doble envío se ignora.
+- Error: el borde pasa a `danger` + `ring-1` (simula 2 px sin cambiar el tamaño de la caja).
+- Éxito: el panel `success-subtle` con `role="status"` sustituye al formulario, con icono `CircleCheck`, el h3 “Grazie! Il tuo messaggio è stato inviato.” enfocado programáticamente y el botón “Invia un altro messaggio” (vuelve al formulario vacío con el foco en Nome).
 
 ### 6.7 Drawer del carrito
 
@@ -252,12 +254,18 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - A la derecha (≥1024), ilustración SVG inline decorativa (`aria-hidden`).
 - **El LCP es el h1 (texto)**, no una imagen: no se usa una foto de hero. Ver ASSUMPTIONS sobre `priority`.
 
-### 6.10 Footer
+### 6.10 Franja de confianza (añadida el 2026-11-04)
+
+- Banda `surface` con bordes `border`, entre el catálogo y Contatti; h2 `sr-only` “Perché sceglierci”.
+- 4 ítems (1 → 2 → 4 columnas): icono lucide de 24 px en un círculo `primary-subtle` (`aria-hidden`) + h3 (Figtree 600, 16 px) + texto `ink-muted` 14 px.
+
+### 6.11 Footer
 
 - Fondo `ink`, texto blanco y enlaces blancos con subrayado en hover (13.84:1).
-- 4 columnas en ≥1024 (marca + descripción, Catalogo, Risorse, Contatti), 2 en tablet y 1 en móvil.
+- 4 columnas en ≥1024 (marca + descripción + redes, **Esplora, Azienda, Assistenza**), 2 en tablet y 1 en móvil. Cada columna es un `<nav>` etiquetado por su título. Enlaces `primary-subtle` → blanco en hover, objetivo de 44 px.
 - Redes: iconos SVG placeholder (LinkedIn, Facebook, YouTube, Instagram) de 44 px con `aria-label`.
-- Barra inferior: “© 2026 Giunti Psychometrics S.r.l. (demo)” y enlaces Privacy · Cookie.
+- Redes: `target="_blank" rel="noopener noreferrer"`, `aria-label` “… su LinkedIn (si apre in una nuova scheda)”; glifos SVG propios (lucide 1.x ya no incluye marcas).
+- Barra inferior: “© {año} Giunti Psychometrics S.r.l. — progetto dimostrativo.” + aviso de datos ficticios; Privacy · Cookie · Termini; “Torna su” (`#main`). El año sale de un componente con `'use cache'` + `cacheLife('days')`: la página sigue siendo estática.
 
 ## 7. Iconos
 

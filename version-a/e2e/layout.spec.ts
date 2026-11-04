@@ -165,7 +165,9 @@ test.describe('header: mobile menu (375)', () => {
       'aria-expanded',
       'false',
     );
-    await expect(page.getByRole('heading', { name: 'Contatti', level: 2 })).toBeInViewport();
+    await expect(
+      page.getByRole('heading', { name: /Hai bisogno di aiuto/, level: 2 }),
+    ).toBeInViewport();
   });
 
   test('clicking the backdrop closes the menu', async ({ page }) => {

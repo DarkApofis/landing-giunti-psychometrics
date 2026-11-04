@@ -44,7 +44,8 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 | ✓ | 2.7 `cartReducer` + `cartCount` (TDD) · URL helpers `parseFilters`/`filtersToSearch` + `resultsLabel` (TDD) | 18 tests nuevos en verde tras verlos en rojo |
 | ✓ | 3.2–3.3 `FormatBadge`, `Price` · 4.1 (parcial: en memoria) `CartProvider` · 4.2 `AnnouncerProvider` | tests de componente + e2e |
 | ✓ | 5.7–5.10 `ProductCard` (memo), `AddToCartButton`, `ProductGrid`, `CategoryFilter`, `ResultsStatus`, `EmptyState`, `ProductDialog`, `Catalog`, `CatalogSection`, `CatalogLink`; sincronización con la URL | 9 tests de componente, 18 e2e del catálogo (filtros, deep link, diálogo, CLS, `sizes`, axe), capturas 375/768/1280 |
-| ☐ | 2.4 validación, 3.4–3.5, 4.1 (persistencia), 5.4–5.5 carrito, 5.11–5.14, fase 6 | pendiente |
+| ✓ | 2.4 `lib/validators.ts` (TDD, 31 tests) · 3.4 `TextField`/`TextArea` · 5.11–5.12 `ContactForm` + `ContactSection` · franja de confianza · 5.13 Footer completo + 404 en italiano | 7 tests de componente + 11 e2e (flujo completo solo con teclado, axe con errores y con éxito, footer) |
+| ☐ | 3.5, 4.1 (persistencia), 5.4–5.5 carrito (drawer + contador), fase 6 | pendiente |
 
 ---
 

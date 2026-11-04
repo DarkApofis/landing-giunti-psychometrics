@@ -136,3 +136,65 @@ test('screenshot: pills scrolled to the active one (375)', async ({ page }) => {
     .getByRole('group', { name: 'Filtra per categoria' })
     .screenshot({ path: join(OUT, '14-pills-375.png') });
 });
+
+// ── Contact, trust strip, footer ─────────────────────────────────────────────
+
+async function frame(page: import('@playwright/test').Page, selector: string, offset = 80) {
+  await page.evaluate(
+    ([sel, off]) => {
+      const el = document.querySelector(sel as string);
+      if (el)
+        window.scrollTo({
+          top: el.getBoundingClientRect().top + window.scrollY - (off as number),
+          behavior: 'instant',
+        });
+    },
+    [selector, offset],
+  );
+}
+
+for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.tablet, VIEWPORTS.desktop]) {
+  test(`screenshot: contact default + errors at ${viewport.width}`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: 1100 });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    await frame(page, '#contatti');
+    await page.screenshot({ path: join(OUT, `20-contact-${viewport.width}.png`) });
+
+    await page.getByRole('textbox', { name: /^Email/ }).fill('giulia@example');
+    await page.getByRole('button', { name: 'Invia messaggio' }).click();
+    await page.waitForTimeout(200);
+    await frame(page, viewport.width < 1024 ? 'form' : '#contatti', 100);
+    await page.screenshot({ path: join(OUT, `21-contact-errors-${viewport.width}.png`) });
+  });
+}
+
+test('screenshot: contact sending + success (1280)', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.getByRole('textbox', { name: /^Nome/ }).fill('Giulia');
+  await page.getByRole('textbox', { name: /^Email/ }).fill('giulia@example.it');
+  await page.getByRole('textbox', { name: /^Messaggio/ }).fill('Vorrei informazioni su NEURA-Q.');
+  await page.getByRole('button', { name: 'Invia messaggio' }).focus();
+  await page.keyboard.press('Enter');
+  await frame(page, '#contatti');
+  await page.screenshot({ path: join(OUT, '22-contact-sending-1280.png') });
+  await page.getByRole('heading', { name: /Grazie!/ }).waitFor();
+  await frame(page, '#contatti');
+  await page.screenshot({ path: join(OUT, '23-contact-success-1280.png') });
+});
+
+for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.desktop]) {
+  test(`screenshot: trust strip + footer at ${viewport.width}`, async ({ page }) => {
+    // Tall enough for the whole footer: element shots larger than the viewport make Chrome paint
+    // fixed/sticky elements (header, skip link) in the middle of the capture.
+    await page.setViewportSize({ width: viewport.width, height: 1600 });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    await page
+      .locator('[aria-labelledby="trust-title"]')
+      .screenshot({ path: join(OUT, `24-trust-${viewport.width}.png`) });
+    await page.locator('footer').screenshot({ path: join(OUT, `25-footer-${viewport.width}.png`) });
+  });
+}
