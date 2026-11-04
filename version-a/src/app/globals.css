@@ -3,18 +3,28 @@
 
 @layer base {
   html {
-    /* Anchored sections are not hidden under the sticky header (§6.8). Header height per breakpoint. */
-    scroll-padding-top: calc(var(--spacing-header-mobile) + 1rem);
     -webkit-text-size-adjust: 100%;
   }
 
-  @media (min-width: 48rem) {
+  /*
+   * The header is sticky only when the viewport is at least 30rem tall (see Header.tsx).
+   * Below that (400% zoom ≈ 320×256 CSS px, phones in landscape) a sticky header would cover
+   * up to half of the screen, so it scrolls away and no scroll padding is needed.
+   * Anchored sections are not hidden under the sticky header (§6.8): padding per breakpoint.
+   */
+  @media (min-height: 30rem) {
+    html {
+      scroll-padding-top: calc(var(--spacing-header-mobile) + 1rem);
+    }
+  }
+
+  @media (min-height: 30rem) and (min-width: 48rem) {
     html {
       scroll-padding-top: calc(var(--spacing-header) + 1rem);
     }
   }
 
-  @media (min-width: 64rem) {
+  @media (min-height: 30rem) and (min-width: 64rem) {
     html {
       scroll-padding-top: calc(var(--spacing-header-lg) + 1rem);
     }

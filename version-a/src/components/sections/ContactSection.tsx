@@ -40,7 +40,7 @@ export function ContactSection() {
                     {channel.href ? (
                       <a
                         href={channel.href}
-                        className="font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                        className="inline-flex min-h-11 items-center font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
                       >
                         {channel.value}
                       </a>

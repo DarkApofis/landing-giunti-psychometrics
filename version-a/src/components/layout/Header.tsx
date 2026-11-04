@@ -16,7 +16,9 @@ import { SearchBox } from './SearchBox';
  */
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface">
+    // Sticky only on viewports ≥ 30rem tall: at 400% zoom (≈320×256 CSS px) or in phone landscape
+    // a sticky header would cover up to half the screen (audit finding, WCAG 1.4.10 reflow).
+    <header className="relative top-0 z-40 border-b border-border bg-surface [@media(min-height:30rem)]:sticky">
       {/* The sticky <header> is the containing block of the mobile menu panel (full width). */}
       <div className="container-page flex flex-wrap items-center gap-x-3 md:flex-nowrap lg:gap-x-6">
         <div className="flex h-16 shrink-0 items-center lg:h-18">

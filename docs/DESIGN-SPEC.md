@@ -204,7 +204,7 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - Alto 44 px, padding 16 px, `radius-full`, Figtree 500 15 px, con un contador opcional entre paréntesis.
 - Inactiva: fondo `surface`, borde `border-strong`, texto `ink`. Hover: fondo `primary-subtle`.
 - Activa: fondo `primary`, texto blanco, borde `primary`, más un icono `Check` (no depende solo del color).
-- **Revisado el 2026-11-04:** < 768 px, una sola fila con scroll horizontal (full-bleed hasta los bordes de la pantalla para que una pill cortada indique que hay más; `py-1` para que el anillo de foco no se recorte; la pill activa se desplaza a la vista). ≥ 768 px hacen wrap.
+- **Revisado el 2026-11-04:** < 768 px, una sola fila con scroll horizontal **sin scroll-snap** (auditoría H2: devolvía la pill enfocada fuera de la vista; al enfocar, la pill hace `scrollIntoView` *nearest*) (full-bleed hasta los bordes de la pantalla para que una pill cortada indique que hay más; `py-1` para que el anillo de foco no se recorte; la pill activa se desplaza a la vista). ≥ 768 px hacen wrap.
 - `aria-label` explícito “Formazione 4 prodotti”: contiene el texto visible “Formazione 4” (label-in-name, lo verifica axe).
 
 ### 6.4 Buscador
@@ -241,7 +241,7 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 
 ### 6.8 Header
 
-- Sticky, fondo `surface`, borde inferior `border`; alto 64 px (72 ≥1024).
+- Sticky **solo si el viewport mide ≥ 30rem de alto** (auditoría H4: con zoom 400 % ocuparía media pantalla), fondo `surface`, borde inferior `border`; alto 64 px (72 ≥1024).
 - Logo: monograma SVG (cuadrado `primary` con una “G”) + “Giunti Psychometrics” (Figtree 700).
 - ≥1024: logo · nav (Test, Formazione, Risorse, Contatti) · buscador · Accedi · carrito.
 - <1024: logo · carrito · hamburguesa; el buscador ocupa una segunda fila a ancho completo.
@@ -264,7 +264,7 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - Fondo `ink`, texto blanco y enlaces blancos con subrayado en hover (13.84:1).
 - 4 columnas en ≥1024 (marca + descripción + redes, **Esplora, Azienda, Assistenza**), 2 en tablet y 1 en móvil. Cada columna es un `<nav>` etiquetado por su título. Enlaces `primary-subtle` → blanco en hover, objetivo de 44 px.
 - Redes: iconos SVG placeholder (LinkedIn, Facebook, YouTube, Instagram) de 44 px con `aria-label`.
-- Redes: `target="_blank" rel="noopener noreferrer"`, `aria-label` “… su LinkedIn (si apre in una nuova scheda)”; glifos SVG propios (lucide 1.x ya no incluye marcas).
+- Redes: círculo de 44 px con borde blanco al **50 %** (4,59 : 1, auditoría H3); `target="_blank" rel="noopener noreferrer"`, `aria-label` “… su LinkedIn (si apre in una nuova scheda)”; glifos SVG propios (lucide 1.x ya no incluye marcas).
 - Barra inferior: “© {año} Giunti Psychometrics S.r.l. — progetto dimostrativo.” + aviso de datos ficticios; Privacy · Cookie · Termini; “Torna su” (`#main`). El año sale de un componente con `'use cache'` + `cacheLife('days')`: la página sigue siendo estática.
 
 ## 7. Iconos

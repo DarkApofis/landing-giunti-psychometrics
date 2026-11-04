@@ -41,7 +41,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${site.name} su ${social.label} (si apre in una nuova scheda)`}
-                  className="grid size-11 place-items-center rounded-full border border-white/25 text-white transition-colors duration-(--duration-fast) hover:border-white hover:bg-white/10"
+                  className="grid size-11 place-items-center rounded-full border border-white/50 text-white transition-colors duration-(--duration-fast) hover:border-white hover:bg-white/10"
                 >
                   <SocialIcon network={social.network} className="size-5" />
                 </a>

@@ -37,4 +37,6 @@ Cuando un supuesto se revisa, se indica la fecha y el motivo en lugar de borrarl
 | A31 | Año del copyright | Dinámico con `'use cache'` + `cacheLife('days')` (patrón de Next 16 con Cache Components): `/` sigue prerenderizada (○) y se revalida a diario (`Revalidate 1d` en el build). | Pedido: “año dinámico”. |
 | A32 | Enlaces del footer a páginas fuera de la landing | Rutas reales (`/chi-siamo`, `/privacy`…) que llevan a un 404 en italiano, “Questa pagina non fa parte della demo”, con vuelta a la home. Los enlaces de “Esplora” aplican la categoría del catálogo. | Arquitectura de información creíble sin enlaces muertos `#`. |
 | A33 | Franja de confianza | Entre el catálogo y Contatti. Políticas ficticias (envío gratis > 100 €, etc.). | No hay orden fijado para una sección extra. |
+| A34 | Header sticky condicionado a la altura | Sticky solo con `min-height: 30rem`; por debajo (zoom 400 % ≈ 320×256 px, móvil en horizontal) es estático. | Hallazgo H4 de la auditoría (docs/AUDIT.md). |
+| A35 | CSS externo (no `inlineCss`) | Se mantiene la hoja de estilos externa: el A/B midió que incrustarla empeora el LCP móvil (985 → 1155 ms). | docs/AUDIT.md §2.2. |
 | A20 | Datos | Los datos viven en `src/data/products.ts` (TS tipado, pedido por el usuario). Si version-b necesita JSON, se generará a partir de este archivo. | Una sola fuente. |
