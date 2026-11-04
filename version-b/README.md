@@ -46,6 +46,8 @@ php artisan serve               # http://127.0.0.1:8000
 | `npm run clean` | Borra `public/build` |
 | `npm run sync:handoff` | Copia `docs/handoff/*.json` a `resources/data` (una prueba falla si difieren) |
 | `npm run check:tokens` | Falla si hay un color literal fuera de `resources/stylus/settings/_tokens.styl` |
+| `npm run e2e:screenshots` | Capturas de B en `docs/screenshots/version-b` (mismos nombres y pasos que A) contra `php artisan serve` |
+| `npm run compare:screenshots` | % de píxeles distintos entre cada captura de B y su par de A; imágenes de diferencias en `docs/screenshots/diff/` |
 | `/_styleguide` | Solo con `APP_ENV=local`: tipografía, colores y botones en todos sus estados, para comparar con DESIGN-SPEC |
 | `php artisan test` / `composer test` | PHPUnit |
 | `composer lint` | Pint en modo comprobación |
