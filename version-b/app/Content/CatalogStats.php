@@ -10,6 +10,44 @@ final class CatalogStats
 {
     public function __construct(private readonly ContentRepository $content) {}
 
+    /** "Nessun prodotto trovato" · "1 prodotto trovato" · "12 prodotti trovati" (same keys the JS uses). */
+    public static function resultsLabel(int $count): string
+    {
+        return match ($count) {
+            0 => __('ui.catalog.results.none'),
+            1 => __('ui.catalog.results.one'),
+            default => __('ui.catalog.results.many', ['count' => $count]),
+        };
+    }
+
+    /**
+     * Category pills with their initial counts (no search applied): "Tutti" first, then the categories
+     * in the order of content.json. The JS recomputes the counts with the search applied.
+     *
+     * @return list<array{id: string, label: string, count: int, active: bool}>
+     */
+    public function pills(string $active = 'tutti'): array
+    {
+        $products = $this->content->products();
+        $pills = [[
+            'id' => 'tutti',
+            'label' => $this->content->content('allCategoriesLabel'),
+            'count' => count($products),
+            'active' => $active === 'tutti',
+        ]];
+
+        foreach ($this->content->content('categories') as $category) {
+            $pills[] = [
+                'id' => $category['id'],
+                'label' => $category['label'],
+                'count' => count(array_filter($products, static fn (array $p): bool => $p['category'] === $category['id'])),
+                'active' => $active === $category['id'],
+            ];
+        }
+
+        return $pills;
+    }
+
     /**
      * Hero key figures, in the order and with the labels of content.json → heroStats.
      *

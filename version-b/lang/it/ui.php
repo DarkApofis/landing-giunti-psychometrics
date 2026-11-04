@@ -54,6 +54,49 @@ return [
         'many' => ':count articoli nel carrello',
     ],
 
+    // src/lib/catalog.ts → resultsLabel(); src/components/sections/CategoryFilter.tsx, EmptyState.tsx
+    'catalog' => [
+        'results' => [
+            'none' => 'Nessun prodotto trovato',
+            'one' => '1 prodotto trovato',
+            'many' => ':count prodotti trovati',
+        ],
+        'pill_label' => ':label :count prodotti',
+        'empty_context' => [
+            'lead' => 'Nessun risultato',
+            'query' => 'per «:query»',
+            'category' => 'in :category',
+        ],
+    ],
+
+    // src/components/sections/ProductCard.tsx, src/components/ui/Price.tsx, FormatBadge.tsx, AddToCartButton.tsx
+    'product' => [
+        'format' => 'Formato:',
+        'meta' => [
+            'author' => 'Autore',
+            'age' => 'Età',
+            'qualification' => 'Qualifica',
+            'duration' => 'Durata',
+            'instructor' => 'Docente',
+            'start' => 'Inizio',
+            'location' => 'Sede',
+        ],
+        'minutes' => ':count min',
+        'hours' => ':count ore',
+        'ecm' => ':count crediti ECM',
+        'online' => 'Online',
+        'vat' => 'IVA inclusa',
+        'price' => 'Prezzo:',
+        'price_discounted' => 'Prezzo scontato:',
+        'price_original' => ', prezzo originale:',
+        'saving' => ', risparmi il :percent%',
+        'details' => 'Scopri di più',
+        'add' => 'Aggiungi al carrello',
+        'added' => 'Aggiunto al carrello',
+        // aria-label = visible text + ": " + product name (label-in-name, unique per card)
+        'action_label' => ':action: :name',
+    ],
+
     // src/components/sections/HeroIllustration.tsx (decorative SVG, aria-hidden)
     'hero_illustration' => [
         'percentile_label' => 'Percentile',
