@@ -33,6 +33,7 @@
     <link rel="preload" href="@asset('fonts/noto-sans-latin-wght-normal.woff2')" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="@asset('css/app.css')">
     <script src="@asset('js/app.js')" defer></script>
+    @stack('head')
 </head>
 <body>
     @include('partials.skip-link')

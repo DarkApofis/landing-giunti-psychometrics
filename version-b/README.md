@@ -45,5 +45,7 @@ php artisan serve               # http://127.0.0.1:8000
 | `npm run build` | Build de producción: Stylus → autoprefixer → cssnano; jQuery + módulos concatenados → terser; fuentes; hash + `rev-manifest.json` |
 | `npm run clean` | Borra `public/build` |
 | `npm run sync:handoff` | Copia `docs/handoff/*.json` a `resources/data` (una prueba falla si difieren) |
+| `npm run check:tokens` | Falla si hay un color literal fuera de `resources/stylus/settings/_tokens.styl` |
+| `/_styleguide` | Solo con `APP_ENV=local`: tipografía, colores y botones en todos sus estados, para comparar con DESIGN-SPEC |
 | `php artisan test` / `composer test` | PHPUnit |
 | `composer lint` | Pint en modo comprobación |

@@ -1,0 +1,111 @@
+// Local-only styleguide (/_styleguide): layout of the reference page itself, not of the site.
+// Built as a separate stylesheet so none of this ships in app.css. Tokens only, no raw colours.
+
+@import 'settings/_breakpoints';
+
+.styleguide {
+  padding-block: 3rem 6rem;
+
+  &__section {
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 2rem;
+  }
+
+  &__heading {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  &__note {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.4286;
+    color: var(--color-ink-muted);
+  }
+
+  &__stack > * + * {
+    margin-top: 1.25rem;
+  }
+
+  &__specimen {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  &__label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-ink-muted);
+  }
+
+  // Dark panel: same background stack as the hero, so on-dark variants are judged in context.
+  &__dark {
+    margin-top: 1.5rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-ink);
+    background-image: linear-gradient(135deg, var(--color-ink) 0%, var(--color-primary) 100%);
+    padding: 2rem;
+
+    .styleguide__label {
+      color: var(--color-primary-subtle);
+    }
+  }
+
+  // Colour swatches
+  &__swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 1rem;
+  }
+
+  &__swatch {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+  }
+
+  &__chip {
+    height: 4rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  &__swatch-name {
+    padding: 0.5rem 0.75rem;
+  }
+
+  // Button states matrix: one row per variant, one column per state.
+  &__states {
+    display: grid;
+    grid-template-columns: 6rem repeat(5, max-content);
+    align-items: center;
+    gap: 1rem 0.5rem;
+    overflow-x: auto;
+
+    &.styleguide__dark {
+      padding: 1.25rem;
+    }
+  }
+
+  &__state-head {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__block-demo {
+    max-width: 22rem;
+  }
+}
