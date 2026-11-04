@@ -38,8 +38,9 @@
 <body>
     @include('partials.skip-link')
 
-    @yield('header')
+    @include('partials.header')
 
+    {{-- Order inside <main> (HANDOFF §3): hero → catalogue → trust strip → contact. --}}
     <main id="{{ $sectionIds['main'] }}" tabindex="-1">
         @yield('content')
     </main>

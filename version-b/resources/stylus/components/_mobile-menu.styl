@@ -1,0 +1,103 @@
+// Mobile menu, < 1024px (DESIGN-SPEC §6.8). Mirrors version-a/src/components/layout/MobileMenu.tsx.
+// The panel hangs from the bottom of the header (the header is its containing block), full width,
+// over a backdrop that reaches the bottom of the screen.
+.mobile-menu {
+  +lg() {
+    display: none;
+  }
+
+  &__toggle {
+    icon-button();
+  }
+
+  // Menu icon while closed, X while open (driven by aria-expanded: the JS never writes SVG).
+  &__icon--close {
+    display: none;
+  }
+
+  &__toggle[aria-expanded='true'] {
+    .mobile-menu__icon--open {
+      display: none;
+    }
+
+    .mobile-menu__icon--close {
+      display: block;
+    }
+  }
+
+  &__panel {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 100dvh;
+    background-color: var(--color-backdrop);
+  }
+
+  &__sheet {
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-overlay);
+    transition-property: opacity, translate;
+    transition-duration: var(--duration-enter);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  &__nav {
+    padding-block: 0.75rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    display: flex;
+    min-height: 3rem;
+    align-items: center;
+    border-radius: var(--radius-md);
+    padding-inline: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: unquote('calc(1.75 / 1.125)');
+    font-weight: 500;
+    color: var(--color-ink);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+
+    +hover() {
+      background-color: var(--color-primary-subtle);
+      color: var(--color-primary);
+    }
+  }
+
+  // "Accedi" inside the menu only below 768px (from there it is in the header bar).
+  &__login {
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+
+    +md() {
+      display: none;
+    }
+  }
+}
+
+// Entry animation of the sheet (opacity + 8px slide) when the panel stops being hidden.
+// Literal CSS: Stylus does not know @starting-style.
+@css {
+@starting-style {
+  .mobile-menu__sheet {
+    translate: 0 -0.5rem;
+    opacity: 0;
+  }
+}
+}

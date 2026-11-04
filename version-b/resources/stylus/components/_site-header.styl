@@ -1,0 +1,122 @@
+// Site header (DESIGN-SPEC §6.8, HANDOFF §2). Mirrors version-a/src/components/layout/Header.tsx.
+//   < 768    [logo ······ cart · menu] / [search ·············]   64 + 56 = 120px (+1px border)
+//   768–1023 [logo · search ····· Accedi · cart · menu]               64px
+//   ≥ 1024   [logo · nav ····· search · Accedi · cart]                72px
+.site-header {
+  position: relative;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+
+  // Sticky only when there is room for it (docs/AUDIT.md H4: at 400 % zoom it covered half the screen).
+  +tall() {
+    position: sticky;
+  }
+
+  &__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.75rem;
+
+    +md() {
+      flex-wrap: nowrap;
+    }
+
+    +lg() {
+      column-gap: 1.5rem;
+    }
+  }
+
+  // Sets the row height: 64px, 72px from 1024px.
+  &__brand {
+    display: flex;
+    height: 4rem;
+    flex-shrink: 0;
+    align-items: center;
+
+    +lg() {
+      height: 4.5rem;
+    }
+  }
+
+  &__actions {
+    margin-left: auto;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.5rem;
+
+    +md() {
+      margin-left: 0;
+    }
+  }
+
+  // "Accedi" lives in the bar from 768px; below that it is inside the mobile menu.
+  &__login {
+    display: none;
+
+    +md() {
+      display: block;
+    }
+  }
+}
+
+// Desktop navigation (≥ 1024px); below, the mobile menu renders the same items.
+.main-nav {
+  display: none;
+
+  +lg() {
+    display: block;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-radius: var(--radius-md);
+    padding-inline: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--color-ink);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+
+    +hover() {
+      background-color: var(--color-primary-subtle);
+      color: var(--color-primary);
+    }
+  }
+}
+
+// Cart button (DESIGN-SPEC §6.7). The badge is absolute: showing it never shifts the layout.
+.cart-button {
+  icon-button();
+
+  &__badge {
+    position: absolute;
+    top: -0.125rem;
+    right: -0.125rem;
+    display: grid;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    place-items: center;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent);
+    padding-inline: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    line-height: unquote('calc(1 / 0.75)');
+    font-weight: 700;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+}

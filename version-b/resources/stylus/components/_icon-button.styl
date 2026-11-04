@@ -1,0 +1,19 @@
+// Square 44×44 icon button shared by the cart button and the mobile menu toggle
+// (version-a: `grid size-11 place-items-center rounded-md text-ink hover:bg-primary-subtle`).
+icon-button() {
+  position: relative;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  cursor: pointer;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-ink);
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-fast);
+
+  +hover() {
+    background-color: var(--color-primary-subtle);
+  }
+}
