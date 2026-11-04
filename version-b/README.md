@@ -50,4 +50,6 @@ php artisan serve               # http://127.0.0.1:8000
 | `npm run compare:screenshots` | % de píxeles distintos entre cada captura de B y su par de A; imágenes de diferencias en `docs/screenshots/diff/` |
 | `/_styleguide` | Solo con `APP_ENV=local`: tipografía, colores y botones en todos sus estados, para comparar con DESIGN-SPEC |
 | `php artisan test` / `composer test` | PHPUnit |
+| `npm test` | Pruebas de la lógica JS (`node:test` sobre `resources/js/lib`, mismos casos que los tests de A) |
+| `npm run lint` | ESLint de `resources/js` y del tooling |
 | `composer lint` | Pint en modo comprobación |
