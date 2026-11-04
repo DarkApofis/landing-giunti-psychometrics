@@ -13,7 +13,8 @@
   if (node) {
     try {
       config = JSON.parse(node.textContent || '{}');
-    } catch (error) {
+    } catch {
+      // Malformed JSON: run with an empty configuration (every module checks what it needs).
       config = {};
     }
   }
