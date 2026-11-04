@@ -22,6 +22,9 @@ final class HomeController extends Controller
             'pills' => $stats->pills(),
             'products' => $products,
             'resultsLabel' => CatalogStats::resultsLabel(count($products)),
+            'trust' => $content->content('trust'),
+            'contact' => $content->content('contact'),
+            'limits' => $content->content('validation.limits'),
         ]);
     }
 }

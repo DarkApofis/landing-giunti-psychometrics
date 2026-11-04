@@ -123,6 +123,55 @@ return [
         'line_total' => 'Totale riga:',
     ],
 
+    // src/lib/validators.ts (messages of HANDOFF §6.2), src/components/ui/FormField.tsx, ContactForm.tsx,
+    // src/data/contact.ts (errorSummary / success.body are functions there: here they are templates)
+    'contact' => [
+        'required_sr' => '(obbligatorio)',
+        'error_summary' => [
+            'one' => 'Il modulo contiene 1 errore: correggi il campo evidenziato.',
+            'many' => 'Il modulo contiene :count errori: correggi i campi evidenziati.',
+        ],
+        'success_body' => ':name, ti risponderemo al più presto. Nel frattempo puoi continuare a esplorare il catalogo.',
+        'validation' => [
+            'nome' => [
+                'required' => 'Inserisci il tuo nome.',
+                'min' => 'Il nome deve contenere almeno :min caratteri.',
+                'max' => 'Il nome può contenere al massimo :max caratteri.',
+            ],
+            'email' => [
+                'required' => 'Inserisci il tuo indirizzo email.',
+                'invalid' => 'Inserisci un indirizzo email valido, ad esempio nome@dominio.it.',
+            ],
+            'messaggio' => [
+                'required' => 'Scrivi il tuo messaggio.',
+                'min' => 'Il messaggio deve contenere almeno :min caratteri (:missing).',
+                'missing_one' => 'ne manca 1',
+                'missing_many' => 'ne mancano :count',
+                'max' => 'Il messaggio può contenere al massimo :max caratteri.',
+            ],
+        ],
+    ],
+
+    // src/components/sections/TrustStrip.tsx
+    'trust_title' => 'Perché sceglierci',
+
+    // src/components/layout/Footer.tsx
+    'footer' => [
+        'social_label' => 'Social network',
+        'social_link' => ':site su :network (si apre in una nuova scheda)',
+        'legal_label' => 'Note legali',
+        'copyright' => '© :year :legal — progetto dimostrativo.',
+    ],
+
+    // src/app/not-found.tsx
+    'not_found' => [
+        'title' => 'Pagina non disponibile',
+        'eyebrow' => 'Errore 404',
+        'heading' => 'Questa pagina non fa parte della demo',
+        'text' => 'Il sito è una landing dimostrativa: le pagine istituzionali non sono state realizzate.',
+        'home' => 'Torna alla home',
+    ],
+
     // src/components/sections/HeroIllustration.tsx (decorative SVG, aria-hidden)
     'hero_illustration' => [
         'percentile_label' => 'Percentile',

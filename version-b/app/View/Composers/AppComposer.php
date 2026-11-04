@@ -28,6 +28,7 @@ final class AppComposer
             'sectionIds' => $this->content->content('sectionIds'),
             'mainNav' => $this->content->content('mainNav'),
             'cart' => $this->content->content('cart'),
+            'footer' => $this->content->content('footer'),
             'appConfig' => $this->appConfig ??= $this->appConfig(),
         ]);
     }
@@ -50,6 +51,11 @@ final class AppComposer
                 'categories' => $this->content->content('categories'),
             ],
             'products' => $this->presenter->forScript(),
+            'contact' => [
+                'limits' => $this->content->content('validation.limits'),
+                'fields' => $this->content->content('validation.fields'),
+                'submitDelayMs' => $this->content->content('contact.copy.submitDelayMs'),
+            ],
             'i18n' => [
                 'menu' => __('ui.menu'),
                 'catalog' => __('ui.catalog'),
@@ -58,6 +64,13 @@ final class AppComposer
                     'added' => __('ui.product.added'),
                     'actionLabel' => __('ui.product.action_label'),
                     'saving' => __('ui.product.saving'),
+                ],
+                'contact' => [
+                    'validation' => __('ui.contact.validation'),
+                    'errorSummary' => __('ui.contact.error_summary'),
+                    'successBody' => __('ui.contact.success_body'),
+                    'submit' => $this->content->content('contact.copy.submit'),
+                    'submitting' => $this->content->content('contact.copy.submitting'),
                 ],
                 'cart' => __('ui.cart') + [
                     'cleared' => $cart['cleared'],

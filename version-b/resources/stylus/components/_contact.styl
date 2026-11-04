@@ -1,0 +1,304 @@
+// Contatti section, form, fields and form states (DESIGN-SPEC §6.6, §6.11).
+// Mirrors version-a's ContactSection, ContactForm and FormField.
+
+.contact {
+  padding-block: 4rem;
+
+  +lg() {
+    padding-block: 6rem;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 2.5rem;
+
+    +lg() {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 4rem;
+    }
+  }
+
+  &__title {
+    margin-top: 0.5rem;
+  }
+
+  &__lead {
+    margin-top: 0.75rem;
+  }
+
+  &__channels {
+    margin-top: 2rem;
+
+    > * + * {
+      margin-top: 1rem;
+    }
+  }
+
+  &__channel {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__channel-label {
+    display: block;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+
+  // 44px tall link (docs/AUDIT.md H1), underline tinted primary at 40 %.
+  &__link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-primary-a40);
+    text-underline-offset: 4px;
+
+    +hover() {
+      text-decoration-color: var(--color-primary);
+    }
+  }
+
+  &__value {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  &__panel {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+
+    +sm() {
+      padding: 2rem;
+    }
+  }
+}
+
+.contact-form {
+  &__title {
+    font-size: 1.25rem;
+    line-height: unquote('calc(1.75 / 1.25)');
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  &__note {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+
+  // Nome + Email side by side from 640px; Messaggio full width.
+  &__grid {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+
+    +sm() {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__actions {
+    margin-top: 1.5rem;
+  }
+
+  &__submit {
+    width: 100%;
+
+    +sm() {
+      width: auto;
+    }
+
+    &[aria-disabled='true'] {
+      cursor: progress;
+    }
+  }
+
+  &__icon-busy {
+    display: none;
+    animation: gp-spin 1s linear infinite;
+  }
+
+  &.is-submitting {
+    .contact-form__icon-idle {
+      display: none;
+    }
+
+    .contact-form__icon-busy {
+      display: block;
+    }
+  }
+}
+
+@keyframes gp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.field {
+  &--full {
+    +sm() {
+      grid-column: span 2 / span 2;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__required {
+    margin-left: 0.125rem;
+    color: var(--color-danger);
+  }
+
+  &__hint {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+
+  &__control-wrap {
+    margin-top: 0.375rem;
+  }
+
+  // 44px control, 16px text (no zoom on iOS). Error: danger border + 1px ring (a 2px border look
+  // without changing the box size).
+  &__control {
+    display: block;
+    height: 2.75rem;
+    width: 100%;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    padding-inline: 0.875rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    transition-property: border-color, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); // Tailwind's default curve, as version-a
+    transition-duration: var(--duration-fast);
+
+    &::placeholder {
+      color: var(--color-ink-muted);
+    }
+
+    &:read-only {
+      background-color: var(--color-canvas);
+    }
+
+    +hover() {
+      border-color: var(--color-ink);
+    }
+
+    &:focus-visible {
+      border-color: var(--color-primary);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--color-danger);
+      box-shadow: 0 0 0 1px var(--color-danger);
+    }
+
+    &--textarea {
+      height: auto;
+      min-height: 9rem;
+      resize: vertical;
+      padding-block: 0.625rem;
+      line-height: 1.5;
+    }
+  }
+
+  &__error {
+    margin-top: 0.375rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-danger);
+  }
+
+  &__error-icon {
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+  }
+}
+
+// Error summary (role="alert"), 20px above the button.
+.form-alert {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px solid var(--color-danger-a30);
+  border-radius: var(--radius-md);
+  background-color: var(--color-danger-subtle);
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: unquote('calc(1.25 / 0.875)');
+  font-weight: 500;
+  color: var(--color-danger);
+
+  &__icon {
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+  }
+}
+
+// Success panel: replaces the form; its heading receives focus.
+.form-success {
+  border: 1px solid var(--color-success-a30);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-success-subtle);
+  padding: 1.5rem;
+  text-align: center;
+
+  +sm() {
+    padding: 2rem;
+  }
+
+  &__icon {
+    margin-inline: auto;
+    color: var(--color-success);
+  }
+
+  // Programmatic focus target (tabindex="-1"), not a control: no ring.
+  &__title {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: unquote('calc(1.75 / 1.25)');
+    font-weight: 700;
+    color: var(--color-ink);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__text {
+    margin-inline: auto;
+    margin-top: 0.5rem;
+    max-width: 28rem;
+    color: var(--color-ink);
+  }
+
+  &__again {
+    margin-top: 1.5rem;
+  }
+}
