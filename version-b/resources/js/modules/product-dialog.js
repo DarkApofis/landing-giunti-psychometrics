@@ -23,11 +23,12 @@
     }
 
     function fill(product) {
-      slot('image').attr({
-        src: product.dialogImage.src,
-        srcset: product.dialogImage.srcset,
-        alt: product.image.alt,
-      });
+      // A fresh <img> per product (from the Blade template), inserted before the badge.
+      var template = $dialog.find('template[data-dialog-image]')[0];
+      slot('image').remove();
+      $(template.content.firstElementChild.cloneNode(true))
+        .attr({ srcset: product.dialogImage.srcset, src: product.dialogImage.src, alt: product.image.alt })
+        .insertAfter(template);
 
       var $badge = slot('badge');
       FORMAT_MODIFIERS.forEach(function (modifier) {

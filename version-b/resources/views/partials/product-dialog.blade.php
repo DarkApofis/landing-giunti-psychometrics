@@ -12,7 +12,11 @@
         </button>
 
         <div class="product-dialog__media">
-            <img class="product-dialog__img" alt="" width="1200" height="800" sizes="(min-width: 672px) 640px, calc(100vw - 2rem)" data-slot="image">
+            {{-- The image exists only while a product is shown (as in version-a): an <img> without its
+                 real alt never sits in the page. The JS clones this template when filling the dialog. --}}
+            <template data-dialog-image>
+                <img class="product-dialog__img" width="1200" height="800" sizes="(min-width: 672px) 640px, calc(100vw - 2rem)" data-slot="image">
+            </template>
             {{-- One badge; the JS sets the modifier and shows the icon of the format. --}}
             <span class="format-badge product-dialog__badge" data-slot="badge">
                 @foreach (['cartaceo' => 'book-open', 'digitale' => 'monitor-smartphone', 'online' => 'circle-play', 'presenza' => 'map-pin'] as $modifier => $icon)
