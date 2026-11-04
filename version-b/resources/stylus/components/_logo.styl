@@ -1,0 +1,33 @@
+// Logo (DESIGN-SPEC §6.8): 32px monogram + "Giunti" (700, ink) "Psychometrics" (600, primary).
+// --on-dark (footer): white text, "Psychometrics" in primary-subtle; the SVG tones are set in Blade.
+.logo {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color-ink);
+
+  &__mark {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+  }
+
+  &__accent {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  &--on-dark {
+    color: var(--color-white);
+
+    .logo__accent {
+      color: var(--color-primary-subtle);
+    }
+  }
+}
