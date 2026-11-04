@@ -27,6 +27,14 @@ return Application::configure(basePath: dirname(__DIR__))
             ShareErrorsFromSession::class,
             PreventRequestForgery::class, // Laravel 13 name of the CSRF middleware
         ]);
+
+        // Behind the platform's HTTPS proxy (Render, Railway): trust X-Forwarded-* so URLs are https.
+        // TRUSTED_PROXIES="*" or a comma-separated list of IPs/CIDRs; unset = no proxy trusted.
+        // Read with getenv(): this runs before the configuration exists (and also with config:cache).
+        $proxies = getenv('TRUSTED_PROXIES');
+        if (is_string($proxies) && $proxies !== '') {
+            $middleware->trustProxies(at: $proxies === '*' ? '*' : array_map('trim', explode(',', $proxies)));
+        }
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

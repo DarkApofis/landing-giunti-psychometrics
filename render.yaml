@@ -1,0 +1,26 @@
+# Render Blueprint for version B (Laravel in Docker). Version A is deployed on Vercel.
+# Render dashboard → New → Blueprint → this repository. APP_KEY is asked for on creation (sync: false).
+services:
+  - type: web
+    name: giunti-psychometrics-b
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: version-b
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - version-b/**
+    envVars:
+      - key: APP_KEY
+        sync: false
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: TRUSTED_PROXIES
+        value: "*"
+      # APP_URL is optional: without it the container uses RENDER_EXTERNAL_URL (docker/entrypoint.sh).

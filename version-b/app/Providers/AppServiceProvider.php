@@ -7,6 +7,7 @@ use App\Support\AssetManifest;
 use App\Support\Icons;
 use App\View\Composers\AppComposer;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,6 +42,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // In production, canonical/OG/asset URLs come from APP_URL, never from the request's Host header.
+        $appUrl = (string) config('app.url');
+        if ($this->app->isProduction() && $appUrl !== '') {
+            URL::forceRootUrl($appUrl);
+            if (str_starts_with($appUrl, 'https://')) {
+                URL::forceScheme('https');
+            }
+        }
+
         // @asset('css/app.css') → URL of the hashed file written by Gulp.
         Blade::directive(
             'asset',
