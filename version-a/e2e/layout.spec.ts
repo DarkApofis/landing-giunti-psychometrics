@@ -90,14 +90,16 @@ test.describe('header: desktop 1280', () => {
 
     await input.fill('neura');
     await input.press('Enter');
-    await expect(page.getByRole('heading', { name: 'Catalogo', level: 2 })).toBeInViewport();
+    await expect(
+      page.getByRole('heading', { name: /Strumenti e corsi/, level: 2 }),
+    ).toBeInViewport();
   });
 
   test('hero CTA lands on #catalogo below the sticky header', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('link', { name: 'Esplora il catalogo' }).click();
     await expect(page).toHaveURL(/#catalogo$/);
-    const heading = page.getByRole('heading', { name: 'Catalogo', level: 2 });
+    const heading = page.getByRole('heading', { name: /Strumenti e corsi/, level: 2 });
     await expect(heading).toBeInViewport();
     const headerBottom = (await page.getByRole('banner').boundingBox())!.height;
     await expect

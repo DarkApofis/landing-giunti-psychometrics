@@ -3,7 +3,7 @@ import { Figtree, Noto_Sans } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { SkipLink } from '@/components/layout/SkipLink';
-import { CatalogFiltersProvider } from '@/components/providers/CatalogFiltersProvider';
+import { AppProviders } from '@/components/providers/AppProviders';
 import { SECTION_IDS } from '@/data/navigation';
 import { site } from '@/data/site';
 import './globals.css';
@@ -64,13 +64,13 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     <html lang="it" className={`${figtree.variable} ${notoSans.variable}`}>
       <body>
         <SkipLink />
-        <CatalogFiltersProvider>
+        <AppProviders>
           <Header />
           <main id={SECTION_IDS.main} tabIndex={-1}>
             {children}
           </main>
           <Footer />
-        </CatalogFiltersProvider>
+        </AppProviders>
       </body>
     </html>
   );

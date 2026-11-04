@@ -5,6 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import type { NavItem } from '@/data/navigation';
 import { cn } from '@/lib/cn';
+import { CatalogLink } from './CatalogLink';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled])';
 const DESKTOP_QUERY = '(min-width: 64rem)';
@@ -122,13 +123,14 @@ export function MobileMenu({
             <ul className="flex flex-col">
               {items.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <CatalogLink
                     href={item.href}
-                    onClick={() => close(false)}
+                    category={item.category}
+                    onNavigate={() => close(false)}
                     className="flex min-h-12 items-center rounded-md px-3 font-display text-lg font-medium text-ink transition-colors duration-(--duration-fast) hover:bg-primary-subtle hover:text-primary"
                   >
                     {item.label}
-                  </a>
+                  </CatalogLink>
                 </li>
               ))}
             </ul>

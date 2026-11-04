@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { products } from '@/data/products';
 import type { CourseProduct, Product, TestProduct } from '@/types/product';
-import { countByCategory, filterProducts } from './catalog';
+import {
+  countByCategory,
+  filterProducts,
+  filtersToSearch,
+  parseFilters,
+  resultsLabel,
+} from './catalog';
 
 const image = { src: 'https://images.unsplash.com/photo-x', alt: 'Scena di prova descrittiva' };
 
@@ -125,5 +131,55 @@ describe('countByCategory', () => {
       'lavoro-organizzazioni': 0,
       formazione: 1,
     });
+  });
+});
+
+describe('resultsLabel (Italian singular/plural)', () => {
+  it.each([
+    [0, 'Nessun prodotto trovato'],
+    [1, '1 prodotto trovato'],
+    [2, '2 prodotti trovati'],
+    [12, '12 prodotti trovati'],
+  ])('%d → "%s"', (count, expected) => {
+    expect(resultsLabel(count)).toBe(expected);
+  });
+});
+
+describe('parseFilters (URL → state)', () => {
+  it('returns defaults for an empty query string', () => {
+    expect(parseFilters('')).toEqual({ category: 'tutti', query: '' });
+  });
+
+  it('reads a valid category and the search text', () => {
+    expect(parseFilters('?categoria=formazione&q=neura%20q')).toEqual({
+      category: 'formazione',
+      query: 'neura q',
+    });
+  });
+
+  it('ignores an unknown category instead of showing an empty catalogue', () => {
+    expect(parseFilters('?categoria=hacked')).toEqual({ category: 'tutti', query: '' });
+  });
+
+  it('caps an absurdly long query', () => {
+    expect(parseFilters(`?q=${'a'.repeat(500)}`).query).toHaveLength(100);
+  });
+});
+
+describe('filtersToSearch (state → URL)', () => {
+  it('returns an empty string for the default state (clean URL)', () => {
+    expect(filtersToSearch({ category: 'tutti', query: '' })).toBe('');
+    expect(filtersToSearch({ category: 'tutti', query: '   ' })).toBe('');
+  });
+
+  it('serialises category and trimmed query', () => {
+    expect(filtersToSearch({ category: 'scuola-eta-evolutiva', query: ' età ' })).toBe(
+      '?categoria=scuola-eta-evolutiva&q=et%C3%A0',
+    );
+  });
+
+  it('round-trips with parseFilters', () => {
+    const state = { category: 'lavoro-organizzazioni', query: 'leader 360' } as const;
+    expect(parseFilters(filtersToSearch(state))).toEqual(state);
   });
 });

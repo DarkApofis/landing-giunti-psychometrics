@@ -1,3 +1,5 @@
+import type { CategoryFilter } from '@/types/product';
+
 /** Section anchors shared by the header, hero and footer. */
 export const SECTION_IDS = {
   main: 'main',
@@ -9,15 +11,17 @@ export const SECTION_IDS = {
 export interface NavItem {
   label: string;
   href: `#${string}`;
+  /** Catalogue category applied when the link is followed (see ASSUMPTIONS A2). */
+  category?: CategoryFilter;
 }
 
 /**
- * Main navigation. "Test" and "Formazione" both land on the catalogue
- * (the category pre-filter is wired in the catalogue task — see ASSUMPTIONS A2).
+ * Main navigation. "Test" shows the whole catalogue (tests span three categories),
+ * "Formazione" pre-filters the courses.
  */
 export const mainNav: readonly NavItem[] = [
-  { label: 'Test', href: `#${SECTION_IDS.catalog}` },
-  { label: 'Formazione', href: `#${SECTION_IDS.catalog}` },
+  { label: 'Test', href: `#${SECTION_IDS.catalog}`, category: 'tutti' },
+  { label: 'Formazione', href: `#${SECTION_IDS.catalog}`, category: 'formazione' },
   { label: 'Risorse', href: `#${SECTION_IDS.resources}` },
   { label: 'Contatti', href: `#${SECTION_IDS.contact}` },
 ];

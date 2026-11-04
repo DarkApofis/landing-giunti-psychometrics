@@ -58,6 +58,11 @@
     outline-color: var(--color-white);
   }
 
+  /* A modal <dialog> is open (product details, later the cart): the page behind does not scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   /* <main tabindex="-1"> receives focus from the skip link; it is not a control, so no ring. */
   main:focus {
     outline: none;

@@ -1,4 +1,4 @@
-import { CATEGORY_IDS, type CategoryFilter, type Product } from '@/types/product';
+import { CATEGORY_IDS, type CategoryFilter, type CategoryId, type Product } from '@/types/product';
 import { matchesQuery } from './search';
 
 export interface CatalogFilters {
@@ -34,4 +34,41 @@ export function countByCategory(
     counts.tutti += 1;
   }
   return counts;
+}
+
+/** Live-region / counter text: "Nessun prodotto trovato", "1 prodotto trovato", "8 prodotti trovati". */
+export function resultsLabel(count: number): string {
+  if (count === 0) return 'Nessun prodotto trovato';
+  return count === 1 ? '1 prodotto trovato' : `${count} prodotti trovati`;
+}
+
+// ── URL sync (?categoria=…&q=…) ─────────────────────────────────────────────
+
+export const URL_PARAMS = { category: 'categoria', query: 'q' } as const;
+const MAX_QUERY_LENGTH = 100;
+
+export const DEFAULT_FILTERS: CatalogFilters = { category: 'tutti', query: '' };
+
+function isCategoryId(value: string | null): value is CategoryId {
+  return value !== null && (CATEGORY_IDS as readonly string[]).includes(value);
+}
+
+/** Reads filters from a query string; unknown values fall back to the defaults. */
+export function parseFilters(search: string): CatalogFilters {
+  const params = new URLSearchParams(search);
+  const category = params.get(URL_PARAMS.category);
+  return {
+    category: isCategoryId(category) ? category : 'tutti',
+    query: (params.get(URL_PARAMS.query) ?? '').slice(0, MAX_QUERY_LENGTH),
+  };
+}
+
+/** Serialises filters; the default state gives "" so the URL stays clean. */
+export function filtersToSearch({ category, query }: CatalogFilters): string {
+  const params = new URLSearchParams();
+  if (category !== 'tutti') params.set(URL_PARAMS.category, category);
+  const q = query.trim();
+  if (q !== '') params.set(URL_PARAMS.query, q);
+  const search = params.toString();
+  return search === '' ? '' : `?${search}`;
 }

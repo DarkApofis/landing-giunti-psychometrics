@@ -186,7 +186,9 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - Imagen: `aspect-ratio: 3/2` reservado (CLS 0), `object-fit: cover`, radio superior heredado.
   `sizes="(min-width:1280px) 384px, (min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"`.
 - Badge de formato: arriba a la izquierda sobre la imagen, pill de 28 px de alto, icono 14 px + texto 12/600, fondo opaco del formato.
-- Chip de descuento: arriba a la derecha, solo si hay descuento; fondo `accent-subtle`, texto `ink`, por ejemplo “−20%”, con `aria-label="Sconto del 20%"`.
+- Chip de descuento (**revisado el 2026-11-04**): va **en el bloque de precio**, no sobre la imagen, para que el ahorro se lea junto al precio (jerarquía final → tachado → “−15%”). Fondo `accent-subtle`, texto `ink`; el texto visual “−15%” lleva `aria-hidden` y un `sr-only` dice “risparmi il 15%”.
+- Metadatos en `<dl>` de dos columnas (dt en `ink-muted`, dd en `ink` 500): tests → Autore · Età · Qualifica · Durata; cursos → Docente · Inizio (`<time>`) · Durata (+ crediti ECM) · Sede.
+- Acción según el tipo (**revisado el 2026-11-04**): tests → “Scopri di più” (secundario, abre el `<dialog>` de ficha con la cualificación necesaria); cursos → “Aggiungi al carrello” (primario). `aria-label` = texto visible + nombre del producto (único y cumple label-in-name).
 - Precio: final en `ink` 24/700 tabular; original en `ink-muted` 14 con `line-through`, dentro de `<s>`
   más texto `sr-only` (“Prezzo originale”, “Prezzo scontato”). Sin descuento → solo el precio.
 - Formato del precio: `Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' })` → `1.250,00 €` (espacio duro).
@@ -202,7 +204,8 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 - Alto 44 px, padding 16 px, `radius-full`, Figtree 500 15 px, con un contador opcional entre paréntesis.
 - Inactiva: fondo `surface`, borde `border-strong`, texto `ink`. Hover: fondo `primary-subtle`.
 - Activa: fondo `primary`, texto blanco, borde `primary`, más un icono `Check` (no depende solo del color).
-- Hacen wrap en varias líneas (sin scroll horizontal oculto).
+- **Revisado el 2026-11-04:** < 768 px, una sola fila con scroll horizontal (full-bleed hasta los bordes de la pantalla para que una pill cortada indique que hay más; `py-1` para que el anillo de foco no se recorte; la pill activa se desplaza a la vista). ≥ 768 px hacen wrap.
+- `aria-label` explícito “Formazione 4 prodotti”: contiene el texto visible “Formazione 4” (label-in-name, lo verifica axe).
 
 ### 6.4 Buscador
 
@@ -213,7 +216,7 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 
 ### 6.5 Estado de resultados
 
-- Texto “12 prodotti” encima de la grilla, dentro de `aria-live="polite"`, con debounce de 300 ms para la búsqueda.
+- “12 prodotti trovati” / “1 prodotto trovato” / “Nessun prodotto trovato”. El texto visible se actualiza al instante (con `aria-hidden`); una región `role="status" aria-live="polite"` aparte repite el texto con un debounce de 400 ms, para no anunciar cada tecla.
 - Vacío: icono, “Nessun prodotto corrisponde alla ricerca” y botón “Azzera filtri”.
 
 ### 6.6 Campos de formulario

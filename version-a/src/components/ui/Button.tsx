@@ -41,9 +41,18 @@ const sizes: Record<ButtonSize, string> = {
   lg: 'min-h-12 px-6 text-lg',
 };
 
+/** Button look for elements that cannot use <Button> (e.g. client links with their own handlers). */
+export function buttonClasses(
+  variant: ButtonVariant = 'primary',
+  size: ButtonSize = 'md',
+  className?: string,
+): string {
+  return cn(base, variants[variant], sizes[size], className);
+}
+
 export function Button(props: ButtonProps) {
   const { variant = 'primary', size = 'md', className, children, ...rest } = props;
-  const classes = cn(base, variants[variant], sizes[size], className);
+  const classes = buttonClasses(variant, size, className);
 
   if (rest.href !== undefined) {
     return (

@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { CatalogLink } from '@/components/layout/CatalogLink';
+import { Button, buttonClasses } from '@/components/ui/Button';
 import { hero, heroStats } from '@/data/hero';
 import { SECTION_IDS } from '@/data/navigation';
 import { HeroIllustration } from './HeroIllustration';
@@ -30,10 +31,14 @@ export function Hero() {
               {hero.primaryCta}
               <ArrowDown aria-hidden="true" className="size-5" />
             </Button>
-            <Button href={`#${SECTION_IDS.catalog}`} variant="on-dark-outline" size="lg">
+            <CatalogLink
+              href={`#${SECTION_IDS.catalog}`}
+              category="formazione"
+              className={buttonClasses('on-dark-outline', 'lg')}
+            >
               {hero.secondaryCta}
               <ArrowRight aria-hidden="true" className="size-5" />
-            </Button>
+            </CatalogLink>
           </div>
 
           <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/20 pt-6">

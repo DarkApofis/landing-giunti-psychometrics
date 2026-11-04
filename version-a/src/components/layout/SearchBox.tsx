@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Search, X } from 'lucide-react';
 import { useId, useRef, type SubmitEvent } from 'react';

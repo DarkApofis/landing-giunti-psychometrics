@@ -41,7 +41,10 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 | ✓ | 4.3 `CatalogFiltersProvider` (sin URL todavía; la sincronización va con 5.10) | e2e del buscador |
 | ✓ | 5.1–5.3 Header, MainNav, SearchBox, MobileMenu | e2e de teclado, de trampa de foco y de alturas por breakpoint; capturas 375/768/1280 |
 | ✓ | 5.6 Hero + HeroIllustration | capturas; axe sin violaciones |
-| ☐ | 2.4 validación, 2.7 carrito, 3.2–3.5, 4.1–4.2, 5.4–5.5, 5.7–5.14, fase 6 | pendiente |
+| ✓ | 2.7 `cartReducer` + `cartCount` (TDD) · URL helpers `parseFilters`/`filtersToSearch` + `resultsLabel` (TDD) | 18 tests nuevos en verde tras verlos en rojo |
+| ✓ | 3.2–3.3 `FormatBadge`, `Price` · 4.1 (parcial: en memoria) `CartProvider` · 4.2 `AnnouncerProvider` | tests de componente + e2e |
+| ✓ | 5.7–5.10 `ProductCard` (memo), `AddToCartButton`, `ProductGrid`, `CategoryFilter`, `ResultsStatus`, `EmptyState`, `ProductDialog`, `Catalog`, `CatalogSection`, `CatalogLink`; sincronización con la URL | 9 tests de componente, 18 e2e del catálogo (filtros, deep link, diálogo, CLS, `sizes`, axe), capturas 375/768/1280 |
+| ☐ | 2.4 validación, 3.4–3.5, 4.1 (persistencia), 5.4–5.5 carrito, 5.11–5.14, fase 6 | pendiente |
 
 ---
 
