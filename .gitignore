@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Builds / caches
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Test artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Env
+.env
+.env*.local
+!.env.example
+
+# Laravel (version-b)
+version-b/storage/*.key
+version-b/public/hot
+version-b/public/build
+
+# Logs / OS / editors
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Local Claude Code settings
+.claude/
