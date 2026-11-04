@@ -1,0 +1,27 @@
+{
+  "tolerancePx": 0.5,
+  "compared": 1014,
+  "differences": [
+    {
+      "width": 375,
+      "probe": "card",
+      "property": "boxShadow",
+      "a": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px",
+      "b": "rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px"
+    },
+    {
+      "width": 768,
+      "probe": "card",
+      "property": "boxShadow",
+      "a": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px",
+      "b": "rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px"
+    },
+    {
+      "width": 1280,
+      "probe": "card",
+      "property": "boxShadow",
+      "a": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px",
+      "b": "rgba(15, 45, 82, 0.06) 0px 1px 2px 0px, rgba(15, 45, 82, 0.08) 0px 1px 3px 0px"
+    }
+  ]
+}
