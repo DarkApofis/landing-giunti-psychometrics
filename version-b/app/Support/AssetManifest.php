@@ -5,19 +5,17 @@ namespace App\Support;
 use RuntimeException;
 
 /**
- * Resolves the hashed file names Gulp writes to public/build/rev-manifest.json
- * ("css/app.css" → "build/css/app-1a2b3c4d5e.css"). Used by the Blade directive @asset.
- * The manifest is read once per process; a missing file or entry fails loudly with the fix.
+ * Resolves the hashed files Gulp writes, through public/build/rev-manifest.json:
+ * logical name → path relative to public/ ("css/app.css" → "build/css/app-1a2b3c4d5e.css",
+ * "fonts/figtree-latin-wght-normal.woff2" → "fonts/figtree-latin-wght-normal-1a2b3c4d5e.woff2").
+ * Used by the Blade directive @asset. Read once per process; a missing file or entry fails loudly.
  */
 final class AssetManifest
 {
     /** @var array<string, string>|null */
     private ?array $entries = null;
 
-    public function __construct(
-        private readonly string $manifestPath,
-        private readonly string $buildDirectory = 'build',
-    ) {}
+    public function __construct(private readonly string $manifestPath) {}
 
     /** Absolute URL of a built asset, e.g. url('css/app.css'). */
     public function url(string $asset): string
@@ -25,7 +23,7 @@ final class AssetManifest
         return asset($this->path($asset));
     }
 
-    /** Public path of a built asset, relative to public/ (e.g. "build/css/app-1a2b3c4d5e.css"). */
+    /** Path of a built asset relative to public/ (e.g. "build/css/app-1a2b3c4d5e.css"). */
     public function path(string $asset): string
     {
         $entries = $this->entries ??= $this->load();
@@ -34,7 +32,7 @@ final class AssetManifest
             throw new RuntimeException("Asset [{$asset}] is not in the build manifest. Run `npm run build`.");
         }
 
-        return $this->buildDirectory.'/'.$entries[$asset];
+        return $entries[$asset];
     }
 
     /** @return array<string, string> */

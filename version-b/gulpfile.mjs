@@ -1,15 +1,18 @@
 /**
  * Front-end build for version B (docs/PLAN-B.md §3.1).
  *
- *   gulp build   production: minified CSS/JS, no sourcemaps, hashed names + rev-manifest.json
+ *   gulp build   production: minified CSS/JS, no sourcemaps, hashed names + manifest
  *   gulp dev     development: readable output with sourcemaps, then watch
- *   gulp clean   remove public/build
+ *   gulp clean   remove everything this build writes
  *
- * Output (public/build, not versioned):
- *   css/app-[hash].css · js/app-[hash].js · fonts/*-[hash].woff2 · rev-manifest.json
- * PHP resolves the hashed names through App\Support\AssetManifest (Blade directive @asset).
+ * Output (generated, not versioned):
+ *   public/build/css/{app,styleguide}-[hash].css · public/build/js/app-[hash].js
+ *   public/fonts/{figtree,noto-sans}-latin-wght-normal-[hash].woff2
+ *   public/build/rev-manifest.json   { "css/app.css": "build/css/app-1a2b3c4d5e.css", "fonts/…": "fonts/…" }
+ * Keys are logical names; values are paths relative to public/. PHP resolves them through
+ * App\Support\AssetManifest (Blade directive @asset).
  */
-import { readFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative } from 'node:path';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
@@ -26,8 +29,11 @@ import applySourceMap from 'vinyl-sourcemaps-apply';
 
 const { dest, series, src, watch } = gulp;
 
-const OUT = 'public/build';
-const MANIFEST = `${OUT}/rev-manifest.json`;
+const PUBLIC = 'public';
+const MANIFEST = `${PUBLIC}/build/rev-manifest.json`;
+
+/** Where each kind of asset is published, relative to public/. */
+const TARGETS = { css: 'build/css', js: 'build/js', fonts: 'fonts' };
 
 /** JS bundle order replaces imports: vendor → pure lib → modules (config first) → entry point. */
 const SCRIPTS = [
@@ -37,6 +43,9 @@ const SCRIPTS = [
   'resources/js/modules/**/*.js',
   'resources/js/main.js',
 ];
+
+/** Stylesheets: the site, plus the local-only styleguide (never linked from the public page). */
+const STYLES = ['resources/stylus/app.styl', 'resources/stylus/styleguide.styl'];
 
 /** Latin subset only (the one version-a preloads); other subsets are not shipped. */
 const FONTS = [
@@ -49,6 +58,10 @@ const development = (done) => {
   production = false;
   done();
 };
+
+/** Logical name → path relative to public/, filled by every task, written by writeManifest(). */
+const entries = {};
+const toPosix = (path) => path.replaceAll('\\', '/');
 
 /**
  * Minimal Stylus plugin over the stylus API. gulp-stylus is not used: it pins stylus ^0.59
@@ -72,7 +85,7 @@ function compileStylus() {
         // Stylus emits absolute (on Windows, "//?/C:/…") source paths: make them relative to the
         // source root so no local path ends up in the map.
         const sources = style.sourcemap.sources.map((source) =>
-          relative(file.base, source.replace(/^\/\/\?\//, '')).replaceAll('\\', '/'),
+          toPosix(relative(file.base, source.replace(/^\/\/\?\//, ''))),
         );
         applySourceMap(file, { ...style.sourcemap, sources, file: file.relative });
       }
@@ -81,33 +94,46 @@ function compileStylus() {
   });
 }
 
-/**
- * Re-roots a file so that its path relative to the build root is `dir/name`. gulp-rev keys the
- * manifest by that relative path, so entries read "css/app.css" instead of "app.css".
- */
-function placeIn(dir) {
+/** Moves a file to public/<TARGETS[kind]>/<name>, so dest(PUBLIC) writes it where it is served. */
+function placeIn(kind) {
   return through.obj((file, _encoding, callback) => {
-    const root = join(file.cwd, OUT);
+    const root = join(file.cwd, PUBLIC);
     file.base = root;
-    file.path = join(root, dir, basename(file.path));
+    file.path = join(root, TARGETS[kind], basename(file.path));
     callback(null, file);
   });
 }
 
-/** Adds the revisioned files of one stream to the shared manifest (merging with what is there). */
-const manifest = () => rev.manifest(MANIFEST, { base: OUT, merge: true });
+/** After rev(): records "kind/original-name" → hashed path relative to public/. */
+function record(kind) {
+  return through.obj((file, _encoding, callback) => {
+    if (file.revOrigPath) {
+      entries[`${kind}/${basename(file.revOrigPath)}`] = toPosix(relative(file.base, file.path));
+    }
+    callback(null, file);
+  });
+}
 
-export const clean = () => deleteAsync([OUT]);
+function writeManifest(done) {
+  mkdirSync(dirname(MANIFEST), { recursive: true });
+  const sorted = Object.fromEntries(Object.entries(entries).sort(([a], [b]) => a.localeCompare(b)));
+  writeFileSync(MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);
+  done();
+}
 
-const cleanDir = (dir) => () => deleteAsync([`${OUT}/${dir}`]);
+const removeTarget = (kind) => () => deleteAsync([`${PUBLIC}/${TARGETS[kind]}`]);
+
+export const clean = () =>
+  deleteAsync([`${PUBLIC}/build`, `${PUBLIC}/${TARGETS.fonts}`]).then(() => {
+    for (const key of Object.keys(entries)) delete entries[key];
+  });
 
 export function fonts() {
   return src(FONTS, { encoding: false })
     .pipe(placeIn('fonts'))
     .pipe(rev())
-    .pipe(dest(OUT))
-    .pipe(manifest())
-    .pipe(dest(OUT));
+    .pipe(record('fonts'))
+    .pipe(dest(PUBLIC));
 }
 
 export function scripts() {
@@ -116,35 +142,32 @@ export function scripts() {
     .pipe(production ? terser({ ecma: 2020, format: { comments: false } }) : through.obj())
     .pipe(placeIn('js'))
     .pipe(rev())
-    .pipe(dest(OUT, { sourcemaps: production ? false : '.' }))
-    .pipe(manifest())
-    .pipe(dest(OUT));
+    .pipe(record('js'))
+    .pipe(dest(PUBLIC, { sourcemaps: production ? false : '.' }));
 }
 
 export function styles() {
   const plugins = production ? [autoprefixer(), cssnano({ preset: 'default' })] : [autoprefixer()];
-  return (
-    src('resources/stylus/app.styl', { sourcemaps: !production })
-      .pipe(compileStylus())
-      .pipe(postcss(plugins))
-      // Font URLs inside the CSS point to the hashed files (fonts() runs first).
-      .pipe(revRewrite({ manifest: readFileSync(MANIFEST) }))
-      .pipe(placeIn('css'))
-      .pipe(rev())
-      .pipe(dest(OUT, { sourcemaps: production ? false : '.' }))
-      .pipe(manifest())
-      .pipe(dest(OUT))
-  );
+  // Font URLs in the CSS (../../fonts/x.woff2) are rewritten to the hashed files: fonts() runs first.
+  const fontEntries = Buffer.from(JSON.stringify(entries));
+
+  return src(STYLES, { sourcemaps: !production })
+    .pipe(compileStylus())
+    .pipe(postcss(plugins))
+    .pipe(revRewrite({ manifest: fontEntries }))
+    .pipe(placeIn('css'))
+    .pipe(rev())
+    .pipe(record('css'))
+    .pipe(dest(PUBLIC, { sourcemaps: production ? false : '.' }));
 }
 
-// Sequential on purpose: every task merges into the same rev-manifest.json.
-const all = series(clean, fonts, scripts, styles);
+// Sequential on purpose: styles() needs the hashed font names recorded by fonts().
+export const build = series(clean, fonts, scripts, styles, writeManifest);
 
 function watchSources() {
-  watch('resources/stylus/**/*.styl', series(cleanDir('css'), styles));
-  watch(['resources/js/**/*.js'], series(cleanDir('js'), scripts));
+  watch('resources/stylus/**/*.styl', series(removeTarget('css'), styles, writeManifest));
+  watch('resources/js/**/*.js', series(removeTarget('js'), scripts, writeManifest));
 }
 
-export const build = all;
-export const dev = series(development, all, watchSources);
+export const dev = series(development, build, watchSources);
 export default build;

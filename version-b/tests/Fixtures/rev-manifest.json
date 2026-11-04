@@ -1,6 +1,7 @@
 {
-  "css/app.css": "css/app-0123456789.css",
+  "css/app.css": "build/css/app-0123456789.css",
+  "css/styleguide.css": "build/css/styleguide-0123456789.css",
   "fonts/figtree-latin-wght-normal.woff2": "fonts/figtree-latin-wght-normal-aaaaaaaaaa.woff2",
   "fonts/noto-sans-latin-wght-normal.woff2": "fonts/noto-sans-latin-wght-normal-bbbbbbbbbb.woff2",
-  "js/app.js": "js/app-9876543210.js"
+  "js/app.js": "build/js/app-9876543210.js"
 }
