@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { createContext, runInContext } from 'node:vm';
 
 export function loadScripts(...files) {
-  const window = { URLSearchParams };
+  const window = { URLSearchParams, Intl };
   window.window = window;
   const context = createContext(window);
   for (const file of files) {
