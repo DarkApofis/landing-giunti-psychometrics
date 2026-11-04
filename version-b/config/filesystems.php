@@ -33,7 +33,8 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // No file serving routes (GET/PUT storage/{path}): the landing stores no files.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],
