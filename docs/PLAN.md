@@ -47,7 +47,8 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 | ✓ | 2.4 `lib/validators.ts` (TDD, 31 tests) · 3.4 `TextField`/`TextArea` · 5.11–5.12 `ContactForm` + `ContactSection` · franja de confianza · 5.13 Footer completo + 404 en italiano | 7 tests de componente + 11 e2e (flujo completo solo con teclado, axe con errores y con éxito, footer) |
 | ✓ | 6.2–6.4 + 6.5 (parcial) Auditoría de accesibilidad y rendimiento → `docs/AUDIT.md`; 4 hallazgos corregidos (H1–H4); `e2e/audit.spec.ts` (21 pruebas) | Lighthouse móvil/escritorio 100 ×4 (mediana de 3); axe 0 violaciones en 8 estados |
 | ✓ | 3.5 `QuantityStepper` · 4.1 persistencia · 5.4 `CartButton` · 5.5 `CartDrawer` · hook `useModalDialog` | TDD 17 tests nuevos de `lib/cart.ts`; 11 tests de componente; `e2e/cart.spec.ts` (8, flujo completo solo con teclado) |
-| ☐ | 6.7 README, 6.8 revisión final | pendiente |
+| ✓ | 6.7 `version-a/README.md` + README raíz · DESIGN-SPEC sincronizado con la pantalla · `HANDOFF-LARAVEL.md` + `docs/handoff/*.json` (exportados desde el TS, con test de sincronía) · suite final | lint, tsc, 141 tests, build, 77 e2e + 21 capturas en verde |
+| ☐ | Versión B (Laravel) · despliegue (Prompt 9) | pendiente |
 
 ---
 

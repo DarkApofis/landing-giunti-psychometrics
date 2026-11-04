@@ -1,12 +1,14 @@
 # Sistema de diseño — Giunti Psychometrics (landing catálogo)
 
 Fuente única de verdad visual para **version-a (Next.js)** y **version-b (Laravel)**.
-Cualquier valor que aparezca en un componente debe salir de esta tabla. Si algo cambia en
-código, se cambia aquí primero.
+**Estado: refleja lo que hay en pantalla en version-a** (revisado el 2026-11-04 contra el build de producción: valores
+computados por el navegador y árbol DOM renderizado). Si algo cambia en el código, se cambia aquí primero.
 
-Herramienta de apoyo: skill *UI UX Pro Max* (`--design-system`, dominios `typography`, `ux`).
-Recomendación aceptada: estilo **Minimalism & Swiss** (limpio, en rejilla, alto contraste,
-movimiento sutil). Paleta sugerida por la skill **descartada**: los tokens de marca son obligatorios.
+Implementación de referencia: `version-a/src/styles/tokens.css` (tokens) y `version-a/src/app/globals.css` (base, utilidades).
+Traducción a Laravel/BEM: [`HANDOFF-LARAVEL.md`](HANDOFF-LARAVEL.md).
+
+Estilo: **Minimalism & Swiss** (recomendado por la skill *UI UX Pro Max*): limpio, en rejilla, alto contraste, movimiento
+sutil. La paleta que sugería la skill se descartó: los tokens de marca son obligatorios.
 
 ---
 
@@ -16,133 +18,149 @@ movimiento sutil). Paleta sugerida por la skill **descartada**: los tokens de ma
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--color-primary` | `#1B4F8A` | Botones primarios, pill activa, enlaces, anillo de foco |
+| `--color-primary` | `#1B4F8A` | Botones primarios, pill activa, enlaces, anillo de foco, fondo del logo |
 | `--color-ink` | `#0F2D52` | Texto principal, footer, inicio del gradiente del hero |
-| `--color-accent` | `#0EA5E9` | **Solo decorativo / fondo** (ver 1.3) |
+| `--color-accent` | `#0EA5E9` | **Solo decorativo / fondo** (§1.3): brillo del hero, barra destacada del SVG, punto del logo, fondo del contador del carrito |
 | `--color-canvas` | `#EFF6FF` | Fondo de página |
 
 ### 1.2 Tokens derivados
 
-| Token | Hex | Uso |
+| Token | Valor | Uso |
 |---|---|---|
-| `--color-primary-hover` | `#153F6F` | Hover del botón primario |
-| `--color-primary-active` | `#10335A` | Estado pressed |
-| `--color-primary-subtle` | `#DBEAFE` | Fondo hover de pills/ghost, filas seleccionadas |
-| `--color-accent-strong` | `#0369A1` | Alternativa del acento **para texto/iconos** |
-| `--color-accent-subtle` | `#E0F2FE` | Fondo del chip de descuento |
-| `--color-surface` | `#FFFFFF` | Cards, header, drawer, inputs |
-| `--color-ink-muted` | `#4A607D` | Texto secundario (autor, meta, precio tachado) |
-| `--color-border` | `#C7D7EC` | Bordes decorativos (cards, separadores) |
-| `--color-border-strong` | `#6B84A3` | Bordes de controles (inputs, pills inactivas) |
-| `--color-danger` | `#B42318` | Texto/borde de error |
-| `--color-danger-subtle` | `#FEF3F2` | Fondo de error |
-| `--color-success` | `#1A7F37` | Texto/icono de éxito |
+| `--color-primary-hover` | `#153F6F` | Hover del botón primario y de la pill activa |
+| `--color-primary-active` | `#10335A` | Pressed del primario; borde pressed del secundario |
+| `--color-primary-subtle` | `#DBEAFE` | Hover de pills/ghost/enlaces de nav, círculos de iconos, fondo de imagen (placeholder), texto secundario sobre oscuro |
+| `--color-accent-strong` | `#0369A1` | Eyebrows de sección (“CATALOGO”, “CONTATTI”), texto con sabor acento |
+| `--color-accent-subtle` | `#E0F2FE` | Chip de descuento; eyebrow del hero sobre oscuro |
+| `--color-surface` | `#FFFFFF` | Cards, header, drawer, diálogo, inputs, franja de confianza |
+| `--color-ink-muted` | `#4A607D` | Texto secundario (descripción, dt, precio tachado, contador, placeholder) |
+| `--color-border` | `#C7D7EC` | Bordes decorativos (cards, separadores, header) |
+| `--color-border-strong` | `#6B84A3` | Bordes de controles (inputs, pills inactivas, stepper, borde dashed del estado vacío) |
+| `--color-danger` | `#B42318` | Error (texto, borde, asterisco de obligatorio), “Rimuovi” |
+| `--color-danger-subtle` | `#FEF3F2` | Fondo del resumen de errores, hover de “Rimuovi” |
+| `--color-success` | `#1A7F37` | Icono de éxito, “Risparmi” del carrito |
 | `--color-success-subtle` | `#ECFDF3` | Fondo del panel de éxito |
+| `--color-white` | `#FFFFFF` | Texto sobre primario/oscuro |
+| `--color-backdrop` | `rgb(15 45 82 / .5)` | `::backdrop` de diálogos y fondo del menú móvil |
 
-Badges de formato (texto / fondo; el borde usa el texto al 20 %):
+Opacidades derivadas en uso: `primary/40` (borde de card en hover), `primary/30` (borde del aviso de cualificación),
+`white/60` (borde del CTA outline del hero), `white/50` (borde de botones sociales), `white/25` · `white/20` · `white/15`
+(separadores sobre oscuro), `white/10` (hover sobre oscuro), `danger/30`, `success/30` (bordes de paneles de estado),
+`format-*/20` (borde de los badges).
+
+### 1.3 Badges de formato (texto / fondo; borde = texto al 20 %)
 
 | Formato | Texto | Fondo | Icono lucide |
 |---|---|---|---|
 | Cartaceo | `#7A3E00` | `#FEF0C7` | `BookOpen` |
 | Digitale | `#0B4A6F` | `#E0F2FE` | `MonitorSmartphone` |
-| Corso online | `#4A2C8F` | `#EDE7FB` | `PlayCircle` |
+| Corso online | `#4A2C8F` | `#EDE7FB` | `CirclePlay` |
 | In presenza | `#14532D` | `#DCFCE7` | `MapPin` |
 
-El formato **nunca se comunica solo por color**: siempre hay icono + texto.
+El formato **nunca se comunica solo por color**: siempre icono + texto (+ `sr-only` “Formato:”).
 
-### 1.3 Verificación de contraste (WCAG 2.1, calculado)
+### 1.4 Contraste verificado (WCAG 2.1)
 
-| Par | Ratio | Resultado |
+| Par | Ratio | |
 |---|---|---|
-| ink / surface | 13.84 | AAA |
-| ink / canvas | 12.72 | AAA |
-| primary / surface (enlaces, foco) | 8.29 | AAA |
-| surface / primary (texto de botón) | 8.29 | AAA |
-| surface / primary-hover | 10.65 | AAA |
-| ink-muted / surface | 6.44 | AA |
-| ink-muted / canvas | 5.92 | AA |
-| accent-strong / surface | 5.93 | AA |
-| border-strong / surface (componente UI) | 3.85 | ≥ 3:1 ✔ |
-| danger / surface | 6.57 | AA |
-| danger / danger-subtle | 6.05 | AA |
-| success / success-subtle | 4.82 | AA |
-| Badges de formato (los 4) | 7.35 – 8.51 | AAA |
-| ink / accent (número del contador del carrito) | 4.99 | AA |
-| **accent / surface** | **2.77** | ✘ falla texto y UI |
-| **accent / canvas** | **2.55** | ✘ falla |
+| ink / surface · ink / canvas | 13,84 · 12,72 | AAA |
+| primary / surface (enlaces, foco) · surface / primary (texto de botón) | 8,29 | AAA |
+| ink-muted / surface · ink-muted / canvas | 6,44 · 5,92 | AA |
+| accent-strong / surface | 5,93 | AA |
+| danger / surface · success / success-subtle | 6,57 · 4,82 | AA |
+| Badges de formato (los 4) | 7,35 – 8,51 | AAA |
+| ink / accent (contador del carrito) | 4,99 | AA |
+| Texto sobre el gradiente del hero (medido por píxeles, peor caso) | ≥ 5,15 | AA |
+| Contraste no textual: border-strong / canvas · / surface | 3,54 · 3,85 | ≥ 3 |
+| **accent / surface** · **accent / canvas** | **2,77 · 2,55** | ✘ → nunca texto, borde de control ni foco |
 
-**Decisión:** `#0EA5E9` no se usa nunca como color de texto, borde de control ni anillo de foco.
-Se usa como relleno decorativo (brillo del hero, subrayado del título, fondo del contador
-del carrito con texto `ink`). Para texto o iconos con “sabor acento” se usa `--color-accent-strong`.
+Detalle y método: [`AUDIT.md`](AUDIT.md) §3.2–3.3.
 
 ---
 
 ## 2. Tipografía
 
-Self-hosted con `next/font/google` (version-b: los mismos `.woff2`, ver §10).
-
-| Rol | Familia | Pesos |
+| Rol | Familia | Carga |
 |---|---|---|
-| Títulos, botones, precios, badges | **Figtree** (variable) | 500–700 |
-| Cuerpo, formularios | **Noto Sans** (variable) | 400, 500 |
+| Títulos, botones, labels, pills, precios, badges, eyebrows | **Figtree** (variable 300–900) | `next/font/google`, `display: swap`, subset `latin` precargado |
+| Cuerpo, inputs, descripciones | **Noto Sans** (variable 100–900) | ídem |
 
-Subset `latin` (cubre à è é ì ò ù). `display: swap` con métricas de fallback ajustadas (next/font) → sin CLS.
+Fallbacks con métricas ajustadas (`size-adjust`, `ascent-override`) → sin salto de layout. Body: 16 px / 1.6, `ink` sobre `canvas`,
+`-webkit-font-smoothing: antialiased`. Encabezados con `text-wrap: balance`; párrafos con `text-wrap: pretty`.
 
-| Estilo | Tamaño / interlineado | Peso | Notas |
+Escala **medida en pantalla** (1280 px; los `clamp` escalan con el viewport):
+
+| Estilo | Tamaño / interlineado | Peso | Dónde |
 |---|---|---|---|
-| Display (h1 hero) | `clamp(2rem, 1.4rem + 3vw, 3.25rem)` / 1.1 | 700 | `text-wrap: balance`, tracking −0.02em |
-| h2 sección | `clamp(1.75rem, 1.5rem + 1vw, 2.25rem)` / 1.2 | 700 | |
-| h3 card | 1.125rem / 1.35 | 600 | máximo 2 líneas (line-clamp) con altura reservada |
-| Lead | 1.125rem / 1.6 | 400 | hero, intros |
-| Body | 1rem / 1.6 | 400 | mínimo absoluto para cuerpo |
-| Small | 0.875rem / 1.5 | 400–500 | autor, meta, precio tachado |
-| Eyebrow / badge | 0.75rem / 1.2 | 600 | mayúsculas + tracking 0.06em; nunca para párrafos |
-| Precio final | 1.5rem / 1 | 700 | `font-variant-numeric: tabular-nums` |
+| Display (h1 hero) | `clamp(2rem, 1.4rem + 3vw, 3.25rem)` → 52 / 57,2 px; tracking −0,02em | 700 | Hero |
+| h2 de sección | `clamp(1.75rem, 1.5rem + 1vw, 2.25rem)` → 36 / 43,2 px; tracking −0,01em | 700 | Catálogo, Contatti, 404 |
+| h2 diálogo de ficha | 24 px / 1,25 | 700 | Diálogo |
+| h3 formulario · h2 drawer | 20 px / 1,4 | 700 | “Scrivici un messaggio”, “Il tuo carrello” |
+| h3 card | 18 / 24,75 px (`leading-snug`) | 600 | Card (sin recorte: el título completo siempre visible) |
+| Cifras del hero | 30 / 36 px | 700 (Figtree, tabular) | `dd` de estadísticas |
+| Lead | 18 / 28 px | 400 | Hero (`primary-subtle`), intros de sección (`ink-muted`) |
+| Body | 16 / 25,6 px | 400 | Texto general, inputs |
+| Small | 14 / 20 px | 400–600 | Descripción y `dl` de card, labels (Figtree 600), hints, errores, footer |
+| Pill | 15 px | 500 (Figtree) | Filtros |
+| Botón | 16 px (lg: 18 px) | 600 (Figtree) | Todos los botones |
+| Precio final | 24 / 24 px | 700 (Figtree, `tabular-nums`) | Card, diálogo, subtotal del carrito |
+| Eyebrow | 12 / 14,4 px; mayúsculas; tracking 0,06em | 600 (Figtree) | Hero, secciones, card, títulos de columna del footer (14 px) |
+| Badge / chip / contador | 12 px | 600–700 (Figtree) | Formato, descuento, pills, carrito |
+| Micro | 12 px | 400 | “IVA inclusa”, notas del carrito |
 
-Longitud de línea del texto: máx. ~65ch.
+Longitud de línea: lead del hero `max-width: 60ch`; intros `max-w-3xl` (48rem).
 
 ---
 
 ## 3. Espaciado, rejilla y breakpoints
 
-- Base 4 px (escala de Tailwind). Ritmo habitual: 8 / 12 / 16 / 20 / 24 / 32 / 48 / 64 / 96.
-- Contenedor: `max-width: 75rem` (1200 px), padding lateral 16 px (<768), 24 px (≥768), 32 px (≥1280).
-- Padding vertical de sección: 64 px móvil, 96 px ≥1024.
+- Base 4 px (escala de Tailwind: `1` = 4 px).
+- **Contenedor** `.container-page`: `max-width: 75rem` (1200 px), centrado; padding lateral **16 px** (< 768), **24 px** (≥ 768),
+  **32 px** (≥ 1280).
+- **Secciones** (catálogo, contacto): padding vertical **64 px** (< 1024) / **96 px** (≥ 1024). Hero: 64 / 80 (≥ 768) / 96 px (≥ 1024).
+  Franja de confianza: 40 px. Footer: 56 px + barra inferior 24 px.
 
-| Breakpoint | Ancho | Grid de productos | Nav |
-|---|---|---|---|
-| base | < 768 | 1 columna | menú hamburguesa |
-| `md` | ≥ 768 | 2 columnas, gap 24 | hamburguesa + buscador visible |
-| `lg` | ≥ 1024 | 3 columnas, gap 24 (32 ≥1280) | nav completa |
+| Breakpoint | Ancho | Header | Hero | Pills | Grilla | Contacto | Footer |
+|---|---|---|---|---|---|---|---|
+| base | < 640 | 2 filas (logo · carrito · menú / buscador) = 120 px | 1 col; CTAs apilados a ancho completo | fila con scroll horizontal | 1 col, gap 24 | 1 col; campos apilados | 1 col |
+| `sm` | ≥ 640 | ídem | CTAs en fila | ídem | 1 col | Nome + Email en 2 col | 2 col (marca a ancho completo) |
+| `md` | ≥ 768 | 1 fila: logo · buscador (máx 28rem) · Accedi · carrito · menú = 64 px | ídem | wrap; contador a la derecha | **2 col**, gap 24 | ídem | ídem |
+| `lg` | ≥ 1024 | 1 fila: logo · nav · buscador (máx 20rem) · Accedi · carrito = 72 px | 2 col (1,1fr / 1fr) + ilustración SVG | ídem | **3 col**, gap 24 | 2 col (2fr / 3fr), gap 64 | 4 col (1,4fr 1fr 1fr 1fr), gap 48 |
+| `xl` | ≥ 1280 | ídem | ídem | ídem | 3 col, **gap 32** (columnas de 357 px) | ídem | ídem |
+| Alto < 30rem | — | **no sticky** (zoom 400 %, móvil horizontal) | | | | | |
 
-Verificación obligatoria en 375 / 768 / 1280.
+Verificado en 375 / 768 / 1280 y en 320×256 (zoom 400 %).
 
 ## 4. Radios, sombras, foco
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--radius-sm` | 6 px | inputs, botones pequeños |
-| `--radius-md` | 8 px | botones |
-| `--radius-lg` | 12 px | cards, drawer, panel de formulario |
-| `--radius-full` | 9999 px | pills, badges, contador |
-| `--shadow-card` | `0 1px 2px rgb(15 45 82 / .06), 0 1px 3px rgb(15 45 82 / .08)` | card en reposo |
-| `--shadow-card-hover` | `0 8px 24px -6px rgb(15 45 82 / .18)` | card en hover |
-| `--shadow-overlay` | `0 16px 48px -12px rgb(15 45 82 / .35)` | drawer, menú móvil |
+| `--radius-sm` | 6 px | Inputs, logo (foco), enlaces del footer |
+| `--radius-md` | 8 px | Botones, nav, stepper, resumen de errores, miniaturas del carrito |
+| `--radius-lg` | 12 px | Cards, panel del formulario, diálogo, estado vacío, paneles de éxito |
+| `rounded-full` | 9999 px | Pills, badges, chips, contador, botones sociales, círculos de iconos |
+| `--shadow-card` | `0 1px 2px rgb(15 45 82 / .06), 0 1px 3px rgb(15 45 82 / .08)` | Card, panel del formulario, botón “Chiudi” sobre imagen |
+| `--shadow-card-hover` | `0 8px 24px -6px rgb(15 45 82 / .18)` | Card en hover |
+| `--shadow-overlay` | `0 16px 48px -12px rgb(15 45 82 / .35)` | Drawer, diálogo, menú móvil, skip link |
 
-**Foco** (todos los controles, solo `:focus-visible`): `outline: 2px solid var(--color-primary); outline-offset: 2px`.
-Sobre fondos oscuros (hero, footer): `outline-color: #FFFFFF`. Nunca `outline: none` sin sustituto.
+**Foco** (solo `:focus-visible`, todos los controles): `outline: 2px solid var(--color-primary); outline-offset: 2px`.
+Dentro de `.on-dark` (hero, footer): `outline-color: #FFF`. `main:focus { outline: none }` (recibe el foco del skip link, no es un control).
+Inputs: además el borde pasa a `primary` al enfocar.
 
 ## 5. Movimiento
 
 | Caso | Duración | Easing |
 |---|---|---|
-| Color / fondo / borde | 150 ms | `ease-out` |
-| Elevación de card, transformaciones | 200 ms | `cubic-bezier(.2,.8,.2,1)` |
-| Entrada del drawer | 250 ms | `cubic-bezier(.2,.8,.2,1)` |
-| Salida del drawer | 200 ms | `ease-in` |
+| Colores / fondos / bordes (botones, pills, enlaces, inputs) | 150 ms (`--duration-fast`) | `ease-out` |
+| Card en hover (sombra, borde, `translateY(-2px)`) e imagen (`scale(1.03)`) | 200 ms (`--duration-base`) | `--ease-standard` `cubic-bezier(.2,.8,.2,1)` |
+| Entrada del drawer (`translateX(100%)` → 0) y del menú móvil (`opacity 0, translateY(-8px)` → reposo) | 250 ms (`--duration-enter`) | `--ease-standard`, vía `@starting-style` |
+| Cierre de drawer, diálogo y menú | instantáneo | — |
+| Spinner de “Invio in corso…” | `animate-spin` | — |
+| Scroll a anclas | `scroll-behavior: smooth` | — |
 
-Solo se animan `transform` y `opacity` (y colores). Sin reveal al hacer scroll ni JS de animación.
-`prefers-reduced-motion: reduce` → sin traslados, el scroll suave pasa a instantáneo y las transiciones duran ≤ 1 ms.
+Solo se animan `transform`, `opacity` y colores. Sin animaciones de entrada al hacer scroll.
+**`prefers-reduced-motion: reduce`**: transiciones y animaciones a 1 ms, sin `translate`/`scale` en hover (`motion-safe:`),
+`scroll-behavior: auto`.
 
 ---
 
@@ -150,146 +168,223 @@ Solo se animan `transform` y `opacity` (y colores). Sin reveal al hacer scroll n
 
 ### 6.1 Botón
 
-| Variante | Reposo | Hover | Active | Disabled |
-|---|---|---|---|---|
-| primary | fondo `primary`, texto blanco | `primary-hover` | `primary-active` | opacidad .5, `cursor: not-allowed` |
-| secondary (Accedi) | borde 1 px `primary`, texto `primary`, fondo `surface` | fondo `primary-subtle` | fondo `primary-subtle` + borde `primary-active` | ídem |
-| ghost / icono | transparente, texto `ink` | fondo `primary-subtle` | — | — |
-| on-dark (hero) | fondo blanco, texto `ink` | fondo `canvas` | — | — |
+Base: `inline-flex`, centrado, `gap 8px`, **alto mín. 44 px**, `radius-md`, Figtree 600, `white-space: nowrap`, transición de color 150 ms.
 
-Alto mínimo 44 px (área táctil ≥ 44×44 también en botones de icono). Padding horizontal 20 px. Figtree 600, 1rem.
-Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
+| Variante | Reposo | Hover | Active |
+|---|---|---|---|
+| `primary` | fondo `primary`, texto blanco | `primary-hover` | `primary-active` |
+| `secondary` | borde 1 px `primary`, texto `primary`, fondo `surface` | fondo `primary-subtle` | + borde `primary-active` |
+| `ghost` | transparente, texto `ink` | fondo `primary-subtle` | — |
+| `on-dark` (CTA hero) | fondo blanco, texto `ink` | fondo `canvas` | fondo `primary-subtle` |
+| `on-dark-outline` (CTA 2 hero) | borde 1 px `white/60`, texto blanco | borde blanco + fondo `white/10` | — |
 
-### 6.2 Card de producto (pieza clave)
+| Tamaño | Padding horizontal | Texto | Alto mín. |
+|---|---|---|---|
+| `md` | 20 px | 16 px | 44 px |
+| `lg` (hero) | 24 px | 18 px | 48 px |
+
+Deshabilitado / ocupado: `aria-disabled="true"` (no `disabled`, para no perder el foco) + `cursor: not-allowed`/`progress`.
+Botones de icono: 44×44, `aria-label` en italiano, SVG `aria-hidden`.
+
+### 6.2 Card de producto
 
 ```
-┌──────────────────────────────┐
-│ [▣ Digitale]          [-20%] │  ← imagen 3:2, badges superpuestos (fondo opaco)
-│           IMAGEN             │
-├──────────────────────────────┤
-│ VALUTAZIONE COGNITIVA        │  eyebrow, ink-muted
-│ NEURA-Q — Batteria di        │  h3, 2 líneas máx.
-│ valutazione neurocognitiva   │
-│ 👤 di Laura Bettini          │  small, ink-muted, icono
-│ 👥 Età 6–16 anni · 40 min    │  o 📅 Inizio 19 gen 2027 · 24 h
-│ Qualifica B                  │  o 24 crediti ECM · Milano (M9)
-│                              │
-│ 1.250,00 €   1.560,00 €      │  precio final 24/700 + original tachado 14
-│ ┌──────────────────────────┐ │
-│ │  🛒 Aggiungi al carrello │ │  botón primario, ancho completo, 44 px
-│ └──────────────────────────┘ │
-└──────────────────────────────┘
+┌──────────────────────────────────┐
+│ [▣ Cartaceo]                     │  imagen 3:2, fondo primary-subtle mientras carga; badge arriba-izq. (12 px del borde)
+│              FOTO                │
+├──────────────────────────────────┤  cuerpo: padding 20 px
+│ CLINICA E NEUROPSICOLOGIA        │  eyebrow 12 px, ink-muted
+│ NEURA-Q — Batteria di            │  h3 18 px / 600 (8 px debajo)
+│ valutazione neurocognitiva       │
+│ Profilo completo di memoria…     │  descripción 14 px, ink-muted (8 px debajo)
+│                                  │
+│ Autore     Laura Bettini         │  <dl> 2 columnas (16 px de separación), 14 px; dt ink-muted, dd ink 500
+│ Età        18–90 anni            │  cursos: Docente · Inizio (<time>) · Durata (“24 ore · 24 crediti ECM”) · Sede (“Online” o ciudad)
+│ Qualifica  C                     │
+│ Durata     75 min                │
+│ ──────────────────────────────── │  margin-top:auto + 20 px; borde superior `border`; 16 px debajo
+│ 1.062,50 €  1.250,00 €  (−15%)   │  final 24/700 · tachado 14 ink-muted · chip accent-subtle/ink 12/700
+│ IVA inclusa                      │  12 px, ink-muted
+│ ┌──────────────────────────────┐ │  16 px debajo; botón a ancho completo
+│ │ ⓘ Scopri di più              │ │  tests: secondary + icono Info · cursos: primary “Aggiungi al carrello” + ShoppingBag
+│ └──────────────────────────────┘ │
+└──────────────────────────────────┘
 ```
 
-- `<article>` con `aria-labelledby` apuntando al h3. Fondo `surface`, borde 1 px `border`, `radius-lg`, `shadow-card`.
-- Card como columna flex: el bloque de precio + botón usa `mt-auto`, así todas las cards de una fila alinean sus botones.
-- Imagen: `aspect-ratio: 3/2` reservado (CLS 0), `object-fit: cover`, radio superior heredado.
-  `sizes="(min-width:1280px) 384px, (min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"`.
-- Badge de formato: arriba a la izquierda sobre la imagen, pill de 28 px de alto, icono 14 px + texto 12/600, fondo opaco del formato.
-- Chip de descuento (**revisado el 2026-11-04**): va **en el bloque de precio**, no sobre la imagen, para que el ahorro se lea junto al precio (jerarquía final → tachado → “−15%”). Fondo `accent-subtle`, texto `ink`; el texto visual “−15%” lleva `aria-hidden` y un `sr-only` dice “risparmi il 15%”.
-- Metadatos en `<dl>` de dos columnas (dt en `ink-muted`, dd en `ink` 500): tests → Autore · Età · Qualifica · Durata; cursos → Docente · Inizio (`<time>`) · Durata (+ crediti ECM) · Sede.
-- Acción según el tipo (**revisado el 2026-11-04**): tests → “Scopri di più” (secundario, abre el `<dialog>` de ficha con la cualificación necesaria); cursos → “Aggiungi al carrello” (primario). `aria-label` = texto visible + nombre del producto (único y cumple label-in-name).
-- Precio: final en `ink` 24/700 tabular; original en `ink-muted` 14 con `line-through`, dentro de `<s>`
-  más texto `sr-only` (“Prezzo originale”, “Prezzo scontato”). Sin descuento → solo el precio.
-- Formato del precio: `Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' })` → `1.250,00 €` (espacio duro).
+- `<article aria-labelledby="product-{id}-title">`; fondo `surface`, borde 1 px `border`, `radius-lg`, `shadow-card`, `overflow:hidden`.
+  Columna flex de altura completa: precio y botón alineados en toda la fila.
+- Imagen: `aspect-ratio: 3/2`, `object-fit: cover`, `loading="lazy"`,
+  `sizes="(min-width:1280px) 360px, (min-width:1024px) 31vw, (min-width:768px) 46vw, calc(100vw - 2rem)"`.
+- Badge de formato: alto 28 px, padding 10 px, `rounded-full`, borde 1 px (texto al 20 %), icono 14 px + texto 12/600.
+- Precio sin descuento: solo el precio final (`sr-only` “Prezzo:”). Con descuento: `sr-only` “Prezzo scontato:”, “, prezzo originale:”
+  dentro de `<s>`, chip “−15%” `aria-hidden` + `sr-only` “, risparmi il 15%”.
+- Formato del precio: `1.250,00 €` — `Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR', useGrouping:'always'})`.
 - Estados:
-  - **hover** (solo puntero fino, `@media (hover:hover)`): `translateY(-2px)`, `shadow-card-hover`, el borde pasa a `primary` al 40 %, la imagen hace `scale(1.03)` dentro de `overflow:hidden`.
-  - **focus-within**: anillo de 2 px `primary` en el botón y además el borde de la card en `primary` (da contexto de qué card tiene el foco).
-  - **añadido**: el botón pasa ~2 s a “Aggiunto ✓” (icono `Check`), anunciado en una región `aria-live="polite"` global; el contador del header se actualiza.
-- Sin card clicable entera (evita controles anidados); el único control es el botón.
+  - **hover** (solo puntero con hover): `translateY(-2px)`, `shadow-card-hover`, borde `primary/40`, imagen `scale(1.03)`.
+  - **focus-within**: borde de la card `primary` + anillo de foco en el botón.
+  - **añadido** (cursos): durante 2 s el botón muestra icono `Check` + “Aggiunto al carrello” (nombre accesible actualizado).
+- La card no es clicable entera: el único control es el botón. `aria-label` del botón = texto visible + “: ” + nombre del producto.
 
 ### 6.3 Pills de categoría
 
-- `<div role="group" aria-label="Filtra per categoria">` con `<button aria-pressed>`.
-- Alto 44 px, padding 16 px, `radius-full`, Figtree 500 15 px, con un contador opcional entre paréntesis.
-- Inactiva: fondo `surface`, borde `border-strong`, texto `ink`. Hover: fondo `primary-subtle`.
-- Activa: fondo `primary`, texto blanco, borde `primary`, más un icono `Check` (no depende solo del color).
-- **Revisado el 2026-11-04:** < 768 px, una sola fila con scroll horizontal **sin scroll-snap** (auditoría H2: devolvía la pill enfocada fuera de la vista; al enfocar, la pill hace `scrollIntoView` *nearest*) (full-bleed hasta los bordes de la pantalla para que una pill cortada indique que hay más; `py-1` para que el anillo de foco no se recorte; la pill activa se desplaza a la vista). ≥ 768 px hacen wrap.
-- `aria-label` explícito “Formazione 4 prodotti”: contiene el texto visible “Formazione 4” (label-in-name, lo verifica axe).
+- `<div role="group" aria-label="Filtra per categoria">` → `<ul>` → `<button aria-pressed>`.
+- Alto 44 px, padding 16 px, `rounded-full`, borde 1 px, Figtree 500 15 px, separación 8 px.
+- Contenido: [icono `Check` 16 px solo si activa] + etiqueta + contador (pill interna: mín. 24 px de ancho, 12/600, `tabular-nums`, `aria-hidden`).
+- Inactiva: fondo `surface`, borde `border-strong`, texto `ink`; contador sobre `primary-subtle`. Hover: fondo `primary-subtle`.
+- Activa: fondo y borde `primary`, texto blanco; contador sobre `white/20`. Hover: `primary-hover`.
+- `aria-label` explícito “Formazione 4 prodotti” (contiene el texto visible “Formazione 4”).
+- < 768 px: una fila con scroll horizontal, a sangre hasta los bordes de la pantalla (`margin: 0 -16px; padding: 4px 16px`),
+  `scroll-padding-inline: 16px`, **sin scroll-snap**; la pill enfocada o activa se desplaza a la vista. ≥ 768 px: wrap.
+- Contador de resultados (§6.5) a la derecha de las pills en ≥ 768 px, debajo en móvil.
 
-### 6.4 Buscador
+### 6.4 Buscador (header)
 
-- `<search>` (o `role="search"`) + `<label class="sr-only">Cerca nel catalogo</label>` + `input type="search"`.
-- Alto 44 px, icono `Search` a la izquierda, botón `X` para limpiar cuando hay texto.
-- Filtra la grilla en vivo (normalizando acentos y mayúsculas). Al pulsar Enter hace scroll hasta `#catalogo`
-  (no al escribir: un salto de página mientras se teclea desorienta).
+- `<search>` → `<form>` → `<label class="sr-only">Cerca nel catalogo</label>` + `<input type="search" name="q">`.
+- Alto 44 px, `radius-md`, borde `border-strong` (hover `ink`, foco `primary`), padding 40 px a la izquierda (icono `Search` 20 px
+  a 12 px del borde, `ink-muted`) y 44 px a la derecha; placeholder “Cerca test o corsi…” (`ink-muted`).
+- Botón “Cancella la ricerca” (icono `X` 20 px, 44×44) solo con texto. La X nativa de `type=search` se oculta.
+- Ancho: 100 % en < 768; `flex: 1`, máx. 28rem en 768–1023; máx. 20rem en ≥ 1024.
 
-### 6.5 Estado de resultados
+### 6.5 Estado de resultados y estado vacío
 
-- “12 prodotti trovati” / “1 prodotto trovato” / “Nessun prodotto trovato”. El texto visible se actualiza al instante (con `aria-hidden`); una región `role="status" aria-live="polite"` aparte repite el texto con un debounce de 400 ms, para no anunciar cada tecla.
-- Vacío: icono, “Nessun prodotto corrisponde alla ricerca” y botón “Azzera filtri”.
+- Visible (`aria-hidden`), Figtree 600 14 px `ink-muted`: “12 prodotti trovati” · “1 prodotto trovato” · “Nessun prodotto trovato”.
+- Región `role="status" aria-live="polite"` (`sr-only`) con el mismo texto y un debounce de 400 ms.
+- Vacío: caja `surface`, borde 1 px **dashed** `border-strong`, `radius-lg`, padding 48 × 24 px, centrada: círculo 56 px
+  `primary-subtle` con icono `SearchX` 28 px `primary`, h3 20 px/600 “Nessun prodotto trovato”, texto `ink-muted`
+  “Nessun risultato per «…» in …. Prova con un altro termine o mostra di nuovo tutto il catalogo.”, botón primario “Azzera filtri”
+  (icono `RotateCcw`) que restablece todo y lleva el foco a “Tutti”.
 
-### 6.6 Campos de formulario
+### 6.6 Formulario de contacto
 
-- Label visible encima (Noto 500 14 px, `ink`), asterisco con texto `sr-only` “obbligatorio”.
-- Input: alto 44 px (textarea 140 px), borde 1 px `border-strong`, `radius-sm`, fondo `surface`, texto 16 px (evita el zoom en iOS).
-- Error: borde de 2 px en `danger`, mensaje debajo en `danger` 14 px con icono `AlertCircle`, `aria-invalid="true"`, `aria-describedby` hacia el mensaje.
-- Validación (`lib/validators.ts`, pura y testeada; `noValidate` en el form): en el submit; después de un primer error, revalida al cambiar o al salir del campo. Al enviar con errores aparece un resumen `role="alert"` (“Il modulo contiene N errori…”) encima del botón y el foco va al primer campo inválido, que lee su error por `aria-describedby`.
-- Enviando (simulado, 900 ms): el botón muestra spinner + “Invio in corso…” con `aria-disabled` (no `disabled`: así no pierde el foco), los campos pasan a `readOnly` y el doble envío se ignora.
-- Error: el borde pasa a `danger` + `ring-1` (simula 2 px sin cambiar el tamaño de la caja).
-- Éxito: el panel `success-subtle` con `role="status"` sustituye al formulario, con icono `CircleCheck`, el h3 “Grazie! Il tuo messaggio è stato inviato.” enfocado programáticamente y el botón “Invia un altro messaggio” (vuelve al formulario vacío con el foco en Nome).
+- Panel: `surface`, borde `border`, `radius-lg`, `shadow-card`, padding 24 px (32 px ≥ 640).
+- Cabecera: h3 “Scrivici un messaggio” (20/700) + nota 14 px `ink-muted` “I campi contrassegnati con * sono obbligatori.”.
+- Rejilla de campos: separación 20 px; Nome y Email en 2 columnas ≥ 640; Messaggio a ancho completo.
+- **Campo**: label Figtree 600 14 px `ink` + asterisco `danger` (`aria-hidden`) + `sr-only` “(obbligatorio)”; hint opcional 14 px
+  `ink-muted` (4 px debajo); control 6 px debajo.
+- **Control**: alto 44 px (textarea: mín. 144 px, 5 filas, redimensionable en vertical), padding 14 px, `radius-sm`, borde 1 px
+  `border-strong` (hover `ink`, foco `primary` + anillo), texto 16 px, fondo `surface` (`canvas` si es `readOnly`).
+- **Error**: borde `danger` + `ring 1px danger` (equivale a 2 px sin cambiar la caja); mensaje 14 px `danger` 6 px debajo con icono
+  `CircleAlert` 16 px; `aria-invalid="true"` y `aria-describedby` = hint + error.
+- **Resumen de errores**: 20 px encima del botón, `role="alert"`, fondo `danger-subtle`, borde `danger/30`, `radius-md`, padding 12 px,
+  14/500 `danger`.
+- **Botón**: primario “Invia messaggio” (icono `Send`); ancho completo en < 640. Enviando: icono `LoaderCircle` girando + “Invio in corso…”.
+- **Éxito**: sustituye al formulario. Panel `success-subtle`, borde `success/30`, `radius-lg`, padding 24 px (32 px ≥ 640), centrado:
+  `CircleCheck` 48 px `success`, h3 20/700 enfocado, texto `ink`, botón secundario “Invia un altro messaggio”.
 
-### 6.7 Drawer del carrito
+### 6.7 Carrito (botón del header + drawer)
 
-- Solo los cursos se añaden (los tests usan “Scopri di più”). Abre con el botón del header (icono `ShoppingBag` y contador `accent` con texto `ink`, posición absoluta → sin CLS); región `aria-live="polite"` con “N articoli nel carrello” cuando cambia (no al restaurar).
-  El `aria-label` es dinámico: “Carrello, 3 articoli”.
-- `<dialog>` nativo con `showModal()`: trampa de foco, Esc para cerrar, `::backdrop` en `ink` al 50 %. Al cerrar, el foco vuelve al botón.
-- Lateral derecho, ancho `min(26rem, 100vw)`, `shadow-overlay`.
-- Cada línea: miniatura 64 px (`alt=""`, decorativa: el nombre ya está en texto), nombre, formato · fecha, precio unitario, stepper − cantidad + (44 px; “−” con `aria-disabled` en 1), total de línea y “Rimuovi” (`danger`). Al quitar, el foco pasa a la línea siguiente.
-- Vacío: icono, “Il carrello è vuoto” y “Scopri i corsi” (aplica el filtro Formazione).
-- Diálogo controlado por `useModalDialog` (compartido con la ficha de los tests): Esc, clic fuera, trampa de Tab, retorno del foco.
-- Pie: subtotal, “Risparmi X €” en `success`, nota “IVA inclusa” y el botón “Procedi all'ordine”, que solo informa de que es una demo.
-- Persistencia en `localStorage` (clave `giunti-cart`, con versión), `try/catch`, lectura defensiva y sincronización entre pestañas; hidratación protegida (sin mismatch SSR). Dinero en céntimos enteros.
+- **Botón**: icono `ShoppingBag` 24 px en botón de 44×44; contador absoluto arriba-derecha (alto 20 px, mín. 20 px de ancho, fondo
+  `accent`, texto `ink` 12/700) solo con artículos (“99+” por encima de 99). `aria-label` “Apri il carrello, N articoli nel carrello”,
+  `aria-haspopup="dialog"`. Región `aria-live="polite"` contigua: “N articoli nel carrello” cuando cambia (no al restaurar).
+- **Drawer**: `<dialog>` modal anclado a la derecha, ancho `min(26rem, 100vw)`, alto `100dvh`, `surface`, `shadow-overlay`,
+  `::backdrop` = `backdrop`; columna flex:
+  - Cabecera (padding 12 × 20 px, borde inferior): h2 “Il tuo carrello” (20/700) + “(N)” 16 px `ink-muted`; botón “Chiudi il carrello” 44×44.
+  - Lista (scroll propio, separadores `border`): por línea, miniatura 64×64 `radius-md` (`alt=""`), nombre 14/600, “Formato · 10 apr 2027”
+    12 px `ink-muted`, “382,50 € / cad.” 14 px, stepper (−, cantidad en `<output>`, +; botones 44×44, borde `border-strong`) + total de
+    línea (Figtree 700, derecha), “Rimuovi” (icono `Trash2`, 14/500 `danger`, hover `danger-subtle`, alto 44 px).
+  - Pie (padding 20 px, borde superior): `dl` “Subtotale” (Figtree 600) / importe 24/700; “Risparmi” / “−X €” en `success` 14 px;
+    nota 12 px “IVA inclusa…”; botón primario a ancho completo “Procedi all’ordine” (solo visual, `aria-describedby` →
+    “Demo: l’ordine non viene inviato.”); botón ghost `danger` “Svuota il carrello”.
+  - Vacío: centrado, círculo 64 px `primary-subtle` con `ShoppingBag` 32 px, “Il carrello è vuoto” (Figtree 600 18 px), texto 14 px,
+    botón primario “Scopri i corsi” (aplica el filtro Formazione).
+- Solo los **cursos** se añaden; los tests (“Scopri di più”) no.
 
 ### 6.8 Header
 
-- Sticky **solo si el viewport mide ≥ 30rem de alto** (auditoría H4: con zoom 400 % ocuparía media pantalla), fondo `surface`, borde inferior `border`; alto 64 px (72 ≥1024).
-- Logo: monograma SVG (cuadrado `primary` con una “G”) + “Giunti Psychometrics” (Figtree 700).
-- ≥1024: logo · nav (Test, Formazione, Risorse, Contatti) · buscador · Accedi · carrito.
-- <1024: logo · carrito · hamburguesa; el buscador ocupa una segunda fila a ancho completo.
-- Menú móvil: panel desplegable bajo el header, `aria-expanded`/`aria-controls`, Esc para cerrar, enlaces de 48 px.
+- `surface`, borde inferior `border`, `z-index: 40`; **sticky solo si el viewport mide ≥ 30rem de alto**.
+- Alturas fijas: 64 px (< 1024) / 72 px (≥ 1024); en < 768 se añade la fila del buscador (44 px + 12 px) → 120 px en total.
+  `scroll-padding-top` = alto del header + 16 px (solo cuando es sticky).
+- Logo: monograma SVG 32 px (cuadrado `radius 7/32` `primary`, “G” en trazo blanco, punto `accent`) + “Giunti” (Figtree 700 18 px
+  `ink`) “Psychometrics” (600, `primary`). Variante `on-dark` (footer): cuadrado blanco, “G” `primary`, texto blanco / `primary-subtle`.
+- Nav (≥ 1024): enlaces Figtree 500 16 px `ink`, padding 12 px, alto 44 px, `radius-md`; hover `primary-subtle` + texto `primary`.
+- “Accedi”: botón secundario con icono `UserRound`, visible ≥ 768 (en móvil, dentro del menú).
+- **Menú móvil** (< 1024): botón `Menu`/`X` 44×44 (`aria-expanded`, `aria-controls`, “Apri il menu” / “Chiudi il menu”). Panel bajo el
+  header a ancho completo (`surface`, borde inferior, `shadow-overlay`) + fondo `backdrop` hasta abajo; enlaces Figtree 500 18 px,
+  alto 48 px; separador y “Accedi” a ancho completo en < 768. Esc cierra, foco atrapado, la página no hace scroll.
 
 ### 6.9 Hero
 
-- Fondo: `linear-gradient(135deg, ink 0%, primary 100%)`, más un brillo radial `accent` al 25 % (decorativo) y un patrón SVG sutil de puntos. Texto blanco.
-- Contenido: eyebrow “Catalogo 2026/27”, h1, lead, CTA “Esplora il catalogo” (on-dark) y un enlace secundario “Scopri la formazione”.
-- A la derecha (≥1024), ilustración SVG inline decorativa (`aria-hidden`).
-- **El LCP es el h1 (texto)**, no una imagen: no se usa una foto de hero. Ver ASSUMPTIONS sobre `priority`.
+- `.on-dark`, texto blanco. Fondo (`.hero-surface`, capas de arriba abajo):
+  1. `radial-gradient(circle at 85% 15%, accent 35 % → transparent 45 %)` — brillo decorativo;
+  2. `radial-gradient(white 9 % 1px, transparent 1px)` en mosaico de 22 px — patrón de puntos;
+  3. `linear-gradient(135deg, ink 0 %, primary 100 %)`.
+- Rejilla: 1 columna; ≥ 1024 dos (1,1fr / 1fr), gap 48 px, alineación vertical centrada.
+- Contenido (máx. 42rem): eyebrow “CATALOGO 2026/27” (`accent-subtle`) → 12 px → h1 → 20 px → lead (`primary-subtle`, máx. 60ch) → 32 px →
+  CTAs (`on-dark` lg “Esplora il catalogo” + `ArrowDown`; `on-dark-outline` lg “Scopri la formazione” + `ArrowRight`, que aplica el
+  filtro Formazione), separación 12 px, apilados a ancho completo en < 640 → 40 px → `dl` de 3 columnas (máx. 32rem, borde superior
+  `white/20`, 24 px de padding): cifra 30/700 encima, etiqueta 14 px `primary-subtle` debajo (orden DOM `dt`, `dd`).
+- Ilustración (solo ≥ 1024, `aria-hidden`, máx. 32rem): tarjeta blanca con histograma de 13 barras `primary-subtle` (una en `accent`),
+  curva normal en trazo `primary` de 3 px, línea discontinua `ink-muted`; tarjetas flotantes “Percentile 84°” y “Report pronto” (check `success`).
+- **El LCP es texto** (h1 en escritorio, lead en móvil): no hay foto en el hero.
 
-### 6.10 Franja de confianza (añadida el 2026-11-04)
+### 6.10 Franja de confianza
 
-- Banda `surface` con bordes `border`, entre el catálogo y Contatti; h2 `sr-only` “Perché sceglierci”.
-- 4 ítems (1 → 2 → 4 columnas): icono lucide de 24 px en un círculo `primary-subtle` (`aria-hidden`) + h3 (Figtree 600, 16 px) + texto `ink-muted` 14 px.
+- Banda `surface` a ancho completo con bordes superior e inferior `border`, entre el catálogo y Contatti; h2 `sr-only` “Perché sceglierci”.
+- `<ul>` en el contenedor, padding vertical 40 px; 1 / 2 (≥ 640) / 4 (≥ 1024) columnas; separación 24 px × 32 px.
+- Ítem: círculo 48 px `primary-subtle` con icono 24 px `primary` (trazo 1,75; `aria-hidden`) + h3 Figtree 600 16 px + texto 14 px `ink-muted`.
+- Iconos: `Truck` (Spedizione gratuita), `ShieldCheck` (Pagamenti sicuri), `BadgeCheck` (Test validati), `Headset` (Centro assistenza).
 
-### 6.11 Footer
+### 6.11 Contatti (sección)
 
-- Fondo `ink`, texto blanco y enlaces blancos con subrayado en hover (13.84:1).
-- 4 columnas en ≥1024 (marca + descripción + redes, **Esplora, Azienda, Assistenza**), 2 en tablet y 1 en móvil. Cada columna es un `<nav>` etiquetado por su título. Enlaces `primary-subtle` → blanco en hover, objetivo de 44 px.
-- Redes: iconos SVG placeholder (LinkedIn, Facebook, YouTube, Instagram) de 44 px con `aria-label`.
-- Redes: círculo de 44 px con borde blanco al **50 %** (4,59 : 1, auditoría H3); `target="_blank" rel="noopener noreferrer"`, `aria-label` “… su LinkedIn (si apre in una nuova scheda)”; glifos SVG propios (lucide 1.x ya no incluye marcas).
-- Barra inferior: “© {año} Giunti Psychometrics S.r.l. — progetto dimostrativo.” + aviso de datos ficticios; Privacy · Cookie · Termini; “Torna su” (`#main`). El año sale de un componente con `'use cache'` + `cacheLife('days')`: la página sigue siendo estática.
+- Rejilla 1 col; ≥ 1024 2 columnas (2fr / 3fr), separación 64 px (40 px en móvil).
+- Columna izquierda: eyebrow “CONTATTI” (`accent-strong`), h2, lead `ink-muted`, lista de canales (separación 16 px): círculo 44 px
+  `primary-subtle` con icono 20 px (`Mail`, `Phone`, `Clock`) + etiqueta 14 px `ink-muted` + valor (enlace `primary` subrayado
+  `primary/40`, alto 44 px; o texto `ink` 500).
+- Columna derecha: panel del formulario (§6.6).
+
+### 6.12 Diálogo de ficha (tests)
+
+- `<dialog>` modal centrado, ancho `min(40rem, 100vw − 2rem)`, alto máx. `100dvh − 2rem` (scroll interno), `radius-lg`, `shadow-overlay`.
+- Botón “Chiudi” (círculo blanco 44 px con `shadow-card`, arriba-derecha a 12 px) **primero en el DOM** (recibe el foco inicial).
+- Imagen 16:7 con badge de formato; cuerpo con padding 24 px: eyebrow, h2 24/700, descripción `ink-muted`, `dl` (Autore, Età,
+  Somministrazione, Formato; 14 px, separación 24 × 8 px), aviso de cualificación (fondo `primary-subtle`, borde `primary/30`, `radius-md`,
+  padding 16 px: “Qualifica X” Figtree 600 + descripción), pie con borde superior: precio + “IVA inclusa · acquisto previa verifica della
+  qualifica” y botón primario “Richiedi informazioni” (`Mail`) → `#contatti`.
+
+### 6.13 Footer
+
+- `.on-dark`, fondo `ink`, texto blanco.
+- Rejilla (padding 56 px): 1 col → 2 col (≥ 640, la marca ocupa toda la fila) → 4 col (≥ 1024: 1,4fr 1fr 1fr 1fr), separación 40 / 48 px.
+- Marca: logo `on-dark`, texto 14 px `primary-subtle` (máx. 24rem), redes (separación 8 px): círculos 44 px con borde `white/50`
+  (hover borde blanco + `white/10`), glifos SVG propios de 20 px.
+- Columnas (`<nav aria-labelledby>`): título h2 14 px Figtree 600 mayúsculas tracking 0,06em blanco; enlaces 14 px `primary-subtle`
+  (hover blanco + subrayado), alto 44 px.
+- Barra inferior (borde superior `white/15`, padding 24 px, 14 px `primary-subtle`): “© {año} Giunti Psychometrics S.r.l. — progetto
+  dimostrativo.” + aviso de datos ficticios; a la derecha Privacy · Cookie · Termini di vendita (separación 20 px) y “Torna su” (blanco 500
+  + `ArrowUp`, → `#main`). En < 768 se apila.
+
+### 6.14 Skip link y 404
+
+- Skip link “Vai al contenuto principale”: `fixed` arriba-izquierda (8 px), fondo `primary`, texto blanco Figtree 600, padding 12 × 16 px,
+  `radius-md`, `shadow-overlay`; oculto con `translateY(-6rem)` y visible con `:focus-visible`.
+- 404 (“Questa pagina non fa parte della demo”): eyebrow “ERRORE 404”, h1 en escala h2, lead, botón primario “Torna alla home”;
+  centrado, padding 96 px.
 
 ## 7. Iconos
 
-`lucide-react`, importados de uno en uno: Search, X, Menu, ShoppingBag, Plus, Minus, Trash2, Check,
-BookOpen, MonitorSmartphone, PlayCircle, MapPin, User, Users, Calendar, AlertCircle, CheckCircle2, ArrowRight, Mail, Phone.
-Redes sociales: SVG inline propios (lucide ya no incluye marcas). Tamaño 16/20/24, stroke 2. Sin emojis.
+`lucide-react` 1.67.0 (trazo 2 salvo indicación; tamaños 14 / 16 / 20 / 24 / 28 / 32 / 48 px; siempre `aria-hidden`):
+Search, X, Menu, UserRound, ShoppingBag, ArrowDown, ArrowRight, ArrowUp, Check, Info, BookOpen, MonitorSmartphone, CirclePlay,
+MapPin, SearchX, RotateCcw, Mail, Phone, Clock, Send, LoaderCircle, CircleAlert, CircleCheck, Truck, ShieldCheck, BadgeCheck,
+Headset, Plus, Minus, Trash2.
+Redes sociales (LinkedIn, Instagram, YouTube, Facebook): glifos SVG propios en estilo lucide (lucide 1.x no incluye marcas).
 
 ## 8. Imágenes
 
-Fotos remotas de Unsplash (recorte 1200×800, ver `src/lib/unsplash.ts`) servidas por el optimizador de `next/image`
-(AVIF/WebP, `lazy` por defecto), con créditos en `docs/CREDITS.md`. El alt describe la escena; nunca “immagine di…”.
+Fotos de Unsplash (`images.unsplash.com/photo-{id}?fm=jpg&fit=crop&w=1200&h=800&q=80`), servidas por `next/image` en AVIF/WebP con
+`loading="lazy"`; ninguna lleva `preload`. Créditos en [`CREDITS.md`](CREDITS.md). El `alt` describe la escena en italiano
+(nunca “immagine di…”); las miniaturas del carrito son decorativas (`alt=""`).
 
 ## 9. Accesibilidad (resumen operativo)
 
-`lang="it"`, skip link “Vai al contenuto principale” (visible al recibir el foco), landmarks
-`header/nav/main/footer`, un solo h1, jerarquía h2 → h3, objetivos ≥ 44 px, `aria-live` para
-resultados, carrito y errores, `prefers-reduced-motion`. El contenido no depende del hover.
+`lang="it"`; skip link; landmarks `header` / `nav` / `search` / `main` / `section` con nombre / `footer` (3 `nav` etiquetados); un solo h1
+sin saltos de nivel; objetivos ≥ 44 px; foco visible y nunca tapado; `aria-live` en contador de resultados, contador del carrito y estados
+del formulario; `role="alert"` en el resumen de errores; diálogos modales con trampa de foco, Esc y retorno del foco;
+`prefers-reduced-motion`; reflow sin pérdida a 400 %. Detalle y evidencias: [`AUDIT.md`](AUDIT.md).
 
 ## 10. Paridad con version-b
 
-- Tokens en `version-a/src/styles/tokens.css` (bloque `@theme` de Tailwind 4). version-b usa una copia
-  idéntica del archivo, y la igualdad se comprueba comparando los dos (ver ASSUMPTIONS A5).
-- Mismas fuentes (Figtree y Noto Sans, variables, subset latin), mismas URLs de imagen y mismos datos
-  (generados a partir de `version-a/src/data/products.ts`).
-- Mismas clases de Tailwind en el markup siempre que sea posible.
+- Tokens: copia idéntica de `version-a/src/styles/tokens.css` (Tailwind 4 `@theme`) o, si version-b no usa Tailwind, las variables CSS
+  de [`HANDOFF-LARAVEL.md`](HANDOFF-LARAVEL.md) §1.
+- Mismas fuentes (Figtree y Noto Sans variables, subset latin), mismas URLs de imagen y mismos datos: `docs/handoff/products.json` y
+  `docs/handoff/content.json`, generados desde el código TS (`npm run export:handoff`; un test falla si se desincronizan).
+- Referencia de píxel: capturas en [`screenshots/version-a/`](screenshots/version-a).
