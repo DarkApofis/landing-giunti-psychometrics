@@ -3,11 +3,11 @@
 **Fecha:** 2026-11-04 · **Herramienta:** [`tools/parity`](../tools/parity) (Playwright 1.64.1 + pixelmatch 8) ·
 **Datos crudos:** [`parity/results.json`](parity/results.json) (píxeles), [`parity/computed.json`](parity/computed.json) (valores computados).
 
-**Conclusión:** en las 39 comparaciones (13 vistas × 3 anchos) la diferencia máxima es **0,13 %** de píxeles y la media
-**0,03 %**, muy por debajo del objetivo orientativo de 1,5 %. Las 39 capturas tienen **exactamente el mismo tamaño** en A y B
+**Conclusión:** en las 39 comparaciones (13 vistas × 3 anchos) la diferencia máxima es **0,09 %** de píxeles y la media
+**0,02 %**, muy por debajo del objetivo orientativo de 1,5 %. Las 39 capturas tienen **exactamente el mismo tamaño** en A y B
 (por ejemplo, la página completa mide 375×12412, 768×7471 y 1280×5335 en las dos). Con las fotos enmascaradas, todas las vistas
-quedan en ≤ 0,04 %, salvo el drawer con artículos (0,05–0,13 %), cuya única causa es un defecto de **A** (§4.1).
-De 1014 valores computados comparados, quedan 3 diferencias, las tres de notación sin efecto visual (§3).
+quedan en ≤ 0,04 %. De 1014 valores computados comparados, quedan 3 diferencias, las tres de notación sin efecto visual (§3).
+La medición encontró un defecto real, que estaba en **A** y se corrigió (§4.1): el carrito con artículos pasó de 0,13 % a 0,00 %.
 
 ---
 
@@ -63,13 +63,13 @@ Un píxel de diferencia se detecta y se nota en el tamaño de la captura: la par
 | Catálogo — sin resultados | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
 | Diálogo de ficha (NEURA-Q) | 0,05 % | 0,07 % | 0,06 % | 0,01 % | 0,00 % | 0,00 % | sí |
 | Carrito vacío | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
-| Carrito con artículos | 0,13 % | 0,05 % | 0,04 % | 0,13 % | 0,05 % | 0,04 % | sí |
+| Carrito con artículos | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
 | Formulario vacío | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
 | Formulario con errores | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
 | Formulario — éxito | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | 0,00 % | sí |
 | Footer | 0,01 % | 0,01 % | 0,01 % | 0,01 % | 0,01 % | 0,01 % | sí |
 
-**Máximo 0,13 % · media 0,03 % · 39 comparaciones · objetivo < 1,50 %: cumplido en todas.**
+**Máximo 0,09 % · media 0,02 % · 39 comparaciones · objetivo < 1,50 %: cumplido en todas.**
 («0,00 %» significa menos de 0,005 %: unas decenas de píxeles de antialiasing como mucho.)
 
 ## 3. Valores computados
@@ -104,17 +104,26 @@ Coinciden exactamente, entre otros (valores medidos en A y en B, 375 / 768 / 128
 
 ## 4. Diferencias restantes, una por una
 
-### 4.1 «Svuota il carrello»: defecto de version-a, no de B (drawer con artículos, 0,04–0,13 %)
+### 4.1 «Svuota il carrello»: defecto de version-a, corregido (drawer con artículos: 0,13 % → 0,00 %)
 
-![Drawer con artículos a 375: A | B | diferencia](parity/cart-items-375.png)
+![Drawer con artículos a 375 tras la corrección: A | B | diferencia](parity/cart-items-375.png)
 
-En A el texto y el icono salen en **`ink`** (`rgb(15, 45, 82)`); en B, en **`danger`** (`rgb(180, 35, 24)`).
-DESIGN-SPEC §6.7 y HANDOFF §4.4 especifican un botón *ghost* **danger** (`btn--ghost btn--danger-text`), así que **B sigue el
-contrato y A no**. Causa en A: `CartDrawer.tsx` pasa `className="… text-danger"` a un `<Button variant="ghost">` cuya variante ya
-lleva `text-ink`; sin fusión de clases, gana la que aparece después en el CSS generado (`text-ink`), justo el riesgo que advierte
-el comentario de `Button.tsx`. Es el único caso de este tipo en A (revisados todos los `className` pasados a `Button`/`buttonClasses`).
+La primera medición dio 0,04–0,13 % en el drawer con artículos, con las fotos enmascaradas: en A el texto y el icono de
+«Svuota il carrello» salían en **`ink`** (`rgb(15, 45, 82)`) y en B en **`danger`** (`rgb(180, 35, 24)`). DESIGN-SPEC §6.7 y
+HANDOFF §4.4 especifican un botón *ghost* **danger**, así que **B seguía el contrato y A no**. Causa en A: `CartDrawer.tsx`
+pasaba `className="… text-danger"` a un `<Button variant="ghost">` cuya variante ya lleva `text-ink`; sin fusión de clases ganaba
+la que aparece después en el CSS generado (`text-ink`), el riesgo que advierte el comentario de `Button.tsx`. Era el único caso de
+este tipo en A (revisados todos los `className` pasados a `Button`/`buttonClasses`).
 
-**No se ha tocado A** (regla del proyecto: avisar antes). Corregirlo en A es un cambio de una línea; con él esta vista quedaría en ~0 %.
+**Corrección en A** (consultada antes, regla del proyecto): nueva variante `ghost-danger` en `Button.tsx`
+(`text-danger hover:bg-primary-subtle`) usada en `CartDrawer.tsx`, sin `className` de color que compita, y una prueba de regresión
+en `e2e/cart.spec.ts` que comprueba el color computado. Verificación de A: `npm run verify` (lint, tipos, tokens, 141 tests, build)
+y las 78 pruebas e2e en verde; se regeneraron sus capturas de referencia `32-cart-items-{375,1280}` (cambian 393–394 px: el botón).
+
+| Carrito con artículos | 375 | 768 | 1280 |
+|---|---|---|---|
+| Antes (sin fotos) | 0,13 % | 0,05 % | 0,04 % |
+| Después (sin fotos) | **0,00 %** | **0,00 %** | **0,00 %** |
 
 ### 4.2 Fotos (catálogo, diálogo, página completa: 0,04–0,09 %)
 
@@ -141,11 +150,12 @@ nodos de texto de React; se deja documentado.
 Antialiasing de texto y de iconos SVG en bordes de subpíxel. pixelmatch ya ignora el antialiasing que detecta; lo que queda son
 píxeles sueltos (footer: 35–66 px de 0,5–1,7 millones).
 
-## 5. Correcciones aplicadas en B
+## 5. Correcciones aplicadas
 
-| Corrección | Antes | Después | Evidencia |
-|---|---|---|---|
-| `--radius-full` = `calc(infinity * 1px)` (el `rounded-full` de Tailwind 4) en vez de `9999px` | 9 diferencias computadas (`border-radius` de pills y badges: 33554400px frente a 9999px) | 3 | `out/before/computed.json` → `out/after/computed.json`; píxeles sin cambios (ambos ya eran píldoras) |
+| Dónde | Corrección | Antes | Después | Evidencia |
+|---|---|---|---|---|
+| B | `--radius-full` = `calc(infinity * 1px)` (el `rounded-full` de Tailwind 4) en vez de `9999px` | 9 diferencias computadas (`border-radius` de pills y badges: 33554400px frente a 9999px) | 3 | `out/before/computed.json` → `out/after/computed.json`; píxeles sin cambios (ambos ya eran píldoras) |
+| A | «Svuota il carrello» en `danger` mediante la variante `ghost-danger` (§4.1) | 0,13 / 0,05 / 0,04 % | 0,00 / 0,00 / 0,00 % | `out/before/results.json` → `out/after/results.json`; prueba de regresión en `version-a/e2e/cart.spec.ts` |
 
 No se encontraron defectos de maquetación, tipografía, alturas, radios, sombras ni estados en B: la paridad ya venía de los bloques
 anteriores, donde cada sección se comparó con las capturas de A antes de cerrarse (y allí sí se corrigieron diferencias:
