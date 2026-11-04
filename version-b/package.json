@@ -8,7 +8,8 @@
     "dev": "concurrently --kill-others --names gulp,php --prefix-colors cyan,magenta \"gulp dev\" \"php artisan serve\"",
     "build": "gulp build",
     "clean": "gulp clean",
-    "sync:handoff": "node scripts/sync-handoff.mjs"
+    "sync:handoff": "node scripts/sync-handoff.mjs",
+    "check:tokens": "node scripts/check-tokens.mjs"
   },
   "browserslist": [
     "chrome >= 111",

@@ -1,0 +1,17 @@
+// Entry point. Layer order: settings -> base -> layout -> components -> utilities (docs/PLAN-B.md §1).
+// Settings emit nothing but :root; partials are prefixed with "_" and only make sense imported from here.
+// House style for Stylus in this project: braces and semicolons, always (docs/PLAN-B.md §3.8).
+
+@import 'settings/_tokens';
+@import 'settings/_breakpoints';
+
+@import 'base/_preflight';
+@import 'base/_fonts';
+@import 'base/_base';
+
+@import 'layout/_container';
+
+@import 'components/_skip-link';
+@import 'components/_button';
+
+@import 'utilities/_utilities';

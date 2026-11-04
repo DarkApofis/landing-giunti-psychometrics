@@ -1,0 +1,71 @@
+// Utilities: last in the cascade, one purpose each. Typography values from DESIGN-SPEC §2.
+
+// Visually hidden but still announced by screen readers (same declarations as Tailwind's sr-only).
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Dark surface context (hero, footer): white text; the focus ring turns white (base layer).
+.on-dark {
+  color: var(--color-white);
+}
+
+// Eyebrow: Figtree 600, 12 / 14.4 px, uppercase, tracking 0.06em. Default colour: accent-strong
+// (section eyebrows such as "CATALOGO"); --on-dark for the hero, --muted for cards and dialogs.
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow-line-height);
+  font-weight: 600;
+  letter-spacing: var(--text-eyebrow-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+
+  &--on-dark {
+    color: var(--color-accent-subtle);
+  }
+
+  &--muted {
+    color: var(--color-ink-muted);
+  }
+}
+
+// Titles carry their own family, so they look the same whatever element they are applied to.
+
+// Display title (hero h1): fluid 32 → 52 px, line height 1.1, tracking −0.02em, bold.
+.display-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--text-display-line-height);
+  letter-spacing: var(--text-display-letter-spacing);
+  font-weight: 700;
+}
+
+// Section title (h2 of Catalogo / Contatti, h1 of the 404): fluid 28 → 36 px, line height 1.2, tracking −0.01em.
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--text-h2-line-height);
+  letter-spacing: var(--text-h2-letter-spacing);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+// Lead paragraph: 18 / 28 px. Default ink-muted (section intros); --on-dark for the hero.
+.lead {
+  font-size: 1.125rem;
+  line-height: unquote('calc(1.75 / 1.125)');  // 28px at 18px, as Tailwind's text-lg
+  color: var(--color-ink-muted);
+
+  &--on-dark {
+    color: var(--color-primary-subtle);
+  }
+}

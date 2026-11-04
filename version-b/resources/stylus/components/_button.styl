@@ -1,0 +1,115 @@
+// Button (DESIGN-SPEC §6.1). Mirrors version-a/src/components/ui/Button.tsx:
+// inline-flex, min 44px target, Figtree 600, radius-md, colour-only transitions (150 ms ease-out).
+//
+//   .btn                       base + md size (padding 20px, 16px text)
+//   .btn--primary · --secondary · --ghost · --on-dark · --on-dark-outline   variants
+//   .btn--lg                   48px min height, padding 24px, 18px text (hero CTAs)
+//   .btn--block                full width
+//   .btn--danger-text          danger text colour (e.g. "Svuota il carrello" on a ghost button)
+//
+// Busy / disabled controls use aria-disabled="true" (not the disabled attribute) so they keep focus.
+
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-md);
+  padding-inline: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-fast);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // ── Variants ──────────────────────────────────────────────────────────────
+  &--primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    +hover() {
+      background-color: var(--color-primary-hover);
+    }
+
+    &:active {
+      background-color: var(--color-primary-active);
+    }
+  }
+
+  &--secondary {
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+
+    +hover() {
+      background-color: var(--color-primary-subtle);
+    }
+
+    &:active {
+      border-color: var(--color-primary-active);
+    }
+  }
+
+  &--ghost {
+    color: var(--color-ink);
+
+    +hover() {
+      background-color: var(--color-primary-subtle);
+    }
+  }
+
+  &--on-dark {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+
+    +hover() {
+      background-color: var(--color-canvas);
+    }
+
+    &:active {
+      background-color: var(--color-primary-subtle);
+    }
+  }
+
+  &--on-dark-outline {
+    border: 1px solid var(--color-white-a60);
+    color: var(--color-white);
+
+    +hover() {
+      border-color: var(--color-white);
+      background-color: var(--color-white-a10);
+    }
+  }
+
+  // ── Sizes and modifiers ───────────────────────────────────────────────────
+  &--lg {
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    font-size: 1.125rem;
+    line-height: unquote('calc(1.75 / 1.125)');  // Tailwind text-lg: 28px at 18px
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &--danger-text {
+    color: var(--color-danger);
+  }
+
+  // Icons inside buttons never shrink.
+  svg {
+    flex-shrink: 0;
+  }
+}

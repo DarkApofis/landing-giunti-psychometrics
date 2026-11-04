@@ -1,0 +1,62 @@
+// Breakpoints (docs/HANDOFF-LARAVEL.md §2): mobile-first, min-width, the same values as version-a.
+// Stylus variables, not CSS custom properties: var() is not allowed inside @media.
+$bp-sm = 40rem;     // 640px
+$bp-md = 48rem;     // 768px
+$bp-lg = 64rem;     // 1024px
+$bp-xl = 80rem;     // 1280px
+$bp-tall = 30rem;   // min-height for the sticky header (docs/AUDIT.md H4)
+
+// Block mixins, used as `+sm() { … }`.
+sm() {
+  @media (min-width: $bp-sm) {
+    {block};
+  }
+}
+
+md() {
+  @media (min-width: $bp-md) {
+    {block};
+  }
+}
+
+lg() {
+  @media (min-width: $bp-lg) {
+    {block};
+  }
+}
+
+xl() {
+  @media (min-width: $bp-xl) {
+    {block};
+  }
+}
+
+// Only when the viewport is at least 30rem tall (not at 400 % zoom or on landscape phones).
+tall() {
+  @media (min-height: $bp-tall) {
+    {block};
+  }
+}
+
+// Combined: tall enough AND at least $min wide.
+tall-from($min) {
+  @media (min-height: $bp-tall) and (min-width: $min) {
+    {block};
+  }
+}
+
+// Hover styles only for devices that really hover (Tailwind 4's `hover:` behaves the same way).
+hover() {
+  @media (hover: hover) {
+    &:hover {
+      {block};
+    }
+  }
+}
+
+// Motion only when the user has not asked to reduce it (Tailwind's `motion-safe:`).
+motion-safe() {
+  @media (prefers-reduced-motion: no-preference) {
+    {block};
+  }
+}

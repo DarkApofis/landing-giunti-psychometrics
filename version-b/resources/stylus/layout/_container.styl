@@ -1,0 +1,16 @@
+// Page container (DESIGN-SPEC §3): max 75rem, centred, side gutters 16 / 24 (≥ 768) / 32 px (≥ 1280).
+// Same declarations as version-a's `container-page` utility.
+.container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-page);
+  padding-inline: 1rem;
+
+  +md() {
+    padding-inline: 1.5rem;
+  }
+
+  +xl() {
+    padding-inline: 2rem;
+  }
+}
