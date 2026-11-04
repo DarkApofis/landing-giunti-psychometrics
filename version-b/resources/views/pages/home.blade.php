@@ -1,12 +1,9 @@
 {{--
-  Home page. Scaffold stage: only the hero heading, to exercise the whole pipeline (layout, data,
-  hashed CSS/JS, fonts). The sections of HANDOFF §3 replace it in phase 4 of docs/PLAN-B.md.
+  Home page. Sections inside <main>, in the order of HANDOFF §3:
+  hero → catalogue → trust strip → contact. The last three arrive in the next blocks of docs/PLAN-B.md.
 --}}
 @extends('layouts.app')
 
 @section('content')
-    <section aria-labelledby="hero-title">
-        <h1 id="hero-title">{{ $hero['title'] }}</h1>
-        <p>{{ $hero['lead'] }}</p>
-    </section>
+    @include('partials.hero')
 @endsection

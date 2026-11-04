@@ -1,0 +1,100 @@
+// Hero (DESIGN-SPEC §6.9). Mirrors version-a/src/components/sections/Hero.tsx and the `hero-surface`
+// utility of its globals.css. Text contrast was measured against the lightest pixel (docs/AUDIT.md §3.2).
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--color-white);
+  // Background layers, top to bottom: accent glow (top right), 22px dot pattern, ink → primary gradient.
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(circle at 85% 15%, var(--color-accent-a35) 0, transparent 45%),
+    radial-gradient(var(--color-white-a9) 1px, transparent 1px),
+    linear-gradient(135deg, var(--color-ink) 0%, var(--color-primary) 100%);
+  background-size: auto, 22px 22px, auto;
+
+  &__inner {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+    padding-block: 4rem;
+
+    +md() {
+      padding-block: 5rem;
+    }
+
+    +lg() {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      padding-block: 6rem;
+    }
+  }
+
+  &__content {
+    max-width: 42rem;
+  }
+
+  &__title {
+    margin-top: 0.75rem;
+  }
+
+  &__lead {
+    margin-top: 1.25rem;
+    max-width: 60ch;
+  }
+
+  &__ctas {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    +sm() {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  // Key figures: number above, label below (DOM order dt, dd; column-reverse for the visual order).
+  &__stats {
+    margin-top: 2.5rem;
+    display: grid;
+    max-width: 32rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    border-top: 1px solid var(--color-white-a20);
+    padding-top: 1.5rem;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.25rem;
+  }
+
+  &__stat-label {
+    font-size: 0.875rem;
+    line-height: 1.375;
+    color: var(--color-primary-subtle);
+  }
+
+  &__stat-value {
+    font-family: var(--font-display);
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Decorative illustration, only from 1024px.
+  &__illustration {
+    display: none;
+    margin-inline: auto;
+    height: auto;
+    width: 100%;
+    max-width: 32rem;
+
+    +lg() {
+      display: block;
+    }
+  }
+}
