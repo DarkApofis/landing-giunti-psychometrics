@@ -1,0 +1,326 @@
+{
+  "site": {
+    "name": "Giunti Psychometrics",
+    "legalName": "Giunti Psychometrics S.r.l.",
+    "title": "Giunti Psychometrics — Test psicologici e formazione per professionisti",
+    "description": "Catalogo di test psicologici, strumenti di valutazione e corsi di formazione per psicologi, neuropsichiatri, insegnanti e professionisti delle risorse umane.",
+    "locale": "it_IT",
+    "themeColor": "#1b4f8a"
+  },
+  "categories": [
+    {
+      "id": "clinica-neuropsicologia",
+      "label": "Clinica e Neuropsicologia"
+    },
+    {
+      "id": "scuola-eta-evolutiva",
+      "label": "Scuola ed Età evolutiva"
+    },
+    {
+      "id": "lavoro-organizzazioni",
+      "label": "Lavoro e Organizzazioni"
+    },
+    {
+      "id": "formazione",
+      "label": "Formazione"
+    }
+  ],
+  "allCategoriesLabel": "Tutti",
+  "qualifications": {
+    "A": {
+      "label": "Qualifica A",
+      "description": "Utilizzabile da insegnanti, educatori e professionisti HR formati all’uso dello strumento."
+    },
+    "B": {
+      "label": "Qualifica B",
+      "description": "Riservato a laureati in psicologia, medicina o scienze dell’educazione con formazione in psicometria."
+    },
+    "C": {
+      "label": "Qualifica C",
+      "description": "Riservato a psicologi e medici abilitati all’esercizio della professione."
+    }
+  },
+  "sectionIds": {
+    "main": "main",
+    "catalog": "catalogo",
+    "contact": "contatti",
+    "resources": "risorse"
+  },
+  "mainNav": [
+    {
+      "label": "Test",
+      "href": "#catalogo",
+      "category": "tutti"
+    },
+    {
+      "label": "Formazione",
+      "href": "#catalogo",
+      "category": "formazione"
+    },
+    {
+      "label": "Risorse",
+      "href": "#risorse"
+    },
+    {
+      "label": "Contatti",
+      "href": "#contatti"
+    }
+  ],
+  "hero": {
+    "eyebrow": "Catalogo 2026/27",
+    "title": "Test psicologici e formazione per chi lavora con le persone",
+    "lead": "Strumenti di valutazione standardizzati, questionari digitali e corsi accreditati ECM per psicologi, neuropsichiatri, insegnanti e professionisti delle risorse umane.",
+    "primaryCta": "Esplora il catalogo",
+    "secondaryCta": "Scopri la formazione"
+  },
+  "heroStats": [
+    {
+      "value": 8,
+      "label": "test e questionari"
+    },
+    {
+      "value": 4,
+      "label": "corsi in calendario"
+    },
+    {
+      "value": 46,
+      "label": "crediti ECM disponibili"
+    }
+  ],
+  "catalog": {
+    "eyebrow": "Catalogo",
+    "title": "Strumenti e corsi per la tua pratica professionale",
+    "intro": "Filtra per area o cerca per nome: test cartacei e digitali, questionari e corsi di formazione online e in presenza.",
+    "filterLabel": "Filtra per categoria",
+    "empty": {
+      "title": "Nessun prodotto trovato",
+      "hint": "Prova con un altro termine o mostra di nuovo tutto il catalogo.",
+      "reset": "Azzera filtri"
+    }
+  },
+  "trust": [
+    {
+      "id": "spedizione",
+      "title": "Spedizione gratuita",
+      "text": "Sul materiale cartaceo per ordini superiori a 100 €."
+    },
+    {
+      "id": "pagamenti",
+      "title": "Pagamenti sicuri",
+      "text": "Carta, bonifico o PayPal con transazioni protette."
+    },
+    {
+      "id": "validati",
+      "title": "Test validati",
+      "text": "Norme italiane aggiornate e manuali completi."
+    },
+    {
+      "id": "assistenza",
+      "title": "Centro assistenza",
+      "text": "Supporto tecnico e scientifico dal lunedì al venerdì."
+    }
+  ],
+  "contact": {
+    "copy": {
+      "eyebrow": "Contatti",
+      "title": "Hai bisogno di aiuto nella scelta?",
+      "intro": "Scrivici per informazioni su strumenti, qualifiche richieste o corsi in calendario: il nostro team scientifico ti risponde entro due giorni lavorativi.",
+      "formTitle": "Scrivici un messaggio",
+      "requiredNote": "I campi contrassegnati con * sono obbligatori.",
+      "fields": {
+        "nome": {
+          "label": "Nome",
+          "autoComplete": "name"
+        },
+        "email": {
+          "label": "Email",
+          "hint": "Ti risponderemo a questo indirizzo.",
+          "autoComplete": "email"
+        },
+        "messaggio": {
+          "label": "Messaggio",
+          "hint": "Almeno 10 caratteri."
+        }
+      },
+      "submit": "Invia messaggio",
+      "submitting": "Invio in corso…",
+      "errorSummary": "ƒ (count) => count === 1 ? \"Il modulo contiene 1 errore: correggi il campo evidenziato.\" : `Il modulo contiene ${count} errori: correggi i campi evidenziati.`",
+      "success": {
+        "title": "Grazie! Il tuo messaggio è stato inviato.",
+        "body": "ƒ (name) => `${name}, ti risponderemo al più presto. Nel frattempo puoi continuare a esplorare il catalogo.`",
+        "again": "Invia un altro messaggio"
+      },
+      "submitDelayMs": 900
+    },
+    "channels": [
+      {
+        "kind": "email",
+        "label": "Email",
+        "value": "assistenza@example.com",
+        "href": "mailto:assistenza@example.com"
+      },
+      {
+        "kind": "phone",
+        "label": "Telefono",
+        "value": "+39 000 000 0000",
+        "href": "tel:+390000000000"
+      },
+      {
+        "kind": "hours",
+        "label": "Orari",
+        "value": "Lun–Ven, 9:00–17:00",
+        "href": null
+      }
+    ]
+  },
+  "validation": {
+    "limits": {
+      "nomeMin": 2,
+      "nomeMax": 80,
+      "emailMax": 254,
+      "messaggioMin": 10,
+      "messaggioMax": 2000
+    },
+    "fields": [
+      "nome",
+      "email",
+      "messaggio"
+    ]
+  },
+  "cart": {
+    "title": "Il tuo carrello",
+    "close": "Chiudi il carrello",
+    "listLabel": "Articoli nel carrello",
+    "subtotal": "Subtotale",
+    "savings": "Risparmi",
+    "vat": "IVA inclusa. Le iscrizioni ai corsi sono nominative: i dati dei partecipanti si inseriscono al checkout.",
+    "checkout": "Procedi all’ordine",
+    "demoNote": "Demo: l’ordine non viene inviato.",
+    "clear": "Svuota il carrello",
+    "cleared": "Carrello svuotato",
+    "remove": "ƒ (name) => `Rimuovi ${name} dal carrello`",
+    "removed": "ƒ (name) => `${name} rimosso dal carrello`",
+    "empty": {
+      "title": "Il carrello è vuoto",
+      "text": "Aggiungi un corso di formazione dal catalogo per iscriverti.",
+      "action": "Scopri i corsi"
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Esplora",
+        "links": [
+          {
+            "label": "Tutti i test",
+            "href": "#catalogo",
+            "category": "tutti"
+          },
+          {
+            "label": "Clinica e Neuropsicologia",
+            "href": "#catalogo",
+            "category": "clinica-neuropsicologia"
+          },
+          {
+            "label": "Scuola ed Età evolutiva",
+            "href": "#catalogo",
+            "category": "scuola-eta-evolutiva"
+          },
+          {
+            "label": "Lavoro e Organizzazioni",
+            "href": "#catalogo",
+            "category": "lavoro-organizzazioni"
+          },
+          {
+            "label": "Formazione",
+            "href": "#catalogo",
+            "category": "formazione"
+          }
+        ]
+      },
+      {
+        "title": "Azienda",
+        "links": [
+          {
+            "label": "Chi siamo",
+            "href": "/chi-siamo"
+          },
+          {
+            "label": "Comitato scientifico",
+            "href": "/comitato-scientifico"
+          },
+          {
+            "label": "Lavora con noi",
+            "href": "/lavora-con-noi"
+          },
+          {
+            "label": "Area stampa",
+            "href": "/area-stampa"
+          }
+        ]
+      },
+      {
+        "title": "Assistenza",
+        "links": [
+          {
+            "label": "Contattaci",
+            "href": "#contatti"
+          },
+          {
+            "label": "Qualifiche per l’acquisto",
+            "href": "/qualifiche"
+          },
+          {
+            "label": "Spedizioni e resi",
+            "href": "/spedizioni-e-resi"
+          },
+          {
+            "label": "Domande frequenti",
+            "href": "/faq"
+          }
+        ]
+      }
+    ],
+    "legal": [
+      {
+        "label": "Privacy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Cookie",
+        "href": "/cookie"
+      },
+      {
+        "label": "Termini di vendita",
+        "href": "/termini"
+      }
+    ],
+    "social": [
+      {
+        "network": "linkedin",
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/"
+      },
+      {
+        "network": "instagram",
+        "label": "Instagram",
+        "href": "https://www.instagram.com/"
+      },
+      {
+        "network": "youtube",
+        "label": "YouTube",
+        "href": "https://www.youtube.com/"
+      },
+      {
+        "network": "facebook",
+        "label": "Facebook",
+        "href": "https://www.facebook.com/"
+      }
+    ],
+    "copy": {
+      "tagline": "Strumenti di valutazione psicologica e formazione per professionisti della salute, della scuola e delle organizzazioni.",
+      "disclaimer": "Sito dimostrativo realizzato per una prova tecnica: prodotti, persone, prezzi e contatti sono fittizi.",
+      "backToTop": "Torna su"
+    }
+  }
+}
