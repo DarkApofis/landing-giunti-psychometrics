@@ -133,3 +133,51 @@ test('screenshot: pills scrolled to the active one (375)', async ({ page }) => {
     .getByRole('group', { name: 'Filtra per categoria' })
     .screenshot({ path: join(OUT, '14-pills-375.png') });
 });
+
+test('screenshot: details dialog (1280 and 375)', async ({ page }) => {
+  for (const viewport of [VIEWPORTS.desktop, VIEWPORTS.mobile]) {
+    await page.setViewportSize(viewport);
+    await gotoCatalog(page);
+    await page.getByRole('button', { name: /^Scopri di più: NEURA-Q/ }).click();
+    const dialog = page.getByRole('dialog');
+    await dialog.locator('img').evaluate((img: HTMLImageElement) => img.decode().catch(() => {}));
+    await page.screenshot({ path: join(OUT, `13-dialog-${viewport.width}.png`) });
+    await page.keyboard.press('Escape');
+  }
+});
+
+// ── Cart ─────────────────────────────────────────────────────────────────────
+
+for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.desktop]) {
+  test(`screenshot: cart drawer at ${viewport.width}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const cart = page.getByRole('button', { name: /^Apri il carrello/ });
+    await cart.click();
+    await page.waitForTimeout(350);
+    await page.screenshot({ path: join(OUT, `30-cart-empty-${viewport.width}.png`) });
+    await page.keyboard.press('Escape');
+
+    for (const name of [/^Aggiungi al carrello: Disturbi/, /^Aggiungi al carrello: Assessment/]) {
+      await page.getByRole('button', { name }).click();
+    }
+    await page.getByRole('button', { name: /^Aggiunto al carrello: Assessment/ }).waitFor();
+    await page
+      .getByRole('button', { name: /^Aggiungi al carrello: Assessment/ })
+      .waitFor({ timeout: 4000 });
+    await page.getByRole('button', { name: /^Aggiungi al carrello: Assessment/ }).click();
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await page
+      .locator('header')
+      .screenshot({ path: join(OUT, `31-cart-badge-${viewport.width}.png`) });
+    await cart.click();
+    await page
+      .getByRole('dialog')
+      .locator('img')
+      .first()
+      .evaluate((img: HTMLImageElement) => img.decode().catch(() => {}));
+    await page.waitForTimeout(350);
+    await page.screenshot({ path: join(OUT, `32-cart-items-${viewport.width}.png`) });
+  });
+}
