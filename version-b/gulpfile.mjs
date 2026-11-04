@@ -47,6 +47,14 @@ const SCRIPTS = [
 /** Stylesheets: the site, plus the local-only styleguide (never linked from the public page). */
 const STYLES = ['resources/stylus/app.styl', 'resources/stylus/styleguide.styl'];
 
+/** lucide-static icons used by the views (DESIGN-SPEC §7), copied to resources/svg/lucide and versioned. */
+const ICONS = [
+  'arrow-down', 'arrow-right', 'arrow-up', 'badge-check', 'book-open', 'check', 'circle-alert', 'circle-check',
+  'circle-play', 'clock', 'headset', 'info', 'loader-circle', 'mail', 'map-pin', 'menu', 'minus',
+  'monitor-smartphone', 'phone', 'plus', 'rotate-ccw', 'search', 'search-x', 'send', 'shield-check',
+  'shopping-bag', 'trash-2', 'truck', 'user-round', 'x',
+];
+
 /** Latin subset only (the one version-a preloads); other subsets are not shipped. */
 const FONTS = [
   'node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2',
@@ -128,6 +136,16 @@ export const clean = () =>
     for (const key of Object.keys(entries)) delete entries[key];
   });
 
+/**
+ * Copies the icons the server inlines (<x-icon>), so PHP never depends on node_modules.
+ * The output is committed: a changed icon shows up in the diff.
+ */
+export function icons() {
+  return src(ICONS.map((name) => `node_modules/lucide-static/icons/${name}.svg`)).pipe(
+    dest('resources/svg/lucide'),
+  );
+}
+
 export function fonts() {
   return src(FONTS, { encoding: false })
     .pipe(placeIn('fonts'))
@@ -162,7 +180,7 @@ export function styles() {
 }
 
 // Sequential on purpose: styles() needs the hashed font names recorded by fonts().
-export const build = series(clean, fonts, scripts, styles, writeManifest);
+export const build = series(clean, icons, fonts, scripts, styles, writeManifest);
 
 function watchSources() {
   watch('resources/stylus/**/*.styl', series(removeTarget('css'), styles, writeManifest));
