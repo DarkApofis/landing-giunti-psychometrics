@@ -180,7 +180,7 @@ export function CartDrawer() {
               <p id="cart-demo-note" className="mt-2 text-center text-xs text-ink-muted">
                 {cartCopy.demoNote}
               </p>
-              <Button variant="ghost" onClick={clearCart} className="mt-2 w-full text-danger">
+              <Button variant="ghost-danger" onClick={clearCart} className="mt-2 w-full">
                 <Trash2 aria-hidden="true" className="size-4" />
                 {cartCopy.clear}
               </Button>

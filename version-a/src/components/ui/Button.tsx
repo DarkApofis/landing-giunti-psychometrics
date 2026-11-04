@@ -1,7 +1,8 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { cn } from '@/lib/cn';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-dark' | 'on-dark-outline';
+export type ButtonVariant =
+  'primary' | 'secondary' | 'ghost' | 'ghost-danger' | 'on-dark' | 'on-dark-outline';
 export type ButtonSize = 'md' | 'lg';
 
 interface CommonProps {
@@ -32,6 +33,9 @@ const variants: Record<ButtonVariant, string> = {
   secondary:
     'border border-primary bg-surface text-primary hover:bg-primary-subtle active:border-primary-active',
   ghost: 'text-ink hover:bg-primary-subtle',
+  // Destructive ghost action ("Svuota il carrello"). A variant, not `className="text-danger"`:
+  // without class merging, text-danger lost to the ghost variant's text-ink (found by docs/PARITY.md).
+  'ghost-danger': 'text-danger hover:bg-primary-subtle',
   'on-dark': 'bg-white text-ink hover:bg-canvas active:bg-primary-subtle',
   'on-dark-outline': 'border border-white/60 text-white hover:border-white hover:bg-white/10',
 };

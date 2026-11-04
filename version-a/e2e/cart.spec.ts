@@ -103,6 +103,18 @@ test.describe('cart: keyboard only (1280)', () => {
   });
 });
 
+test('"Svuota il carrello" is a ghost button in the danger colour (DESIGN-SPEC §6.7)', async ({
+  page,
+}) => {
+  // Regression: a className="text-danger" on the ghost variant lost to its own text-ink.
+  await page.goto('/');
+  await page.getByRole('button', { name: /^Aggiungi al carrello: Disturbi/ }).click();
+  await cartButton(page).click();
+  const clear = drawer(page).getByRole('button', { name: 'Svuota il carrello' });
+  await expect(clear).toHaveCSS('color', 'rgb(180, 35, 24)'); // --color-danger #b42318
+  await expect(clear).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+});
+
 test.describe('cart: persistence and resilience', () => {
   test('survives a reload without hydration errors and without re-announcing', async ({ page }) => {
     const errors = trackConsoleErrors(page);
