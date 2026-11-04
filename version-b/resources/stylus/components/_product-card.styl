@@ -1,0 +1,148 @@
+// Product card (DESIGN-SPEC §6.2). Mirrors version-a/src/components/sections/ProductCard.tsx.
+//
+//  ┌ media 3:2 (primary-subtle while loading) + format badge 12px from the corner
+//  ├ body, padding 20px: eyebrow → 8 → h3 18/600 → 8 → description 14 → 16 → dl (2 columns)
+//  └ footer pushed to the bottom (price and button aligned across a row): 20 → rule → 16 → price
+//    → 4 → "IVA inclusa" → 16 → full-width button
+//
+// States: hover (pointer devices only) lifts the card 2px, deepens the shadow, tints the border
+// and zooms the photo 3 %; focus-within paints the border primary; "added" swaps the cart icon.
+// Movement only without prefers-reduced-motion.
+
+.product-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition-property: box-shadow, border-color, translate;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-standard);
+
+  +hover() {
+    border-color: var(--color-primary-a40);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  +motion-safe() {
+    +hover() {
+      translate: 0 -0.125rem;
+    }
+  }
+
+  // After hover in the cascade: keyboard focus inside the card always shows the primary border.
+  &:focus-within {
+    border-color: var(--color-primary);
+  }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background-color: var(--color-primary-subtle);
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    color: transparent;
+    transition-property: transform;
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  +motion-safe() {
+    +hover() {
+      .product-card__img {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+
+  &__title {
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.375;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__desc {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+
+  // Two-column definition list; the <div> wrappers do not take part in the grid.
+  &__meta {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    row-gap: 0.375rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+
+    div {
+      display: contents;
+    }
+
+    dt {
+      color: var(--color-ink-muted);
+    }
+
+    dd {
+      font-weight: 500;
+      color: var(--color-ink);
+    }
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  &__pricing {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+  }
+
+  &__action {
+    margin-top: 1rem;
+  }
+
+  // "Added to cart" feedback (2 s, set by the cart JS): check icon instead of the bag.
+  &__added-icon {
+    display: none;
+  }
+
+  &__add.is-added {
+    .product-card__add-icon {
+      display: none;
+    }
+
+    .product-card__added-icon {
+      display: block;
+    }
+  }
+}

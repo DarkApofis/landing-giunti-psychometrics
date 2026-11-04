@@ -1,0 +1,109 @@
+// Catalogue section (DESIGN-SPEC §6.2–6.5). Mirrors version-a's CatalogSection, Catalog, ProductGrid,
+// ResultsStatus and EmptyState.
+
+.catalog {
+  padding-block: 4rem;
+
+  +lg() {
+    padding-block: 6rem;
+  }
+
+  &__head {
+    max-width: 48rem;
+  }
+
+  &__title {
+    margin-top: 0.5rem;
+  }
+
+  &__intro {
+    margin-top: 0.75rem;
+  }
+
+  // Pills + results counter: stacked on mobile, side by side (counter bottom-right) from 768px.
+  &__toolbar {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    +md() {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  &__results {
+    margin-top: 1.5rem;
+  }
+}
+
+.results-status {
+  flex-shrink: 0;
+
+  &__visible {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    font-weight: 600;
+    color: var(--color-ink-muted);
+  }
+}
+
+// 1 column · 2 from 768px · 3 from 1024px; gap 24px, 32px from 1280px.
+.product-grid {
+  display: grid;
+  gap: 1.5rem;
+
+  +md() {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  +lg() {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  +xl() {
+    gap: 2rem;
+  }
+}
+
+// Empty state: dashed box, one clear way back ("Azzera filtri").
+.empty-state {
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  padding: 3rem 1.5rem;
+  text-align: center;
+
+  &__icon {
+    margin-inline: auto;
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    place-items: center;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-subtle);
+    color: var(--color-primary);
+  }
+
+  &__title {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: unquote('calc(1.75 / 1.25)');
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__text {
+    margin-inline: auto;
+    margin-top: 0.5rem;
+    max-width: 28rem;
+    color: var(--color-ink-muted);
+  }
+
+  &__reset {
+    margin-top: 1.5rem;
+  }
+}

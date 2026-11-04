@@ -33,8 +33,13 @@ final class AppComposer
     {
         return [
             'sectionIds' => $this->content->content('sectionIds'),
+            'catalog' => [
+                'allLabel' => $this->content->content('allCategoriesLabel'),
+                'categories' => $this->content->content('categories'),
+            ],
             'i18n' => [
                 'menu' => __('ui.menu'),
+                'catalog' => __('ui.catalog'),
             ],
         ];
     }
