@@ -1,0 +1,59 @@
+// Icon in a primary-subtle circle: 44px (contact channels) or 48px (--lg, trust strip).
+.icon-circle {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+
+  &--lg {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+// Trust strip (DESIGN-SPEC §6.10). Mirrors version-a/src/components/sections/TrustStrip.tsx.
+.trust {
+  border-block: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 2rem;
+    padding-block: 2.5rem;
+
+    +sm() {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    +lg() {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__text {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+}

@@ -49,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Pages too: with @extends, a page's sections (and the partials they include) render before
         // the layout, so they need the shared data (section ids, navigation) themselves.
-        View::composer(['layouts.*', 'pages.*', 'dev.*', 'errors.*'], AppComposer::class);
+        // Laravel renders error pages through the namespaced name "errors::404".
+        View::composer(['layouts.*', 'pages.*', 'dev.*', 'errors.*', 'errors::*'], AppComposer::class);
     }
 }

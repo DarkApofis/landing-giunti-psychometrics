@@ -1,0 +1,174 @@
+// Footer (DESIGN-SPEC §6.13). Mirrors version-a/src/components/layout/Footer.tsx.
+// Ink background, white / primary-subtle text (≥ 11:1); 1 → 2 (brand full width) → 4 columns.
+.site-footer {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+
+  &__grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 3.5rem;
+
+    +sm() {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    +lg() {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  &__brand {
+    +sm() {
+      grid-column: span 2 / span 2;
+    }
+
+    +lg() {
+      grid-column: span 1 / span 1;
+    }
+  }
+
+  &__tagline {
+    margin-top: 1rem;
+    max-width: 24rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-primary-subtle);
+  }
+
+  &__heading {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    font-weight: 600;
+    letter-spacing: var(--text-eyebrow-letter-spacing);
+    text-transform: uppercase;
+    color: var(--color-white);
+  }
+
+  &__links {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+  }
+
+  // 44px tall links (DESIGN-SPEC §9).
+  &__link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    color: var(--color-primary-subtle);
+    text-underline-offset: 4px;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+
+    +hover() {
+      color: var(--color-white);
+      text-decoration-line: underline;
+    }
+  }
+
+  &__bottom {
+    border-top: 1px solid var(--color-white-a15);
+  }
+
+  &__bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-primary-subtle);
+
+    +md() {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__disclaimer {
+    margin-top: 0.25rem;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 1.25rem;
+  }
+
+  &__legal {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+  }
+
+  &__top {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    color: var(--color-white);
+
+    +hover() {
+      text-decoration-line: underline;
+    }
+  }
+}
+
+// Social links: 44px circles, border white at 50 % (4.59:1, docs/AUDIT.md H3).
+.social {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+
+  &__link {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--color-white-a50);
+    border-radius: var(--radius-full);
+    color: var(--color-white);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+
+    +hover() {
+      border-color: var(--color-white);
+      background-color: var(--color-white-a10);
+    }
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+// 404 page (DESIGN-SPEC §6.14).
+.not-found {
+  padding-block: 6rem;
+  text-align: center;
+
+  &__title {
+    margin-top: 0.75rem;
+  }
+
+  &__text {
+    margin-inline: auto;
+    margin-top: 0.75rem;
+    max-width: 36rem;
+  }
+
+  &__home {
+    margin-top: 2rem;
+  }
+}

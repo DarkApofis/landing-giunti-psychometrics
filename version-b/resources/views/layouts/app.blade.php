@@ -12,7 +12,7 @@
     <meta name="description" content="{{ $site['description'] }}">
     <meta name="application-name" content="{{ $site['name'] }}">
     <meta name="keywords" content="{{ implode(',', __('ui.meta.keywords')) }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="@yield('robots', 'index, follow')">
     <link rel="canonical" href="{{ url('/') }}">
 
     <meta property="og:type" content="website">
@@ -45,7 +45,7 @@
         @yield('content')
     </main>
 
-    @yield('footer')
+    @include('partials.footer')
 
     @include('partials.cart-drawer')
 
