@@ -1,0 +1,12 @@
+/** Site-wide constants (SEO, branding). All user-facing copy is Italian. */
+export const site = {
+  name: 'Giunti Psychometrics',
+  legalName: 'Giunti Psychometrics S.r.l.',
+  title: 'Giunti Psychometrics — Test psicologici e formazione per professionisti',
+  description:
+    'Catalogo di test psicologici, strumenti di valutazione e corsi di formazione per psicologi, neuropsichiatri, insegnanti e professionisti delle risorse umane.',
+  locale: 'it_IT',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+  /** Mirrors --color-primary in src/styles/tokens.css (metadata API needs a literal value). */
+  themeColor: '#1b4f8a',
+} as const;

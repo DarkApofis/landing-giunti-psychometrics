@@ -1,0 +1,83 @@
+/*
+ * Design tokens — Giunti Psychometrics.
+ * Source of truth: docs/DESIGN-SPEC.md (§1–5). Change the spec first, then this file.
+ * This is the ONLY place where raw colour values are allowed (see scripts/check-tokens.mjs).
+ * version-b (Laravel + Tailwind 4) must use an identical copy of this file.
+ */
+
+@theme {
+  /* Disable Tailwind's default palette: only brand tokens exist as colour utilities. */
+  --color-*: initial;
+
+  /* §1.1 Brand (mandatory) */
+  --color-primary: #1b4f8a;
+  --color-ink: #0f2d52;
+  --color-accent: #0ea5e9; /* decorative / background only — 2.77:1 on white */
+  --color-canvas: #eff6ff;
+
+  /* §1.2 Derived */
+  --color-primary-hover: #153f6f;
+  --color-primary-active: #10335a;
+  --color-primary-subtle: #dbeafe;
+  --color-accent-strong: #0369a1; /* accent-flavoured text/icons: 5.93:1 on white */
+  --color-accent-subtle: #e0f2fe;
+  --color-surface: #ffffff;
+  --color-ink-muted: #4a607d;
+  --color-border: #c7d7ec;
+  --color-border-strong: #6b84a3;
+  --color-danger: #b42318;
+  --color-danger-subtle: #fef3f2;
+  --color-success: #1a7f37;
+  --color-success-subtle: #ecfdf3;
+  --color-white: #ffffff;
+  --color-backdrop: rgb(15 45 82 / 0.5);
+
+  /* §1.2 Format badges (fg / bg) */
+  --color-format-cartaceo: #7a3e00;
+  --color-format-cartaceo-subtle: #fef0c7;
+  --color-format-digitale: #0b4a6f;
+  --color-format-digitale-subtle: #e0f2fe;
+  --color-format-online: #4a2c8f;
+  --color-format-online-subtle: #ede7fb;
+  --color-format-presenza: #14532d;
+  --color-format-presenza-subtle: #dcfce7;
+
+  /* §2 Typography (scale additions; Tailwind's text-sm/base/lg are kept) */
+  --text-display: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-h2: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+  --text-price: 1.5rem;
+  --text-price--line-height: 1;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.06em;
+
+  /* §3 Layout */
+  --container-page: 75rem;
+  --spacing-header: 4rem;
+  --spacing-header-lg: 4.5rem;
+
+  /* §4 Radii and shadows */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-card: 0 1px 2px rgb(15 45 82 / 0.06), 0 1px 3px rgb(15 45 82 / 0.08);
+  --shadow-card-hover: 0 8px 24px -6px rgb(15 45 82 / 0.18);
+  --shadow-overlay: 0 16px 48px -12px rgb(15 45 82 / 0.35);
+
+  /* §5 Motion */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-enter: 250ms;
+}
+
+/* §2 Fonts — the CSS variables are injected by next/font on <html> (inline so they resolve at use-site). */
+@theme inline {
+  --font-sans: var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}

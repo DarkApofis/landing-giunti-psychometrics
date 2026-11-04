@@ -1,1 +1,82 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+
+@layer base {
+  html {
+    /* Anchored sections are not hidden under the sticky header (§6.8). */
+    scroll-padding-top: calc(var(--spacing-header) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 64rem) {
+    html {
+      scroll-padding-top: calc(var(--spacing-header-lg) + 1rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* §4 Focus: visible only for keyboard, never removed without replacement. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-white);
+  }
+
+  /* §5 Reduced motion: no transforms/animations, instant transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* §3 Page container: max 75rem, gutters 16 / 24 / 32 px. */
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-page);
+  padding-inline: 1rem;
+
+  @media (min-width: 48rem) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 80rem) {
+    padding-inline: 2rem;
+  }
+}
