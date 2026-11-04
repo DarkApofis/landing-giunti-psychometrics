@@ -1,0 +1,21 @@
+// Breakpoints (docs/HANDOFF-LARAVEL.md §2): mobile-first, min-width, same values as version-a.
+// Stylus variables, not CSS custom properties: var() is not allowed inside @media.
+$bp-sm = 40rem;   // 640px
+$bp-md = 48rem;   // 768px
+$bp-lg = 64rem;   // 1024px
+$bp-xl = 80rem;   // 1280px
+$bp-tall = 30rem; // min-height for the sticky header (docs/AUDIT.md H4)
+
+// Usage: +mq($bp-md) { ... }
+mq($min) {
+  @media (min-width: $min) {
+    {block};
+  }
+}
+
+// Usage: +mq-tall() { ... }: only when the viewport is at least 30rem tall.
+mq-tall() {
+  @media (min-height: $bp-tall) {
+    {block};
+  }
+}
