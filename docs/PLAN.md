@@ -14,6 +14,31 @@ Versiones estables verificadas en npm (2026-11-03): `next` 16.4.5 · `tailwindcs
 
 ---
 
+## 0. Progreso y revisiones
+
+**Revisión del 2026-11-03 (prompt de scaffold del usuario), que prevalece sobre lo que dice más abajo:**
+- Sin `/shared`: los tokens van en `version-a/src/styles/tokens.css` y los datos en `src/data/products.ts` (ASSUMPTIONS A5, A20).
+- Imágenes remotas de Unsplash con `remotePatterns` (A4) → desaparecen las tareas 2.9 (descarga a WebP) y `sync-shared.mjs`.
+- `formatPrice` con `Intl` + `useGrouping: 'always'` (A17) → el riesgo R2 queda mitigado con tests y una comprobación en Chrome.
+- Tipos definitivos en `src/types/product.ts`: precios en euros (`originalPrice`, `discountPrice | null`), `type: 'test' | 'corso'`,
+  formatos con su etiqueta italiana, y campos extra M9. El borrador del §3 queda como referencia histórica.
+- Categorías: Clinica e Neuropsicologia · Scuola ed Età evolutiva · Lavoro e Organizzazioni · Formazione.
+
+| Hecho | Tarea | Evidencia |
+|---|---|---|
+| ✓ | 0.1 Monorepo + git | commit `8174c52` |
+| ✓ | 0.2 Next.js 16.4.5 (create-next-app 16.4.5), Node 24.16.0 / npm 11.13.0, `engines` + `.nvmrc` | commit `2fb77dc`; `next build` en verde |
+| ✓ | 0.3 tsconfig `strict` + `noUncheckedIndexedAccess` + `noImplicitOverride`; Prettier | commit `a564a3f`; `tsc --noEmit` exit 0 |
+| ✓ | 0.5 Vitest 5 + RTL + jsdom | 46 tests en verde |
+| ✓ | 1.1–1.5 Tokens, `--color-*: initial`, `check:tokens` (probado también en negativo), globals, fuentes, `lang="it"`, metadata SEO, favicon SVG | commit `aff7c94`; CSS generado inspeccionado; fuentes precargadas por la cabecera `Link` |
+| ✓ | 2.1 Tipos | `tsc` en verde |
+| ✓ | 2.2–2.3 `format.ts` (TDD: en rojo → en verde) | 18 tests |
+| ✓ | 2.5–2.6 `search.ts`, `catalog.ts` (TDD) | 18 tests |
+| ✓ | 2.8/2.10 Datos (12 productos) + test de integridad y lista negra | 8 tests |
+| ☐ | 0.6 Playwright, 2.4 validación, 2.7 carrito, fases 3–6 | pendiente |
+
+---
+
 ## 1. Árbol de carpetas final
 
 ```
@@ -24,19 +49,13 @@ landing-giunti-psychometrics/
 │  ├─ DESIGN-SPEC.md · PLAN.md · ASSUMPTIONS.md · IMPROVEMENTS.md · CREDITS.md
 │  ├─ screenshots/version-a/      # capturas 375/768/1280 + estados
 │  └─ lighthouse/version-a/       # informes HTML/JSON
-├─ shared/                        # fuente única para version-a y version-b
-│  ├─ tokens.css                  # @theme de Tailwind 4 (colores, radios, sombras, easing)
-│  ├─ data/products.json          # catálogo ficticio
-│  ├─ images/products/*.webp      # fotos de Unsplash optimizadas (1200×800)
-│  └─ fonts/                      # .woff2 de Figtree / Noto Sans (solo para version-b)
 ├─ version-a/
 │  ├─ README.md
 │  ├─ package.json · tsconfig.json · next.config.ts · eslint.config.mjs · .prettierrc
 │  ├─ vitest.config.ts · vitest.setup.ts · playwright.config.ts
+│  ├─ .nvmrc · .prettierrc.json
 │  ├─ scripts/
-│  │  ├─ sync-shared.mjs          # copia shared/images → public/images (prebuild), si hace falta
-│  │  └─ check-tokens.mjs         # falla si hay hex/rgb sueltos en src/components
-│  ├─ public/images/products/     # (generado por sync-shared, ignorado en git)
+│  │  └─ check-tokens.mjs         # falla si hay hex/rgb sueltos fuera de los archivos de tokens
 │  ├─ e2e/
 │  │  ├─ catalog.spec.ts · cart.spec.ts · contact.spec.ts · keyboard.spec.ts
 │  │  ├─ a11y.spec.ts             # axe-core
@@ -58,8 +77,10 @@ landing-giunti-psychometrics/
 │     │  │  └─ ContactSection.tsx · ContactForm.tsx · ContactSuccess.tsx
 │     │  └─ providers/            # contextos cliente (ver ASSUMPTIONS A15)
 │     │     ├─ AppProviders.tsx · CartProvider.tsx · CatalogFiltersProvider.tsx · Announcer.tsx
+│     ├─ styles/
+│     │  └─ tokens.css            # @theme de Tailwind 4 (colores, tipografía, radios, sombras, movimiento)
 │     ├─ data/
-│     │  ├─ products.ts           # importa shared/data/products.json y lo tipa/valida
+│     │  ├─ products.ts (+ .test.ts)  # catálogo ficticio tipado + test de integridad
 │     │  ├─ categories.ts · formats.ts · navigation.ts · footer.ts · site.ts · contact.ts
 │     ├─ lib/
 │     │  ├─ format.ts (+ .test.ts)      # precio, fecha, rango de edad, % descuento

@@ -171,7 +171,8 @@ Los botones de icono llevan `aria-label` en italiano y el SVG con `aria-hidden`.
 │ NEURA-Q — Batteria di        │  h3, 2 líneas máx.
 │ valutazione neurocognitiva   │
 │ 👤 di Laura Bettini          │  small, ink-muted, icono
-│ 👥 Età 6–16 anni             │  o 📅 Inizio 12 gen 2027
+│ 👥 Età 6–16 anni · 40 min    │  o 📅 Inizio 19 gen 2027 · 24 h
+│ Qualifica B                  │  o 24 crediti ECM · Milano (M9)
 │                              │
 │ 1.250,00 €   1.560,00 €      │  precio final 24/700 + original tachado 14
 │ ┌──────────────────────────┐ │
@@ -263,8 +264,8 @@ Redes sociales: SVG inline propios (lucide ya no incluye marcas). Tamaño 16/20/
 
 ## 8. Imágenes
 
-Fotos de Unsplash descargadas a `/shared/images/products/` (WebP, 1200×800) con crédito en `docs/CREDITS.md`.
-Las sirve `next/image` (AVIF/WebP, `lazy` por defecto). El alt describe la escena; nunca “immagine di…”.
+Fotos remotas de Unsplash (recorte 1200×800, ver `src/lib/unsplash.ts`) servidas por el optimizador de `next/image`
+(AVIF/WebP, `lazy` por defecto), con créditos en `docs/CREDITS.md`. El alt describe la escena; nunca “immagine di…”.
 
 ## 9. Accesibilidad (resumen operativo)
 
@@ -274,8 +275,8 @@ resultados, carrito y errores, `prefers-reduced-motion`. El contenido no depende
 
 ## 10. Paridad con version-b
 
-- Tokens en `/shared/tokens.css` (bloque `@theme` de Tailwind 4). Ambas apps lo importan; si el bundler
-  de Next no permite importar fuera de `/version-a`, se copia con un script de sincronización y una
-  comprobación en CI (documentado en ASSUMPTIONS).
-- Mismas fuentes (`.woff2` en `/shared/fonts` para Laravel), mismas imágenes y mismo `products` (JSON compartido).
+- Tokens en `version-a/src/styles/tokens.css` (bloque `@theme` de Tailwind 4). version-b usa una copia
+  idéntica del archivo, y la igualdad se comprueba comparando los dos (ver ASSUMPTIONS A5).
+- Mismas fuentes (Figtree y Noto Sans, variables, subset latin), mismas URLs de imagen y mismos datos
+  (generados a partir de `version-a/src/data/products.ts`).
 - Mismas clases de Tailwind en el markup siempre que sea posible.

@@ -9,6 +9,8 @@ Cada mejora incluye su justificación, para trasladarla al README.
 | M3 | Contador de resultados en `aria-live` y estado vacío con “Azzera filtri” | Feedback para todos los usuarios; evita quedarse en un callejón sin salida. |
 | M4 | Chip de descuento (−20 %) e información de ahorro en el carrito | Refuerza la jerarquía del precio que la prueba valora. |
 | M5 | Badge de formato con icono + color + texto | No depende solo del color (WCAG 1.4.1) y se escanea más rápido. |
-| M6 | Búsqueda que ignora acentos y mayúsculas | En italiano “età”/“eta” deben coincidir. |
+| M6 | Búsqueda que ignora acentos, mayúsculas y puntuación, y encuentra las siglas con o sin guion (“neuraq” → NEURA-Q) | En italiano “età”/“eta” deben coincidir; las siglas se teclean de muchas formas. |
 | M7 | Hero sin foto (gradiente + SVG) | LCP en texto, menos bytes y mejor Performance. |
 | M8 | Foco en el primer campo inválido y panel de éxito con foco gestionado | Recuperación de errores accesible. |
+| M9 | **Más información en la card**, con campos de datos propios: **tests** → `qualification` (Qualifica A/B/C: nivel profesional necesario para comprarlo) y `administrationMinutes` (tiempo de aplicación); **cursos** → `durationHours`, `ecmCredits` (crediti ECM, `null` si el curso no está acreditado) y `location` (ciudad si es presencial) | Es lo primero que necesita saber un profesional para decidir: si puede comprar el test, cuánto dura la aplicación y si el curso da créditos ECM obligatorios. Evita abrir una ficha de detalle. |
+| M10 | `remotePatterns` restringido a la query exacta de Unsplash | El optimizador de imágenes no puede usarse como proxy abierto ni para generar variantes arbitrarias (abuso de CPU). |
