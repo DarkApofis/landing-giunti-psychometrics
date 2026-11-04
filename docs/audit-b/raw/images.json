@@ -1,0 +1,53 @@
+{
+  "imgs": [
+    {
+      "alt": "Modello anatomico di un cervello umano sezionato, con gli emisferi colorati",
+      "src": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Persona che scrive a penna su un foglio, con una tazza appoggiata sul tavolo",
+      "src": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Due mani che si tendono l’una verso l’altra tra due pareti grigie",
+      "src": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Bambini seduti attorno a un tavolo in aula mentre disegnano e scrivono",
+      "src": "https://images.unsplash.com/photo-1588072432836-e10032774350?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Pila di libri con una mela rossa, matite colorate e cubi con le lettere A, B e C",
+      "src": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Insegnante alla lavagna davanti a una classe di bambini con la mano alzata",
+      "src": "https://images.unsplash.com/photo-1577896851231-70ef18881754?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Due donne a colloquio sedute a un tavolo con un computer portatile aperto",
+      "src": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Gruppo di lavoro in riunione davanti a una parete coperta di foglietti adesivi",
+      "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Videoconferenza con molti partecipanti sullo schermo di un portatile, accanto a una tazza verde",
+      "src": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Computer portatile, quaderno aperto e tazza su una scrivania luminosa",
+      "src": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Persone sedute attorno a un tavolo di legno durante una riunione di lavoro",
+      "src": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?fit=crop&w=1200&h=800&q=80&auto=format"
+    },
+    {
+      "alt": "Aula con partecipanti seduti che seguono una lezione davanti a uno schermo",
+      "src": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?fit=crop&w=1200&h=800&q=80&auto=format"
+    }
+  ],
+  "unlabeledSvgs": 0
+}

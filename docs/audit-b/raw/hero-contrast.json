@@ -1,0 +1,72 @@
+[
+  {
+    "el": "375px h1 (large text)",
+    "ratio": 5.74,
+    "min": 3
+  },
+  {
+    "el": "375px stat labels",
+    "ratio": 6.28,
+    "min": 4.5
+  },
+  {
+    "el": "375px stat labels",
+    "ratio": 5.9,
+    "min": 4.5
+  },
+  {
+    "el": "375px stat labels",
+    "ratio": 5.64,
+    "min": 4.5
+  },
+  {
+    "el": "375px stat values (large)",
+    "ratio": 7.78,
+    "min": 3
+  },
+  {
+    "el": "375px stat values (large)",
+    "ratio": 7.32,
+    "min": 3
+  },
+  {
+    "el": "375px stat values (large)",
+    "ratio": 7.08,
+    "min": 3
+  },
+  {
+    "el": "1280px h1 (large text)",
+    "ratio": 8,
+    "min": 3
+  },
+  {
+    "el": "1280px stat labels",
+    "ratio": 7.11,
+    "min": 4.5
+  },
+  {
+    "el": "1280px stat labels",
+    "ratio": 6.88,
+    "min": 4.5
+  },
+  {
+    "el": "1280px stat labels",
+    "ratio": 6.47,
+    "min": 4.5
+  },
+  {
+    "el": "1280px stat values (large)",
+    "ratio": 8.67,
+    "min": 3
+  },
+  {
+    "el": "1280px stat values (large)",
+    "ratio": 8.39,
+    "min": 3
+  },
+  {
+    "el": "1280px stat values (large)",
+    "ratio": 8.01,
+    "min": 3
+  }
+]

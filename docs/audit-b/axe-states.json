@@ -1,0 +1,359 @@
+[
+  {
+    "state": "initial",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 50,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "state": "filtered",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 50,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "state": "no-results",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 47,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "state": "mobile-menu-open",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 51,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 16
+      }
+    ]
+  },
+  {
+    "state": "details-dialog",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 23,
+    "incomplete": []
+  },
+  {
+    "state": "cart-empty",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 19,
+    "incomplete": []
+  },
+  {
+    "state": "cart-items",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 29,
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 2
+      }
+    ]
+  },
+  {
+    "state": "form-errors",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 50,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "state": "form-success",
+    "width": 375,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 50,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "state": "initial",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 49,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "state": "filtered",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 49,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "state": "no-results",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 46,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "state": "mobile-menu-open",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 49,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "state": "details-dialog",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 23,
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "state": "cart-empty",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 19,
+    "incomplete": []
+  },
+  {
+    "state": "cart-items",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 29,
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 3
+      }
+    ]
+  },
+  {
+    "state": "form-errors",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 49,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "state": "form-success",
+    "width": 1280,
+    "violations": [],
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "passes": 49,
+    "incomplete": [
+      {
+        "id": "aria-valid-attr-value",
+        "nodes": 1
+      },
+      {
+        "id": "color-contrast",
+        "nodes": 13
+      }
+    ]
+  }
+]

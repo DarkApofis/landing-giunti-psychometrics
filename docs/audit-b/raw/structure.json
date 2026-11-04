@@ -1,0 +1,150 @@
+{
+  "headings": [
+    {
+      "level": 1,
+      "text": "Test psicologici e formazione per chi lavora con le persone"
+    },
+    {
+      "level": 2,
+      "text": "Strumenti e corsi per la tua pratica professionale"
+    },
+    {
+      "level": 3,
+      "text": "NEURA-Q — Batteria di valutazione neurocognitiva"
+    },
+    {
+      "level": 3,
+      "text": "MEMORIA-S — Scala breve di memoria episodica"
+    },
+    {
+      "level": 3,
+      "text": "ANSIA-D — Questionario multidimensionale di ansia e umore"
+    },
+    {
+      "level": 3,
+      "text": "ATTENTIO-R — Attenzione e controllo esecutivo in età scolare"
+    },
+    {
+      "level": 3,
+      "text": "LEXIA-K — Prove di lettura e comprensione"
+    },
+    {
+      "level": 3,
+      "text": "EMOTIO-J — Questionario sulle competenze socio-emotive"
+    },
+    {
+      "level": 3,
+      "text": "TALENTA-W — Inventario di personalità per la selezione"
+    },
+    {
+      "level": 3,
+      "text": "LEADER-360 — Feedback multi-valutatore sulla leadership"
+    },
+    {
+      "level": 3,
+      "text": "Valutazione neuropsicologica dell’adulto: dalla teoria alla pratica"
+    },
+    {
+      "level": 3,
+      "text": "Somministrare e interpretare ATTENTIO-R"
+    },
+    {
+      "level": 3,
+      "text": "Assessment e selezione: metodi e strumenti per le HR"
+    },
+    {
+      "level": 3,
+      "text": "Disturbi specifici dell’apprendimento: valutazione e intervento"
+    },
+    {
+      "level": 2,
+      "text": "Perché sceglierci"
+    },
+    {
+      "level": 3,
+      "text": "Spedizione gratuita"
+    },
+    {
+      "level": 3,
+      "text": "Pagamenti sicuri"
+    },
+    {
+      "level": 3,
+      "text": "Test validati"
+    },
+    {
+      "level": 3,
+      "text": "Centro assistenza"
+    },
+    {
+      "level": 2,
+      "text": "Hai bisogno di aiuto nella scelta?"
+    },
+    {
+      "level": 3,
+      "text": "Scrivici un messaggio"
+    },
+    {
+      "level": 2,
+      "text": "Esplora"
+    },
+    {
+      "level": 2,
+      "text": "Azienda"
+    },
+    {
+      "level": 2,
+      "text": "Assistenza"
+    }
+  ],
+  "landmarks": [
+    {
+      "tag": "header",
+      "name": null
+    },
+    {
+      "tag": "nav",
+      "name": "Navigazione principale"
+    },
+    {
+      "tag": "search",
+      "name": null
+    },
+    {
+      "tag": "main",
+      "name": null
+    },
+    {
+      "tag": "section",
+      "name": "Test psicologici e formazione per chi lavora con le persone"
+    },
+    {
+      "tag": "section",
+      "name": "Strumenti e corsi per la tua pratica professionale"
+    },
+    {
+      "tag": "section",
+      "name": "Perché sceglierci"
+    },
+    {
+      "tag": "section",
+      "name": "Hai bisogno di aiuto nella scelta?"
+    },
+    {
+      "tag": "footer",
+      "name": null
+    },
+    {
+      "tag": "nav",
+      "name": "Esplora"
+    },
+    {
+      "tag": "nav",
+      "name": "Azienda"
+    },
+    {
+      "tag": "nav",
+      "name": "Assistenza"
+    }
+  ]
+}

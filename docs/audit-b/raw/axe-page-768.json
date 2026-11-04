@@ -1,0 +1,14 @@
+{
+  "violations": [],
+  "passes": 49,
+  "incomplete": [
+    {
+      "id": "aria-valid-attr-value",
+      "nodes": 1
+    },
+    {
+      "id": "color-contrast",
+      "nodes": 10
+    }
+  ]
+}
