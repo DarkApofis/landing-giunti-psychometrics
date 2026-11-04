@@ -20,8 +20,9 @@ final class Icons
     /**
      * @param  int  $size  rendered width and height in px (version-a: size-4 = 16, size-5 = 20, size-6 = 24…)
      * @param  float|null  $strokeWidth  overrides lucide's default stroke width of 2
+     * @param  array<string, string>  $extra  other attributes (e.g. data-*), appended as given
      */
-    public function svg(string $name, int $size = 24, ?string $class = null, ?float $strokeWidth = null): HtmlString
+    public function svg(string $name, int $size = 24, ?string $class = null, ?float $strokeWidth = null, array $extra = []): HtmlString
     {
         $attributes = [
             'xmlns' => 'http://www.w3.org/2000/svg',
@@ -36,7 +37,7 @@ final class Icons
             'class' => trim("icon icon--{$name} {$class}"),
             'aria-hidden' => 'true',
             'focusable' => 'false',
-        ];
+        ] + $extra;
 
         $html = '<svg';
         foreach ($attributes as $key => $value) {

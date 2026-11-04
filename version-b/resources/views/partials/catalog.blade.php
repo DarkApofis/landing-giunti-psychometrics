@@ -31,4 +31,6 @@
 
         @include('partials.empty-state')
     </div>
+
+    @include('partials.product-dialog')
 </section>
