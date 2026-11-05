@@ -51,10 +51,10 @@ copiar desde `docs/handoff/` (sección 5.4). Para los e2e: `npx playwright insta
 | `npm run dev` | **Desarrollo**: Gulp en watch (sourcemaps, sin minificar) + `php artisan serve` |
 | `npm run build` | **Build de producción**: Stylus → autoprefixer → cssnano; jQuery slim + `lib/` + `modules/` → terser; fuentes e iconos; hash + `rev-manifest.json` |
 | `php artisan config:cache route:cache view:cache` | Cachés de producción (el contenedor las genera al arrancar) |
-| `php artisan test` · `composer test` | **PHPUnit**: 106 pruebas (unitarias y feature) |
-| `npm test` | **Lógica JS** con `node:test` (búsqueda, catálogo, carrito, formato, validadores, almacenamiento): 101 pruebas |
-| `npx playwright test` | **e2e de B**: carrito/diálogo, mensajes del formulario y axe en 18 estados (contra `php artisan serve` o `E2E_BASE_URL`) |
-| `cd ../version-a && E2E_BASE_URL=http://127.0.0.1:8000 npx playwright test e2e/layout.spec.ts e2e/catalog.spec.ts e2e/contact.spec.ts e2e/cart.spec.ts e2e/audit.spec.ts` | **e2e de A contra B** (78 pruebas, sin modificarlas). No incluir `screenshots.spec.ts`: escribe en las capturas de A |
+| `php artisan test` · `composer test` | **PHPUnit**: 117 pruebas (unitarias y feature) |
+| `npm test` | **Lógica JS** con `node:test` (búsqueda, catálogo, carrito, formato, validadores, almacenamiento, plantillas de texto): 105 pruebas |
+| `npx playwright test` | **e2e de B** (42): carrito/diálogo, mensajes del formulario, textos del usuario y axe en 18 estados (contra `php artisan serve` o `E2E_BASE_URL`) |
+| `cd ../version-a && E2E_BASE_URL=http://127.0.0.1:8000 npx playwright test e2e/layout.spec.ts e2e/catalog.spec.ts e2e/contact.spec.ts e2e/cart.spec.ts e2e/audit.spec.ts e2e/info-pages.spec.ts` | **e2e de A contra B** (94 pruebas, sin modificarlas). No incluir `screenshots.spec.ts`: escribe en las capturas de A |
 | `npm run e2e:screenshots` · `npm run compare:screenshots` | Capturas de B (`docs/screenshots/version-b`) y % de píxeles frente a A |
 | `cd ../tools/parity && npm ci && npm run all` | Herramienta de paridad: capturas de A y B en 13 vistas × 3 anchos, valores computados e informe ([`docs/PARITY.md`](../docs/PARITY.md)). Arranca A y B si no están levantados (`A_URL`, `B_URL`) |
 | `npm run lint` · `composer lint` | ESLint (JS y tooling) · Pint (PHP) |
@@ -212,7 +212,7 @@ Propias de B:
 | Píxeles distintos, 13 vistas × 3 anchos (375/768/1280) | **máx. 0,09 %**, media 0,02 % (objetivo < 1,5 %); mismo tamaño de página en todas |
 | Sin fotos (solo maquetación, tipografía, color y estados) | máx. 0,04 % |
 | Valores computados (1014 propiedades) | 3 diferencias, todas de notación |
-| e2e de A contra B (local, contenedor y producción) | **78 / 78** |
+| e2e de A contra B (local, contenedor y producción) | **94 / 94** (78 / 78 en el despliegue inicial, antes de las páginas institucionales) |
 
 ### Auditoría ([`docs/AUDIT-B.md`](../docs/AUDIT-B.md))
 

@@ -181,7 +181,7 @@ Lighthouse 13.6, mediana de 3 ejecuciones, throttling simulado, build de producc
 | Contraste del texto sobre el gradiente del hero (medido por píxeles)                                                                                               | peor caso **5,15 : 1**                                              |
 | Reflow a 200 % / 400 %, espaciado de texto (1.4.12), movimiento reducido                                                                                           | sin pérdida de contenido; sin recortes; sin `translate`/`scale`     |
 
-Pruebas: **141 unitarias/de componentes** (Vitest) · **78 e2e** funcionales y de auditoría (Playwright + axe, `npm run e2e`) · 21 de capturas (`npm run e2e:screenshots`). Capturas de referencia en
+Pruebas: **163 unitarias/de componentes** (Vitest) · **94 e2e** funcionales y de auditoría (Playwright + axe, `npm run e2e`) · 21 de capturas (`npm run e2e:screenshots`). Capturas de referencia en
 [`docs/screenshots/version-a/`](../docs/screenshots/version-a).
 
 ## 9. Limitaciones conocidas
