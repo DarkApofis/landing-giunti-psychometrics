@@ -18,13 +18,7 @@ final class InfoPageController extends Controller
         $page = Arr::first($content->content('pages.list'), static fn (array $page): bool => $page['slug'] === $slug);
         abort_if($page === null, 404);
 
-        // Other pages of the same section: its footer column, or the legal links (infoSectionLinks in A).
-        $siblings = $page['section'] === 'Note legali'
-            ? $content->content('footer.legal')
-            : Arr::first(
-                $content->content('footer.columns'),
-                static fn (array $column): bool => $column['title'] === $page['section'],
-            )['links'] ?? [];
+        $siblings = self::siblingLinks($content->content('footer'), $page['slug']);
 
         return view('pages.info', [
             'page' => $page,
@@ -36,5 +30,23 @@ final class InfoPageController extends Controller
                 'url' => url($page['slug']),
             ],
         ]);
+    }
+
+    /**
+     * Other pages of the same section (infoSectionLinks in A): the footer list (legal links or a column)
+     * that links to this page. Found by membership, so renaming a section title in content.json cannot
+     * silently break it.
+     *
+     * @param  array{legal: list<array{href: string}>, columns: list<array{links: list<array{href: string}>}>}  $footer
+     * @return list<array{label: string, href: string}>
+     */
+    public static function siblingLinks(array $footer, string $slug): array
+    {
+        $lists = [$footer['legal'], ...array_column($footer['columns'], 'links')];
+
+        return Arr::first(
+            $lists,
+            static fn (array $links): bool => in_array('/'.$slug, array_column($links, 'href'), true),
+        ) ?? [];
     }
 }
