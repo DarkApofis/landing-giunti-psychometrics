@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type KeyboardEvent, type MouseEvent } from 'react';
+import { useEffect, useRef, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -18,6 +18,7 @@ const FOCUSABLE =
 export function useModalDialog(open: boolean, onClose: () => void) {
   const ref = useRef<HTMLDialogElement>(null);
   const returnFocusTo = useRef<HTMLElement | null>(null);
+  const pressedOnBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = ref.current;
@@ -39,8 +40,16 @@ export function useModalDialog(open: boolean, onClose: () => void) {
   }
 
   // The content fills the dialog box, so a click whose target is the <dialog> itself hit the backdrop.
+  // The press must start there too: a text selection that starts inside and ends on the backdrop
+  // also dispatches a click on the <dialog> (the common ancestor) and must not close it.
+  function handlePointerDown(event: PointerEvent<HTMLDialogElement>) {
+    pressedOnBackdrop.current = event.target === event.currentTarget;
+  }
+
   function handleClick(event: MouseEvent<HTMLDialogElement>) {
-    if (event.target === event.currentTarget) event.currentTarget.close();
+    const fromBackdrop = pressedOnBackdrop.current;
+    pressedOnBackdrop.current = false;
+    if (fromBackdrop && event.target === event.currentTarget) event.currentTarget.close();
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
@@ -73,6 +82,7 @@ export function useModalDialog(open: boolean, onClose: () => void) {
       ref,
       'aria-modal': true as const,
       onClose: handleClose,
+      onPointerDown: handlePointerDown,
       onClick: handleClick,
       onKeyDown: handleKeyDown,
     },

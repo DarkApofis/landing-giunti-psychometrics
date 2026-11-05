@@ -92,6 +92,20 @@ test.describe('cart: keyboard only (1280)', () => {
     await expect(cartButton(page)).toBeFocused();
   });
 
+  test('a text selection that starts inside and ends on the backdrop does not close it', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await cartButton(page).click();
+    const box = await drawer(page).getByRole('heading').first().boundingBox();
+    if (!box) throw new Error('no heading');
+    await page.mouse.move(box.x + 4, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(100, 400, { steps: 5 }); // drag onto the backdrop
+    await page.mouse.up();
+    await expect(drawer(page)).toBeVisible();
+  });
+
   test('"Scopri i corsi" from the empty cart filters the catalogue to Formazione', async ({
     page,
   }) => {
