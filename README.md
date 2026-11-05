@@ -6,7 +6,7 @@ una versión headless moderna en Next.js y otra en el stack PHP/Laravel. Interfa
 | Versión | Stack | Estado | Documentación | URL |
 |---|---|---|---|---|
 | **A** | Next.js 16.4.5 · React 19.3.0 · Tailwind 4.3.4 · TypeScript 5.9.3 · Node 24.16.0 | ✅ Completa y auditada (Lighthouse 100 ×4, axe 0 violaciones) | [`version-a/README.md`](version-a/README.md) | https://giunti-psychometrics-a.vercel.app |
-| **B** | Laravel 13.40.0 · PHP 8.4 · Blade · Stylus 0.64 + BEM · jQuery 4.0.0 · Gulp 5.0.1 · Node 24.16.0 | ✅ Completa y auditada (Lighthouse 100 ×4 en el contenedor, axe 0 violaciones, paridad con A: máx. 0,09 % de píxeles) | [`version-b/README.md`](version-b/README.md) | _pendiente (Render)_ |
+| **B** | Laravel 13.40.0 · PHP 8.4 · Blade · Stylus 0.64 + BEM · jQuery 4.0.0 · Gulp 5.0.1 · Node 24.16.0 | ✅ Completa y auditada (Lighthouse en producción 97/100/100/100, LCP 1,37 s; axe 0 violaciones, paridad con A: máx. 0,09 % de píxeles) | [`version-b/README.md`](version-b/README.md) | https://giunti-psychometrics-b.onrender.com |
 
 ## Estructura del monorepo
 
@@ -48,4 +48,4 @@ cd version-b && nvm use && composer setup && npm run dev    # B → http://127.0
 | Versión | Plataforma | URL |
 |---|---|---|
 | A | Vercel (directorio `version-a`, Next.js) | https://giunti-psychometrics-a.vercel.app |
-| B | Render (Docker: nginx + PHP-FPM; [`render.yaml`](render.yaml), [`version-b/Dockerfile`](version-b/Dockerfile)) | _pendiente_ |
+| B | Render (Docker: nginx + PHP-FPM; [`render.yaml`](render.yaml), [`version-b/Dockerfile`](version-b/Dockerfile)) | https://giunti-psychometrics-b.onrender.com |

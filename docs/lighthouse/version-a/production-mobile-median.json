@@ -1,0 +1,269 @@
+{
+  "url": "https://giunti-psychometrics-a.vercel.app/",
+  "runs": [
+    {
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1220,
+      "fcpMs": 1220,
+      "cls": 0,
+      "tbtMs": 48,
+      "siMs": 4168,
+      "totalKiB": 304.7,
+      "requests": 18,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 21.2,
+          "resourceKiB": 163.7
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.2,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 9.3,
+          "resourceKiB": 40.4
+        },
+        "Script": {
+          "requests": 8,
+          "transferKiB": 162.9,
+          "resourceKiB": 518.7
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 54.8,
+          "resourceKiB": 54
+        },
+        "Fetch": {
+          "requests": 1,
+          "transferKiB": 0.9,
+          "resourceKiB": 0.4
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-a.vercel.app/_next/static/immutable/chunks/1q-q0cfmzwm7o.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.78)",
+        "unused-javascript (0.5)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "legacy-javascript-insight (0.5)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1098,
+      "fcpMs": 1098,
+      "cls": 0,
+      "tbtMs": 58,
+      "siMs": 4092,
+      "totalKiB": 304.7,
+      "requests": 18,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 21.2,
+          "resourceKiB": 163.7
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.3,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 9.3,
+          "resourceKiB": 40.4
+        },
+        "Script": {
+          "requests": 8,
+          "transferKiB": 162.8,
+          "resourceKiB": 518.7
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 54.8,
+          "resourceKiB": 54
+        },
+        "Fetch": {
+          "requests": 1,
+          "transferKiB": 0.9,
+          "resourceKiB": 0.4
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-a.vercel.app/_next/static/immutable/chunks/1q-q0cfmzwm7o.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.79)",
+        "unused-javascript (0.5)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "legacy-javascript-insight (0.5)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1110,
+      "fcpMs": 1110,
+      "cls": 0,
+      "tbtMs": 48,
+      "siMs": 4111,
+      "totalKiB": 304.7,
+      "requests": 18,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 21.2,
+          "resourceKiB": 163.7
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.3,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 9.3,
+          "resourceKiB": 40.4
+        },
+        "Script": {
+          "requests": 8,
+          "transferKiB": 162.8,
+          "resourceKiB": 518.7
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 54.7,
+          "resourceKiB": 54
+        },
+        "Fetch": {
+          "requests": 1,
+          "transferKiB": 0.9,
+          "resourceKiB": 0.4
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-a.vercel.app/_next/static/immutable/chunks/1q-q0cfmzwm7o.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.79)",
+        "unused-javascript (0.5)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "legacy-javascript-insight (0.5)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    }
+  ],
+  "median": {
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    },
+    "lcpMs": 1110,
+    "fcpMs": 1110,
+    "cls": 0,
+    "tbtMs": 48,
+    "siMs": 4111,
+    "totalKiB": 304.7,
+    "requests": 18,
+    "byType": {
+      "Document": {
+        "requests": 1,
+        "transferKiB": 21.2,
+        "resourceKiB": 163.7
+      },
+      "Font": {
+        "requests": 2,
+        "transferKiB": 55.3,
+        "resourceKiB": 54.7
+      },
+      "Stylesheet": {
+        "requests": 1,
+        "transferKiB": 9.3,
+        "resourceKiB": 40.4
+      },
+      "Script": {
+        "requests": 8,
+        "transferKiB": 162.8,
+        "resourceKiB": 518.7
+      },
+      "Other": {
+        "requests": 1,
+        "transferKiB": 0.5,
+        "resourceKiB": 0.3
+      },
+      "Image": {
+        "requests": 4,
+        "transferKiB": 54.7,
+        "resourceKiB": 54
+      },
+      "Fetch": {
+        "requests": 1,
+        "transferKiB": 0.9,
+        "resourceKiB": 0.4
+      }
+    },
+    "lcpElement": null,
+    "renderBlocking": [
+      "https://giunti-psychometrics-a.vercel.app/_next/static/immutable/chunks/1q-q0cfmzwm7o.css"
+    ],
+    "failedAudits": [
+      "speed-index (0.79)",
+      "unused-javascript (0.5)",
+      "image-delivery-insight (0.5)",
+      "lcp-breakdown-insight (0)",
+      "legacy-javascript-insight (0.5)",
+      "network-dependency-tree-insight (0)",
+      "render-blocking-insight (0.5)"
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "url": "https://giunti-psychometrics-b.onrender.com/",
+  "runs": [
+    {
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1365,
+      "fcpMs": 1365,
+      "cls": 0,
+      "tbtMs": 30,
+      "siMs": 4231,
+      "totalKiB": 216.3,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 124
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.3,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.7,
+          "resourceKiB": 73.4
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114,
+          "resourceKiB": 113.2
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-b.onrender.com/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.77)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1367,
+      "fcpMs": 1367,
+      "cls": 0,
+      "tbtMs": 31,
+      "siMs": 4290,
+      "totalKiB": 216.3,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 124
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 54.9,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.3,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.7,
+          "resourceKiB": 73.4
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114,
+          "resourceKiB": 113.2
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-b.onrender.com/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.76)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1363,
+      "fcpMs": 1363,
+      "cls": 0,
+      "tbtMs": 28,
+      "siMs": 4242,
+      "totalKiB": 216.3,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 124
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.3,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.7,
+          "resourceKiB": 73.4
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.5,
+          "resourceKiB": 0.3
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114,
+          "resourceKiB": 113.2
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "https://giunti-psychometrics-b.onrender.com/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "speed-index (0.77)",
+        "image-delivery-insight (0.5)",
+        "lcp-breakdown-insight (0)",
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0.5)"
+      ]
+    }
+  ],
+  "median": {
+    "scores": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    },
+    "lcpMs": 1365,
+    "fcpMs": 1365,
+    "cls": 0,
+    "tbtMs": 30,
+    "siMs": 4231,
+    "totalKiB": 216.3,
+    "requests": 10,
+    "byType": {
+      "Document": {
+        "requests": 1,
+        "transferKiB": 14.9,
+        "resourceKiB": 124
+      },
+      "Font": {
+        "requests": 2,
+        "transferKiB": 55,
+        "resourceKiB": 54.7
+      },
+      "Stylesheet": {
+        "requests": 1,
+        "transferKiB": 7.3,
+        "resourceKiB": 39.9
+      },
+      "Script": {
+        "requests": 1,
+        "transferKiB": 24.7,
+        "resourceKiB": 73.4
+      },
+      "Other": {
+        "requests": 1,
+        "transferKiB": 0.5,
+        "resourceKiB": 0.3
+      },
+      "Image": {
+        "requests": 4,
+        "transferKiB": 114,
+        "resourceKiB": 113.2
+      }
+    },
+    "lcpElement": null,
+    "renderBlocking": [
+      "https://giunti-psychometrics-b.onrender.com/build/css/app-0649807045.css"
+    ],
+    "failedAudits": [
+      "speed-index (0.77)",
+      "image-delivery-insight (0.5)",
+      "lcp-breakdown-insight (0)",
+      "network-dependency-tree-insight (0)",
+      "render-blocking-insight (0.5)"
+    ]
+  }
+}

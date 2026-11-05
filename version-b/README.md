@@ -6,7 +6,7 @@ Interfaz en italiano, datos 100 % ficticios.
 
 > Prueba técnica de Frontend Developer. Monorepo: [README raíz](../README.md) · Versión A: [`../version-a/README.md`](../version-a/README.md)
 
-**Despliegue:** _pendiente (Render)._ · Versión A: https://giunti-psychometrics-a.vercel.app
+**Despliegue:** https://giunti-psychometrics-b.onrender.com (Render) · Versión A: https://giunti-psychometrics-a.vercel.app (Vercel)
 
 ---
 
@@ -212,15 +212,18 @@ Propias de B:
 | Píxeles distintos, 13 vistas × 3 anchos (375/768/1280) | **máx. 0,09 %**, media 0,02 % (objetivo < 1,5 %); mismo tamaño de página en todas |
 | Sin fotos (solo maquetación, tipografía, color y estados) | máx. 0,04 % |
 | Valores computados (1014 propiedades) | 3 diferencias, todas de notación |
-| e2e de A contra B | **78 / 78** |
+| e2e de A contra B (local, contenedor y producción) | **78 / 78** |
 
 ### Auditoría ([`docs/AUDIT-B.md`](../docs/AUDIT-B.md))
 
 | Métrica (Lighthouse 13.6, móvil, mediana de 3) | B | A | Objetivo |
 |---|---|---|---|
-| Performance / Accessibility / Best Practices / SEO | Contenedor Docker: **100 / 100 / 100 / 100** · producción: _pendiente_ | 100 ×4 | ≥ 95 |
-| LCP / CLS / TBT | Contenedor: **1,32 s / 0 / 35 ms** (escritorio 0,36 s) | 0,91 s / 0 / 49 ms | < 2,5 s / < 0,1 |
-| Peso transferido (móvil) | 217 KiB en 10 peticiones (HTML 14,6 KiB con brotli) | 301 KiB | — |
+| Performance / Accessibility / Best Practices / SEO — **producción** | **97 / 100 / 100 / 100** (escritorio 100 ×4) | 98 / 100 / 100 / 100 (escritorio 100 ×4) | ≥ 95 |
+| LCP / CLS / TBT — **producción** | **1,37 s / 0 / 30 ms** (escritorio 0,51 s) | 1,11 s / 0 / 48 ms (escritorio 0,37 s) | < 2,5 s / < 0,1 |
+| Ídem en el contenedor local (sin latencia de red) | 100 ×4 · LCP 1,32 s · CLS 0 | 100 ×4 · LCP 0,91 s (build local) | |
+| Peso transferido (móvil) | 216 KiB en 10 peticiones (HTML 14,9 KiB con brotli) | 305 KiB en 18 | — |
+
+Producción: los dos sitios bajan de 100 a 97–98 por el Speed Index (~4,2 s en ambos con la red real) y, en B, por el tiempo de respuesta del plan gratuito de Render (TTFB 285 ms frente a 88 ms de la CDN de Vercel). AUDIT-B §7.
 
 | Accesibilidad | Resultado |
 |---|---|

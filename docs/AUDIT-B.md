@@ -257,3 +257,52 @@ cd version-b && docker build -t giunti-b:local .
 docker run -d -p 8090:8080 -e APP_KEY="$(php artisan key:generate --show)" -e APP_URL=http://localhost:8090 giunti-b:local
 cd ../tools/parity && node lighthouse.mjs http://localhost:8090/ ../../docs/lighthouse/version-b container 3
 ```
+
+## 7. Producción (https://giunti-psychometrics-b.onrender.com)
+
+**Fecha:** 2026-11-05 · Render, plan gratuito, región Frankfurt, imagen de §6 construida desde el repo con `render.yaml`; delante,
+el proxy de Render (Cloudflare). Antes de medir se hicieron 3 peticiones para despertar el servicio.
+
+### 7.1 Cabeceras (`curl -D -`)
+
+```
+GET http://…/            301 → https://giunti-psychometrics-b.onrender.com/
+GET /                    200 · Content-Encoding: br · Cache-Control: no-cache, private · sin Set-Cookie · sin X-Powered-By
+                              canonical y og:url = https://giunti-psychometrics-b.onrender.com (APP_URL desde RENDER_EXTERNAL_URL)
+GET /build/css|js/…      200 · Content-Encoding: br · Cache-Control: public, max-age=31536000, immutable
+GET /fonts/…woff2        200 · Cache-Control: public, max-age=31536000, immutable
+GET /privacy             404 (página en italiano) · GET /_styleguide 404 (solo existe en local)
+```
+
+### 7.2 Recorrido funcional contra producción
+
+Con `E2E_BASE_URL=https://giunti-psychometrics-b.onrender.com`: los e2e de A (`layout`, `catalog`, `contact`, `cart`, `audit`) **78 / 78** y los de B
+(`axe-states`, `cart-dialog`, `contact-messages`) **38 / 38**. Cubren las 6 secciones (header, hero, catálogo, confianza,
+contacto, footer), filtrado por categoría y `?categoria=`, búsqueda (acentos, siglas, sin resultados), diálogo de ficha (foco,
+Esc, fondo), carrito (añadir, cantidades, quitar, vaciar, persistencia), formulario (errores, envío, éxito) y axe en 18 estados.
+
+### 7.3 Lighthouse en producción (mediana de 3, mismas condiciones para A y B)
+
+| Métrica | B móvil | A móvil (Vercel) | B escritorio | A escritorio | Objetivo |
+|---|---|---|---|---|---|
+| Performance | **97** | 98 | **100** | 100 | ≥ 95 |
+| Accessibility / Best Practices / SEO | **100 / 100 / 100** | 100 / 100 / 100 | **100 / 100 / 100** | 100 / 100 / 100 | ≥ 95 |
+| LCP | **1,37 s** | 1,11 s | **0,51 s** | 0,37 s | < 2,5 s |
+| CLS | **0** | 0 | **0** | 0 | < 0,1 |
+| TBT | 30 ms | 48 ms | 0 ms | 0 ms | < 200 ms |
+| Peso / peticiones | 216,3 KiB / 10 | 304,7 KiB / 18 | 302 KiB / 18 | 328,1 KiB / 26 | — |
+| TTFB del documento | 285 ms | 88 ms | — | — | — |
+
+Informes: [`lighthouse/version-b/production-*`](lighthouse/version-b) y [`lighthouse/version-a/production-*`](lighthouse/version-a).
+
+**Por qué baja de 100 (contenedor local) a 97.** Las tres ejecuciones dan lo mismo (97, LCP 1,363–1,367 s), así que no es ruido.
+- *Speed Index:* pasa a ~4,2 s, y A también (4,1 s). Por eso A baja a 98 en las mismas condiciones. Es un efecto de medir con la red
+  real, no de B.
+- *Tiempo de respuesta:* el plan gratuito de Render responde en 285 ms, frente a 15 ms en el contenedor local y 88 ms del HTML
+  estático de A en la CDN de Vercel.
+
+Todos los objetivos se siguen cumpliendo: ≥ 95 en las 4 categorías, LCP < 2,5 s y CLS 0.
+
+Con un plan de pago, Render no se duerme y el TTFB baja. El HTML no se puede cachear en una CDN tal cual, porque lleva `no-cache`
+para que un despliegue nuevo se vea al instante; cachearlo sería la siguiente mejora si hiciera falta.
+

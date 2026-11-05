@@ -5,7 +5,7 @@ Landing de catálogo de **test psicológicos y cursos de formación** para profe
 
 > Prueba técnica de Frontend Developer. Monorepo: [README raíz](../README.md) · Versión B (Laravel): [`../version-b/README.md`](../version-b/README.md)
 
-**Despliegue:** https://giunti-psychometrics-a.vercel.app (Vercel)
+**Despliegue:** https://giunti-psychometrics-a.vercel.app (Vercel) · Versión B: https://giunti-psychometrics-b.onrender.com
 
 ---
 
