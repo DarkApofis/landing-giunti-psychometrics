@@ -33,8 +33,17 @@
       if (target && target.isConnected) target.focus();
     });
 
+    // Backdrop: the press must start and end on the <dialog> itself. A text selection that starts
+    // inside and ends outside also dispatches a click on the <dialog> and must not close it.
+    var pressedOnBackdrop = false;
+    $dialog.on('pointerdown', function (event) {
+      pressedOnBackdrop = event.target === dialog;
+    });
+
     $dialog.on('click', function (event) {
-      if (event.target === dialog) dialog.close();
+      var fromBackdrop = pressedOnBackdrop;
+      pressedOnBackdrop = false;
+      if (fromBackdrop && event.target === dialog) dialog.close();
     });
 
     $dialog.on('keydown', function (event) {
