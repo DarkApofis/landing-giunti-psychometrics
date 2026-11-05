@@ -200,4 +200,24 @@ describe('cart: cross-tab sync', () => {
     });
     expect(cartButton()).toHaveAccessibleName('Apri il carrello, 3 articoli nel carrello');
   });
+
+  it('empties when another tab clears the whole storage (storage event with key null)', async () => {
+    const { cartButton, addCourse } = setup();
+    await addCourse(/Somministrare/);
+    act(() => {
+      window.localStorage.clear();
+      window.dispatchEvent(new StorageEvent('storage', { key: null }));
+    });
+    expect(cartButton()).toHaveAccessibleName('Apri il carrello, nessun articolo');
+  });
+
+  it('still persists local changes after a no-op change from another tab', async () => {
+    const { addCourse } = setup();
+    act(() => {
+      window.localStorage.removeItem(STORAGE_KEY); // empty → empty: no state change in this tab
+      window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }));
+    });
+    await addCourse(/Somministrare/);
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{}').items).toHaveLength(1);
+  });
 });

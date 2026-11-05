@@ -7,7 +7,6 @@ import {
   useEffect,
   useMemo,
   useReducer,
-  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -58,7 +57,6 @@ export function CartProvider({
   const [hydrated, setHydrated] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const validIds = useMemo(() => new Set(products.map((p) => p.id)), [products]);
-  const skipNextWrite = useRef(true);
 
   // Read once after mount, and whenever another tab changes the cart.
   useEffect(() => {
@@ -68,23 +66,22 @@ export function CartProvider({
     // Syncing from an external system (localStorage) after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
+    // key === null: another tab ran localStorage.clear().
     const onStorage = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) {
-        skipNextWrite.current = true; // the change came from storage: do not echo it back
-        load();
-      }
+      if (event.key === STORAGE_KEY || event.key === null) load();
     };
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, [validIds]);
 
+  // Write only real differences: a state just read from storage (this mount, another tab) is not
+  // echoed back, and an empty cart with nothing stored creates no key. No one-shot flag to get stuck.
   useEffect(() => {
     if (!hydrated) return;
-    if (skipNextWrite.current) {
-      skipNextWrite.current = false;
-      return;
-    }
-    writeStorage(STORAGE_KEY, serializeCart(state));
+    const stored = readStorage(STORAGE_KEY);
+    const next = serializeCart(state);
+    if (stored === next || (stored === null && state.items.length === 0)) return;
+    writeStorage(STORAGE_KEY, next);
   }, [state, hydrated]);
 
   const openCart = useCallback(() => setIsOpen(true), []);
