@@ -42,11 +42,7 @@
     var lineElements = {}; // productId → <li>
     var lastCount = 0;
 
-    function fillText(text, values) {
-      return Object.keys(values).reduce(function (result, key) {
-        return result.replace(':' + key, values[key]);
-      }, text);
-    }
+    var fillText = window.GP.lib.text.fill;
 
     // ── Rendering ─────────────────────────────────────────────────────────────
     function render(options) {
@@ -65,7 +61,7 @@
 
     function renderButton(count, announce) {
       var label = cart.countLabel(count, texts.count);
-      $button.attr('aria-label', count === 0 ? texts.button.empty : texts.button.with_items.replace(':count', label));
+      $button.attr('aria-label', count === 0 ? texts.button.empty : fillText(texts.button.with_items, { count: label }));
       $badge.prop('hidden', count === 0).text(count > 99 ? '99+' : String(count));
       // Polite announcement of the new total, only for real changes (never when restoring).
       if (announce && count !== lastCount) $countLive.text(label);

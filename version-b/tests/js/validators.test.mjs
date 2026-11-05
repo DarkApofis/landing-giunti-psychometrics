@@ -26,7 +26,7 @@ const MESSAGES = {
 };
 const LIMITS = JSON.parse(readFileSync(new URL('../../resources/data/content.json', import.meta.url), 'utf8')).validation.limits;
 
-const lib = loadScripts('lib/validators.js').GP.lib.validators;
+const lib = loadScripts('lib/text.js', 'lib/validators.js').GP.lib.validators;
 const v = lib.create(MESSAGES, LIMITS);
 const plain = (value) => JSON.parse(JSON.stringify(value));
 

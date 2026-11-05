@@ -26,9 +26,7 @@
   }
 
   function fill(template, values) {
-    return Object.keys(values).reduce(function (text, key) {
-      return text.split(':' + key).join(String(values[key]));
-    }, template);
+    return window.GP.lib.text.fill(template, values);
   }
 
   function create(messages, limits) {

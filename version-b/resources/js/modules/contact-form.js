@@ -23,6 +23,7 @@
 
     var texts = config.i18n.contact;
     var lib = window.GP.lib.validators;
+    var fill = window.GP.lib.text.fill;
     var validator = lib.create(texts.validation, config.contact.limits);
     var fields = lib.FIELDS;
 
@@ -68,7 +69,7 @@
 
     /** Clear first, write on the next frame: a repeated identical summary is announced again. */
     function showSummary(count) {
-      var text = count === 1 ? texts.errorSummary.one : texts.errorSummary.many.replace(':count', count);
+      var text = count === 1 ? texts.errorSummary.one : fill(texts.errorSummary.many, { count: count });
       $alertText.text('');
       $alert.prop('hidden', false);
       window.requestAnimationFrame(function () {
@@ -139,7 +140,7 @@
 
       timer = window.setTimeout(function () {
         status = 'success';
-        $successBody.text(texts.successBody.replace(':name', name));
+        $successBody.text(fill(texts.successBody, { name: name }));
         $form.prop('hidden', true);
         $success.prop('hidden', false);
         $successTitle.trigger('focus');

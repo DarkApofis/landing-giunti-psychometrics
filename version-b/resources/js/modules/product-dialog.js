@@ -55,7 +55,7 @@
       slot('price-final').text(product.price.final);
       slot('price-original').text(product.price.original || '');
       slot('price-percent').text(discounted ? product.price.percent : '');
-      slot('price-saving').text(discounted ? savingLabel.replace(':percent', product.price.percent) : '');
+      slot('price-saving').text(discounted ? window.GP.lib.text.fill(savingLabel, { percent: product.price.percent }) : '');
     }
 
     $root.on('click', '[data-details]', function () {

@@ -19,6 +19,7 @@
     if ($catalog.length === 0) return;
 
     var lib = window.GP.lib;
+    var fill = lib.text.fill;
     var texts = config.i18n.catalog;
     var categories = config.catalog.categories;
     var categoryIds = categories.map(function (c) { return c.id; });
@@ -60,7 +61,7 @@
         $(this)
           .attr('aria-pressed', pressed ? 'true' : 'false')
           .toggleClass('is-active', pressed)
-          .attr('aria-label', texts.pill_label.replace(':label', labels[id]).replace(':count', counts[id]))
+          .attr('aria-label', fill(texts.pill_label, { label: labels[id], count: counts[id] }))
           .find('.pill__count').text(counts[id]);
       });
 
@@ -86,9 +87,9 @@
     function emptyContext() {
       var parts = [];
       var query = state.query.trim();
-      if (query !== '') parts.push(texts.empty_context.query.replace(':query', query));
+      if (query !== '') parts.push(fill(texts.empty_context.query, { query: query }));
       if (state.category !== lib.catalog.ALL) {
-        parts.push(texts.empty_context.category.replace(':category', labels[state.category]));
+        parts.push(fill(texts.empty_context.category, { category: labels[state.category] }));
       }
       return parts.length === 0 ? '' : texts.empty_context.lead + ' ' + parts.join(' ') + '. ';
     }

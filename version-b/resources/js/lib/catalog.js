@@ -43,7 +43,7 @@
   /** "Nessun prodotto trovato" · "1 prodotto trovato" · "8 prodotti trovati" (labels from lang/it). */
   function resultsLabel(count, labels) {
     if (count === 0) return labels.none;
-    return count === 1 ? labels.one : labels.many.replace(':count', String(count));
+    return count === 1 ? labels.one : window.GP.lib.text.fill(labels.many, { count: count });
   }
 
   /** Reads filters from a query string; an unknown category falls back to "tutti", q ≤ 100 chars. */

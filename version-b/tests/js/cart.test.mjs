@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 import { loadScripts } from './load.mjs';
 
-const cart = loadScripts('lib/cart.js').GP.lib.cart;
+const cart = loadScripts('lib/text.js', 'lib/cart.js').GP.lib.cart;
 const { reduce, count, toCents, isCartable, lines, totals, countLabel, serialize, parseStored, EMPTY_CART } = cart;
 const plain = (value) => JSON.parse(JSON.stringify(value));
 

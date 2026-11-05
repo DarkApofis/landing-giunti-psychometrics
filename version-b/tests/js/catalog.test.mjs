@@ -5,6 +5,7 @@ import { describe, it } from 'node:test';
 import { RESULTS_LABELS, loadScripts } from './load.mjs';
 
 const { filterItems, countByCategory, resultsLabel, parseFilters, filtersToSearch } = loadScripts(
+  'lib/text.js',
   'lib/search.js',
   'lib/catalog.js',
 ).GP.lib.catalog;

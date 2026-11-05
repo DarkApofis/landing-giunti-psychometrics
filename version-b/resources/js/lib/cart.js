@@ -96,7 +96,7 @@
   /** "Nessun articolo nel carrello" · "1 articolo nel carrello" · "3 articoli nel carrello" (labels from lang/it). */
   function countLabel(n, labels) {
     if (n === 0) return labels.none;
-    return n === 1 ? labels.one : labels.many.replace(':count', String(n));
+    return n === 1 ? labels.one : window.GP.lib.text.fill(labels.many, { count: n });
   }
 
   function serialize(state) {
