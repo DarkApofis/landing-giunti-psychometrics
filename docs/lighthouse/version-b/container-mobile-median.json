@@ -1,0 +1,229 @@
+{
+  "url": "http://localhost:8090/",
+  "runs": [
+    {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1326,
+      "fcpMs": 1326,
+      "cls": 0,
+      "tbtMs": 35,
+      "siMs": 1326,
+      "totalKiB": 217.3,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 123.8
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.3,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.5,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.9,
+          "resourceKiB": 73.4
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114.1,
+          "resourceKiB": 113.2
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.6,
+          "resourceKiB": 0.3
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "http://localhost:8090/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1319,
+      "fcpMs": 1319,
+      "cls": 0,
+      "tbtMs": 32,
+      "siMs": 1319,
+      "totalKiB": 217.2,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 123.8
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.3,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.5,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.9,
+          "resourceKiB": 73.4
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114,
+          "resourceKiB": 113.2
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.6,
+          "resourceKiB": 0.3
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "http://localhost:8090/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0)"
+      ]
+    },
+    {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "lcpMs": 1324,
+      "fcpMs": 1324,
+      "cls": 0,
+      "tbtMs": 35,
+      "siMs": 1324,
+      "totalKiB": 217.2,
+      "requests": 10,
+      "byType": {
+        "Document": {
+          "requests": 1,
+          "transferKiB": 14.9,
+          "resourceKiB": 123.8
+        },
+        "Font": {
+          "requests": 2,
+          "transferKiB": 55.3,
+          "resourceKiB": 54.7
+        },
+        "Stylesheet": {
+          "requests": 1,
+          "transferKiB": 7.5,
+          "resourceKiB": 39.9
+        },
+        "Script": {
+          "requests": 1,
+          "transferKiB": 24.9,
+          "resourceKiB": 73.4
+        },
+        "Image": {
+          "requests": 4,
+          "transferKiB": 114,
+          "resourceKiB": 113.2
+        },
+        "Other": {
+          "requests": 1,
+          "transferKiB": 0.6,
+          "resourceKiB": 0.3
+        }
+      },
+      "lcpElement": null,
+      "renderBlocking": [
+        "http://localhost:8090/build/css/app-0649807045.css"
+      ],
+      "failedAudits": [
+        "network-dependency-tree-insight (0)",
+        "render-blocking-insight (0)"
+      ]
+    }
+  ],
+  "median": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    },
+    "lcpMs": 1324,
+    "fcpMs": 1324,
+    "cls": 0,
+    "tbtMs": 35,
+    "siMs": 1324,
+    "totalKiB": 217.2,
+    "requests": 10,
+    "byType": {
+      "Document": {
+        "requests": 1,
+        "transferKiB": 14.9,
+        "resourceKiB": 123.8
+      },
+      "Font": {
+        "requests": 2,
+        "transferKiB": 55.3,
+        "resourceKiB": 54.7
+      },
+      "Stylesheet": {
+        "requests": 1,
+        "transferKiB": 7.5,
+        "resourceKiB": 39.9
+      },
+      "Script": {
+        "requests": 1,
+        "transferKiB": 24.9,
+        "resourceKiB": 73.4
+      },
+      "Image": {
+        "requests": 4,
+        "transferKiB": 114,
+        "resourceKiB": 113.2
+      },
+      "Other": {
+        "requests": 1,
+        "transferKiB": 0.6,
+        "resourceKiB": 0.3
+      }
+    },
+    "lcpElement": null,
+    "renderBlocking": [
+      "http://localhost:8090/build/css/app-0649807045.css"
+    ],
+    "failedAudits": [
+      "network-dependency-tree-insight (0)",
+      "render-blocking-insight (0)"
+    ]
+  }
+}

@@ -33,7 +33,8 @@ Escritorio sin compresión: 100 / 100 / 100 / 100, LCP 0,52 s → 0,47 s, 516 �
 caché a los archivos estáticos. La compresión y la caché son trabajo del servidor del Dockerfile (Prompt 10), que todavía no
 existe. Para medir el rendimiento real se usó [`tools/parity/serve-prod.mjs`](../tools/parity/serve-prod.mjs), un proxy local que
 aplica exactamente lo que ese servidor debe aplicar (brotli/gzip y `Cache-Control: immutable` en los archivos con hash, sin
-`X-Powered-By`). **La verificación definitiva de compresión y cabeceras queda pendiente del Prompt 10** (§3.4).
+`X-Powered-By`). **Verificado después en el contenedor Docker** (nginx + PHP-FPM + OPcache, §6): mismas cabeceras y mismos
+resultados (móvil 100 ×4, LCP 1,32 s; escritorio 100 ×4, LCP 0,36 s).
 
 ### 1.2 Peso por tipo de recurso (móvil, transferido)
 
@@ -145,8 +146,8 @@ Las reglas `wcag22aa` de axe están incluidas en los 18 estados de §2.1.
 | Imágenes: `srcset` 384/750/1200, `sizes`, `width`/`height`, `lazy`, ninguna precargada | ✔ | `CatalogMarkupTest`; `catalog.spec.ts` › «image sizes attribute matches rendered width» (ancho elegido ≥ hueco y < 2,2×); 0 `preload as=image`; AVIF servido por la CDN |
 | CLS | 0 | Lighthouse; `catalog.spec.ts` › CLS < 0,1 al recorrer la grilla; cajas `aspect-ratio`, fallbacks de fuente con métricas |
 | El LCP es texto | ✔ | Elemento LCP = texto del hero (sin foto en el hero), como A |
-| Compresión gzip/brotli | **Pendiente: Prompt 10** | `php artisan serve` no comprime (cabeceras de §3.4). Medido con el servidor de medición: HTML 124 → 14,8 KiB, CSS 40 → 7,4, JS 73,5 → 24,8 |
-| `Cache-Control` en los archivos con hash | **Pendiente: Prompt 10** | Los nombres llevan hash: admiten `public, max-age=31536000, immutable` (aplicado en el servidor de medición) |
+| Compresión gzip/brotli | ✔ (contenedor, §6) | `php artisan serve` no comprime (§3.4). nginx del contenedor: HTML 124 → 14,6 KiB (brotli), CSS 40 → 7,5 KiB, JS 73,5 → 24,9 KiB |
+| `Cache-Control` en los archivos con hash | ✔ (contenedor, §6) | `public, max-age=31536000, immutable` en `/build` y `/fonts`; `no-cache` en el HTML |
 
 ### 3.2 Hallazgos y correcciones
 
@@ -156,7 +157,7 @@ Las reglas `wcag22aa` de axe están incluidas en los 18 estados de §2.1.
 | HB2 | **Rutas `GET`/`PUT storage/{path}`** expuestas por la plantilla de Laravel 13 (disco `local` con `serve: true`), sin uso | Baja (superficie de ataque; requieren URL firmada) | `'serve' => false` en `config/filesystems.php` | `php artisan route:list` → solo `/` y `/up` |
 | HB3 | **JS de 95,7 KiB**: jQuery 4 completo, con AJAX, efectos y Deferred que B no usa | Baja | jQuery 4 **slim** | JS 95,7 → 73,5 KiB (24,8 KiB con brotli); jQuery minificado 76,9 → 54,7 KiB (gzip 26,9 → 19,0 KiB); 78/78 e2e de A y 38/38 de B en verde |
 | HB4 | Calidad de imagen `q=80` (la del dataset) frente a 75 en A (`next/image` por defecto); Lighthouse estimaba 22 KiB de ahorro | Muy baja | `q=75`, como A | Medido: la CDN devuelve 14.503 B frente a 14.515 B (−12 B): **sin efecto real**; el ahorro estimado solo llegaría con `q ≤ 60` y no compensa la pérdida de calidad. Se mantiene por coherencia con A |
-| HB5 | **Sin compresión ni `Cache-Control`** en los estáticos; **`X-Powered-By: PHP/8.4.0`** delata la versión | Alta para el LCP móvil (2,2 s → 1,3 s con compresión) | Corresponde al servidor de producción (Prompt 10): brotli/gzip, `immutable` en `/build` y `/fonts`, `expose_php=Off` | **Pendiente.** Estimado con el servidor de medición (§1.1); verificar en el contenedor |
+| HB5 | **Sin compresión ni `Cache-Control`** en los estáticos; **`X-Powered-By: PHP/8.4.0`** delata la versión | Alta para el LCP móvil (2,2 s → 1,3 s con compresión) | Corresponde al servidor de producción (Prompt 10): brotli/gzip, `immutable` en `/build` y `/fonts`, `expose_php=Off` | **Corregido en el contenedor** (`version-b/Dockerfile`, `docker/`): cabeceras con `curl -D -` y Lighthouse en §6 |
 
 ### 3.3 Por qué el LCP de B (1,29 s) es mayor que el de A (0,91 s)
 
@@ -193,9 +194,8 @@ GET /build/js/...   content-encoding: br · cache-control: public, max-age=31536
 
 - **Todos los objetivos se cumplen** (≥ 95 en las 4 categorías, LCP < 2,5 s y CLS < 0,1 en móvil y escritorio; 0 violaciones de
   axe en 18 estados; e2e de A completos contra B). **Sin compresión**, el LCP móvil (2,2 s) sigue por debajo de 2,5 s, pero con
-  poco margen: la compresión del Prompt 10 es necesaria, no opcional.
-- **Pendiente del Prompt 10 (no declarado resuelto):** compresión brotli/gzip, `Cache-Control: immutable` en `/build` y `/fonts`,
-  `expose_php=Off`, PHP-FPM con OPcache. Hay que repetir allí las mediciones de §1.1 y las cabeceras de §3.4.
+  poco margen: por eso el contenedor comprime (§6).
+- Compresión, `Cache-Control`, `expose_php=Off` y PHP-FPM con OPcache: **verificados en el contenedor** (§6).
 - **Límites de la medición:** Lighthouse local con throttling simulado (sin red real ni datos de campo); lector de pantalla
   evaluado de forma automática y semántica, sin sesión manual con NVDA/VoiceOver (igual que en A).
 - `npm audit`: 1 aviso moderado en `minimatch` dentro de ESLint (solo herramienta de desarrollo; ASSUMPTIONS B24).
@@ -215,4 +215,45 @@ cd ../tools/parity
 node lighthouse.mjs http://localhost:8000/ ../../docs/lighthouse/version-b after 3              # tal cual
 node serve-prod.mjs 8080 http://localhost:8000 &                                                 # servidor de medición
 node lighthouse.mjs http://localhost:8080/ ../../docs/lighthouse/version-b after-compressed 3
+```
+
+## 6. Contenedor de producción (Docker: nginx + PHP-FPM + OPcache)
+
+**Fecha:** 2026-11-05 · imagen `version-b/Dockerfile` (`php:8.4-fpm-alpine`, PHP 8.4.27, nginx 1.30.6 con brotli), arrancada con
+`docker run -p 8090:8080 -e APP_KEY=… -e APP_URL=http://localhost:8090`. El entrypoint ejecutó `config:cache`, `route:cache` y
+`view:cache` (log: «Configuration cached successfully» …).
+
+### 6.1 Cabeceras (`curl -D -`)
+
+```
+GET /                    200 · Content-Encoding: br · Cache-Control: no-cache, private · Vary: Accept-Encoding · sin Set-Cookie · sin X-Powered-By
+GET /build/css/app-….css 200 · Content-Encoding: gzip (con Accept-Encoding: gzip) · Cache-Control: public, max-age=31536000, immutable
+GET /build/js/app-….js   200 · Content-Encoding: br · Cache-Control: public, max-age=31536000, immutable
+GET /fonts/…-….woff2     200 · Content-Type: font/woff2 · Cache-Control: public, max-age=31536000, immutable (sin recomprimir)
+GET /no-existe           404 · página en italiano · Cache-Control: no-cache, private · sin Set-Cookie
+HTML: 126.764 B sin comprimir → 17.705 B gzip → 14.917 B brotli
+php -i: expose_php => Off · opcache.enable => On · opcache.validate_timestamps => Off
+```
+
+Detrás de un proxy (`X-Forwarded-Proto: https`, `TRUSTED_PROXIES=*`) la canónica y los assets salen en `https://`. Con
+`APP_ENV=production` las URLs absolutas se construyen desde `APP_URL`: un `Host: evil.example` **no** cambia la canónica (antes sí,
+porque `url('/')` usaba la cabecera Host).
+
+### 6.2 Lighthouse contra el contenedor (mediana de 3)
+
+| Métrica | Móvil | Escritorio | Servidor de medición (§1.1), móvil | Objetivo |
+|---|---|---|---|---|
+| Performance / Accessibility / Best Practices / SEO | **100 / 100 / 100 / 100** | **100 / 100 / 100 / 100** | 100 ×4 | ≥ 95 |
+| LCP | **1,32 s** | **0,36 s** | 1,29 s | < 2,5 s |
+| CLS | **0** | **0** | 0 | < 0,1 |
+| TBT | 35 ms | 0 ms | 16 ms | < 200 ms |
+| Peso / peticiones | 217,2 KiB / 10 | 302,9 KiB / 18 | 216,5 KiB / 10 | — |
+
+Informes: [`lighthouse/version-b/container-{mobile,desktop}.report.html`](lighthouse/version-b). El proxy de medición predijo bien el
+servidor real (diferencias de ±30 ms, dentro del ruido). E2e de A (78 funcionales) contra el contenedor: **78 / 78**.
+
+```bash
+cd version-b && docker build -t giunti-b:local .
+docker run -d -p 8090:8080 -e APP_KEY="$(php artisan key:generate --show)" -e APP_URL=http://localhost:8090 giunti-b:local
+cd ../tools/parity && node lighthouse.mjs http://localhost:8090/ ../../docs/lighthouse/version-b container 3
 ```
