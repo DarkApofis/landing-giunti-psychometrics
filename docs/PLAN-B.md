@@ -157,7 +157,7 @@ Una fila por pieza de version-a. Comportamiento según H §6.
 | `TrustStrip` | `partials/trust-strip` | `trust` (`__list`, `__item`, `__title`, `__text`) + `icon-circle--lg` | — |
 | `ContactSection` | `partials/contact` | `contact` (`__intro`, `__channels`, `__channel`, `__panel`) + `icon-circle` | — |
 | `ContactForm` | `partials/contact-form` | `contact-form` (`__grid`, `__submit`) + `form-alert` + `form-success` | `contact-form.js`: estados editing → submitting → success, foco, AJAX |
-| `FormField` | `<x-field name type hint>` | `field` (`__label`, `__control-wrap`, `__control`, `__hint`, `__error`; `field--full`, `is-invalid`) | `contact-form.js`: `aria-invalid`, `aria-describedby` |
+| `FormField` | `<x-field name type hint>` | `field` (`__label`, `__control-wrap`, `__control`, `__hint`, `__error`; `field--subgrid`, `is-invalid`) | `contact-form.js`: `aria-invalid`, `aria-describedby` |
 | `Footer` | `partials/footer` | `site-footer` (`__grid`, `__brand`, `__col`, `__bottom`) + `social` (`__link`) | enlaces “Esplora” con `data-category` |
 | `SocialIcon` | `<x-social-icon network>` | — (SVG dentro de `social__link`) | — |
 | `CopyrightYear` | `{{ now()->year }}` en `partials/footer` | — | — |

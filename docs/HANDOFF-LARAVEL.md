@@ -358,7 +358,7 @@ redimensiona), `width`/`height` 1200×800 + `aspect-ratio: 3/2` en el contenedor
         <div class="field">… Email: <p class="field__hint" id="contact-email-hint">Ti risponderemo a questo indirizzo.</p>
           <input type="email" inputmode="email" spellcheck="false" autocomplete="email" maxlength="254"
                  aria-describedby="contact-email-hint" …></div>
-        <div class="field field--full">… Messaggio: hint “Almeno 10 caratteri.” · <textarea rows="5" maxlength="2000" …></textarea></div>
+        <div class="field">… Messaggio: hint “Almeno 10 caratteri.” · <textarea rows="5" maxlength="2000" …></textarea></div>
       </div>
       <p class="form-alert" role="alert" hidden><svg aria-hidden="true">!</svg>Il modulo contiene 3 errori: correggi i campi evidenziati.</p>
       <button class="btn btn--primary contact-form__submit" type="submit"><svg aria-hidden="true">send</svg>Invia messaggio</button>

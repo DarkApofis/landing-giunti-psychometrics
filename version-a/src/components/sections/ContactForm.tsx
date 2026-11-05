@@ -177,35 +177,38 @@ export function ContactForm() {
         {contactCopy.requiredNote}
       </p>
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
-        <TextField
-          ref={nomeRef}
-          label={contactCopy.fields.nome.label}
-          autoComplete={contactCopy.fields.nome.autoComplete}
-          maxLength={CONTACT_LIMITS.nomeMax}
-          {...common('nome')}
-        />
-        <TextField
-          ref={emailRef}
-          type="email"
-          inputMode="email"
-          spellCheck={false}
-          label={contactCopy.fields.email.label}
-          hint={contactCopy.fields.email.hint}
-          autoComplete={contactCopy.fields.email.autoComplete}
-          maxLength={CONTACT_LIMITS.emailMax}
-          {...common('email')}
-        />
-        <div className="sm:col-span-2">
-          <TextArea
-            ref={messaggioRef}
-            rows={5}
-            label={contactCopy.fields.messaggio.label}
-            hint={contactCopy.fields.messaggio.hint}
-            maxLength={CONTACT_LIMITS.messaggioMax}
-            {...common('messaggio')}
+      <div className="mt-6 grid gap-5">
+        {/* Nome + Email side by side from 640px, rows shared via subgrid so the inputs line up. */}
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-y-0">
+          <TextField
+            subgrid
+            ref={nomeRef}
+            label={contactCopy.fields.nome.label}
+            autoComplete={contactCopy.fields.nome.autoComplete}
+            maxLength={CONTACT_LIMITS.nomeMax}
+            {...common('nome')}
+          />
+          <TextField
+            subgrid
+            ref={emailRef}
+            type="email"
+            inputMode="email"
+            spellCheck={false}
+            label={contactCopy.fields.email.label}
+            hint={contactCopy.fields.email.hint}
+            autoComplete={contactCopy.fields.email.autoComplete}
+            maxLength={CONTACT_LIMITS.emailMax}
+            {...common('email')}
           />
         </div>
+        <TextArea
+          ref={messaggioRef}
+          rows={5}
+          label={contactCopy.fields.messaggio.label}
+          hint={contactCopy.fields.messaggio.hint}
+          maxLength={CONTACT_LIMITS.messaggioMax}
+          {...common('messaggio')}
+        />
       </div>
 
       {summary && (

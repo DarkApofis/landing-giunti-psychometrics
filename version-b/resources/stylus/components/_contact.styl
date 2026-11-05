@@ -96,14 +96,22 @@
     color: var(--color-ink-muted);
   }
 
-  // Nome + Email side by side from 640px; Messaggio full width.
+  // Fields stacked: the Nome + Email pair, then Messaggio full width.
   &__grid {
     margin-top: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  // Nome + Email side by side from 640px. No row gap: each field spans 4 subgrid rows
+  // (label / hint / control / error), so the inputs line up even if only one has a hint.
+  &__pair {
     display: grid;
     gap: 1.25rem;
 
     +sm() {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 0;
     }
   }
 
@@ -146,9 +154,16 @@
 }
 
 .field {
-  &--full {
+  &--subgrid {
     +sm() {
-      grid-column: span 2 / span 2;
+      display: grid;
+      grid-row: span 4;
+      grid-template-rows: subgrid;
+
+      .field__label { grid-row: 1; }
+      .field__hint { grid-row: 2; }
+      .field__control-wrap { grid-row: 3; }
+      .field__error { grid-row: 4; }
     }
   }
 

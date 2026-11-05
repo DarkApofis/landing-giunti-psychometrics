@@ -8,24 +8,28 @@
     <p class="contact-form__note" id="contact-form-note">{{ $contact['copy']['requiredNote'] }}</p>
 
     <div class="contact-form__grid">
+        {{-- Nome + Email side by side from 640px, rows shared via subgrid so the inputs line up. --}}
+        <div class="contact-form__pair">
+            <x-field
+                class="field--subgrid"
+                name="nome"
+                :label="$contact['copy']['fields']['nome']['label']"
+                :autocomplete="$contact['copy']['fields']['nome']['autoComplete']"
+                :maxlength="$limits['nomeMax']"
+            />
+            <x-field
+                class="field--subgrid"
+                name="email"
+                type="email"
+                :label="$contact['copy']['fields']['email']['label']"
+                :hint="$contact['copy']['fields']['email']['hint']"
+                :autocomplete="$contact['copy']['fields']['email']['autoComplete']"
+                inputmode="email"
+                spellcheck="false"
+                :maxlength="$limits['emailMax']"
+            />
+        </div>
         <x-field
-            name="nome"
-            :label="$contact['copy']['fields']['nome']['label']"
-            :autocomplete="$contact['copy']['fields']['nome']['autoComplete']"
-            :maxlength="$limits['nomeMax']"
-        />
-        <x-field
-            name="email"
-            type="email"
-            :label="$contact['copy']['fields']['email']['label']"
-            :hint="$contact['copy']['fields']['email']['hint']"
-            :autocomplete="$contact['copy']['fields']['email']['autoComplete']"
-            inputmode="email"
-            spellcheck="false"
-            :maxlength="$limits['emailMax']"
-        />
-        <x-field
-            class="field--full"
             name="messaggio"
             :multiline="true"
             :label="$contact['copy']['fields']['messaggio']['label']"
