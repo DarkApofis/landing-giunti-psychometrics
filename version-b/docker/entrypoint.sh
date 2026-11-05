@@ -1,6 +1,6 @@
 #!/bin/sh
 # Start of the version B container: render the nginx config for $PORT, cache Laravel's
-# config/routes/views with the real environment, then run PHP-FPM and nginx.
+# config/routes/views with the real environment, then run PHP-FPM and nginx. Runs as www-data.
 set -eu
 
 : "${PORT:=8080}"
@@ -12,13 +12,12 @@ if [ -z "${APP_KEY:-}" ]; then
   exit 1
 fi
 
-envsubst '${PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+envsubst '${PORT}' < /etc/nginx/nginx.conf.template > /tmp/nginx.conf
 
 cd /var/www/html
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-chown -R www-data:www-data storage bootstrap/cache
 
 php-fpm -D
-exec nginx -g 'daemon off;'
+exec nginx -c /tmp/nginx.conf -e /dev/stderr -g 'daemon off;'

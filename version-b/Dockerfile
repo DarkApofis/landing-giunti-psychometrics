@@ -30,23 +30,29 @@ FROM php:8.4-fpm-alpine AS runtime
 
 RUN apk add --no-cache nginx nginx-mod-http-brotli gettext \
     && docker-php-ext-install opcache \
-    && mkdir -p /run/nginx
+    # Unprivileged php-fpm: the pool's user/group directives only apply when it starts as root.
+    && sed -i -e '/^user = /d' -e '/^group = /d' /usr/local/etc/php-fpm.d/www.conf
 
 COPY docker/php.ini /usr/local/etc/php/conf.d/zz-production.ini
 COPY docker/php-fpm.conf /usr/local/etc/php-fpm.d/zz-www.conf
 COPY docker/nginx.conf.template /etc/nginx/nginx.conf.template
+COPY docker/security-headers.conf /etc/nginx/security-headers.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data . .
 COPY --from=vendor --chown=www-data:www-data /app/vendor ./vendor
+COPY --from=vendor /usr/bin/composer /usr/bin/composer
 COPY --from=assets --chown=www-data:www-data /app/public/build ./public/build
 COPY --from=assets --chown=www-data:www-data /app/public/fonts ./public/fonts
 COPY --from=assets --chown=www-data:www-data /app/resources/svg ./resources/svg
 
-# Package discovery (skipped by Composer above) and writable runtime directories.
-RUN php artisan package:discover --ansi \
+# Optimised classmap now that app/ is present (the vendor stage could not see it), package discovery
+# (skipped by Composer above) and writable runtime directories.
+RUN composer dump-autoload --optimize --no-dev --no-interaction \
+    && rm /usr/bin/composer \
+    && php artisan package:discover --ansi \
     && mkdir -p storage/framework/cache/data storage/framework/views storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R ug+rwX storage bootstrap/cache
@@ -60,6 +66,9 @@ ENV APP_ENV=production \
     CACHE_STORE=file \
     QUEUE_CONNECTION=sync \
     PORT=8080
+
+# Everything from here on runs unprivileged (port 8080 needs no root).
+USER www-data
 
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s CMD wget -q -O /dev/null "http://127.0.0.1:${PORT}/up" || exit 1
