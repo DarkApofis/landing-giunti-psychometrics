@@ -10,8 +10,9 @@ import { CopyrightYear } from './CopyrightYear';
 const linkClass =
   'inline-flex min-h-11 items-center rounded-sm text-primary-subtle underline-offset-4 transition-colors duration-(--duration-fast) hover:text-white hover:underline';
 
+/** In-page anchors go through CatalogLink (category + home link on other pages); pages are plain links. */
 function FooterAnchor({ link }: { link: FooterLink }) {
-  return link.category ? (
+  return link.href.startsWith('#') ? (
     <CatalogLink href={link.href} category={link.category} className={linkClass}>
       {link.label}
     </CatalogLink>

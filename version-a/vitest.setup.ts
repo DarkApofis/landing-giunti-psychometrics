@@ -1,6 +1,13 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import { afterEach, vi } from 'vitest';
+
+// Outside the App Router there is no pathname: render as the home ("/") unless a test sets
+// another one with vi.mocked(usePathname).mockReturnValue('/faq').
+vi.mock('next/navigation', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('next/navigation')>()),
+  usePathname: vi.fn(() => '/'),
+}));
 
 // jsdom does not implement <dialog> modality; emulate the open/close contract we rely on.
 // Real behaviour (focus trap, Esc, backdrop) is covered by Playwright.

@@ -16,9 +16,13 @@ export function SearchBox({ className }: { className?: string }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
 
+  // On the home, Enter scrolls to the catalogue. Elsewhere there is no catalogue: the form submits
+  // natively (GET /?q=…#catalogo) and the home opens already filtered.
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    const catalog = document.getElementById(SECTION_IDS.catalog);
+    if (!catalog) return;
     event.preventDefault();
-    document.getElementById(SECTION_IDS.catalog)?.scrollIntoView({ block: 'start' });
+    catalog.scrollIntoView({ block: 'start' });
   }
 
   function handleClear() {
@@ -28,7 +32,7 @@ export function SearchBox({ className }: { className?: string }) {
 
   return (
     <search className={className}>
-      <form onSubmit={handleSubmit} className="relative">
+      <form action={`/#${SECTION_IDS.catalog}`} onSubmit={handleSubmit} className="relative">
         <label htmlFor={inputId} className="sr-only">
           Cerca nel catalogo
         </label>

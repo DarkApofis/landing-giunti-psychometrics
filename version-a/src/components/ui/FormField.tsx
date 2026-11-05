@@ -64,7 +64,10 @@ function FieldShell({
       )}
       <div className="row-start-3 mt-1.5">{children}</div>
       {error && (
-        <p id={`${id}-error`} className="row-start-4 mt-1.5 flex items-start gap-1.5 text-sm text-danger">
+        <p
+          id={`${id}-error`}
+          className="row-start-4 mt-1.5 flex items-start gap-1.5 text-sm text-danger"
+        >
           <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
           <span>{error}</span>
         </p>

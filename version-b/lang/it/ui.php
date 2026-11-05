@@ -168,7 +168,7 @@ return [
         'title' => 'Pagina non disponibile',
         'eyebrow' => 'Errore 404',
         'heading' => 'Questa pagina non fa parte della demo',
-        'text' => 'Il sito è una landing dimostrativa: le pagine istituzionali non sono state realizzate.',
+        'text' => 'Il sito è una landing dimostrativa: la pagina che cerchi non esiste o non è stata realizzata.',
         'home' => 'Torna alla home',
     ],
 

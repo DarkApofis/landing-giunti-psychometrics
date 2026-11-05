@@ -8,22 +8,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', $site['title'])</title>
-    <meta name="description" content="{{ $site['description'] }}">
+    @php
+        // Pages other than the home pass $meta (title, description, url); the home uses the site's.
+        $metaTitle = $meta['title'] ?? $site['title'];
+        $metaDescription = $meta['description'] ?? $site['description'];
+        $metaUrl = $meta['url'] ?? url('/');
+    @endphp
+    <title>@yield('title', $metaTitle)</title>
+    <meta name="description" content="{{ $metaDescription }}">
     <meta name="application-name" content="{{ $site['name'] }}">
     <meta name="keywords" content="{{ implode(',', __('ui.meta.keywords')) }}">
     <meta name="robots" content="@yield('robots', 'index, follow')">
-    <link rel="canonical" href="{{ url('/') }}">
+    <link rel="canonical" href="{{ $metaUrl }}">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ $site['locale'] }}">
-    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:url" content="{{ $metaUrl }}">
     <meta property="og:site_name" content="{{ $site['name'] }}">
-    <meta property="og:title" content="{{ $site['title'] }}">
-    <meta property="og:description" content="{{ $site['description'] }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ $site['title'] }}">
-    <meta name="twitter:description" content="{{ $site['description'] }}">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
 
     <meta name="theme-color" content="{{ $site['themeColor'] }}">
     <meta name="color-scheme" content="light">
@@ -40,7 +46,7 @@
 
     @include('partials.header')
 
-    {{-- Order inside <main> (HANDOFF §3): hero → catalogue → trust strip → contact. --}}
+    {{-- Home order inside <main> (HANDOFF §3): hero → catalogue → trust strip → contact. --}}
     <main id="{{ $sectionIds['main'] }}" tabindex="-1">
         @yield('content')
     </main>

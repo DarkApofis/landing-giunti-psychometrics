@@ -16,7 +16,7 @@
             <ul class="main-nav__list">
                 @foreach ($mainNav as $item)
                     <li>
-                        <a class="main-nav__link" href="{{ $item['href'] }}" @isset($item['category']) data-category="{{ $item['category'] }}" @endisset>{{ $item['label'] }}</a>
+                        <a class="main-nav__link" href="{{ $homeHref($item['href'], $item['category'] ?? null) }}" @isset($item['category']) data-category="{{ $item['category'] }}" @endisset>{{ $item['label'] }}</a>
                     </li>
                 @endforeach
             </ul>

@@ -5,6 +5,7 @@ import {
   countByCategory,
   filterProducts,
   filtersToSearch,
+  hrefFromOtherPage,
   parseFilters,
   resultsLabel,
 } from './catalog';
@@ -181,5 +182,19 @@ describe('filtersToSearch (state → URL)', () => {
   it('round-trips with parseFilters', () => {
     const state = { category: 'lavoro-organizzazioni', query: 'leader 360' } as const;
     expect(parseFilters(filtersToSearch(state))).toEqual(state);
+  });
+});
+
+describe('hrefFromOtherPage (home anchors followed from /chi-siamo, /faq…)', () => {
+  it('points home sections to the home, carrying the category', () => {
+    expect(hrefFromOtherPage('#catalogo', 'formazione')).toBe('/?categoria=formazione#catalogo');
+    expect(hrefFromOtherPage('#catalogo', 'tutti')).toBe('/#catalogo');
+    expect(hrefFromOtherPage('#contatti')).toBe('/#contatti');
+  });
+
+  it('leaves layout anchors and other pages unchanged', () => {
+    expect(hrefFromOtherPage('#risorse')).toBe('#risorse');
+    expect(hrefFromOtherPage('#main')).toBe('#main');
+    expect(hrefFromOtherPage('/faq')).toBe('/faq');
   });
 });

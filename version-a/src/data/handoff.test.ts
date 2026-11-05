@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CONTACT_LIMITS } from '@/lib/validators';
 import { categories } from './categories';
+import { infoPageCopy, infoPages } from './pages';
 import { products } from './products';
 
 /**
@@ -21,5 +22,12 @@ describe('handoff JSON for version-b is in sync with the TypeScript source', () 
     const content = handoff('content.json');
     expect(content.categories).toEqual(categories);
     expect(content.validation.limits).toEqual(CONTACT_LIMITS);
+  });
+
+  it('content.json has the same institutional pages', () => {
+    const content = handoff('content.json');
+    expect(content.pages).toEqual(
+      JSON.parse(JSON.stringify({ copy: infoPageCopy, list: infoPages })),
+    );
   });
 });

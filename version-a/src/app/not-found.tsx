@@ -7,8 +7,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Footer links point to pages outside this landing (Chi siamo, Privacy…). Instead of a bare 404,
- * explain that they are not part of the demo and offer a way back.
+ * Any path that is not a page of the demo. Instead of a bare 404, explain it and offer a way back.
  */
 export default function NotFound() {
   return (
@@ -18,7 +17,8 @@ export default function NotFound() {
       </p>
       <h1 className="mt-3 text-h2 font-bold text-ink">Questa pagina non fa parte della demo</h1>
       <p className="mx-auto mt-3 max-w-xl text-lg text-ink-muted">
-        Il sito è una landing dimostrativa: le pagine istituzionali non sono state realizzate.
+        Il sito è una landing dimostrativa: la pagina che cerchi non esiste o non è stata
+        realizzata.
       </p>
       <Button href="/" className="mt-8">
         Torna alla home

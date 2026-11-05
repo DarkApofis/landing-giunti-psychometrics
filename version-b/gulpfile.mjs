@@ -51,7 +51,7 @@ const STYLES = ['resources/stylus/app.styl', 'resources/stylus/styleguide.styl']
 /** lucide-static icons used by the views (DESIGN-SPEC §7), copied to resources/svg/lucide and versioned. */
 const ICONS = [
   'arrow-down', 'arrow-right', 'arrow-up', 'badge-check', 'book-open', 'check', 'circle-alert', 'circle-check',
-  'circle-play', 'clock', 'headset', 'info', 'loader-circle', 'mail', 'map-pin', 'menu', 'minus',
+  'chevron-down', 'chevron-right', 'circle-play', 'clock', 'headset', 'info', 'loader-circle', 'mail', 'map-pin', 'menu', 'minus',
   'monitor-smartphone', 'phone', 'plus', 'rotate-ccw', 'search', 'search-x', 'send', 'shield-check',
   'shopping-bag', 'trash-2', 'truck', 'user-round', 'x',
 ];

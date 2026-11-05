@@ -1,0 +1,298 @@
+// Institutional pages of the footer (Chi siamo, FAQ…): breadcrumb, header, content blocks, FAQ,
+// call to action and section navigation. Mirrors version-a's InfoPageView.
+
+$tw-ease = cubic-bezier(0.4, 0, 0.2, 1); // Tailwind's default transition curve, as version-a
+
+.info-page {
+  padding-block: 2.5rem;
+
+  +lg() {
+    padding-block: 4rem;
+  }
+
+  &__header {
+    margin-top: 1rem;
+    max-width: 48rem;
+  }
+
+  &__title {
+    margin-top: 0.5rem;
+  }
+
+  &__lead {
+    margin-top: 0.75rem;
+  }
+
+  // "Contenuto dimostrativo…": every page says its data is fictional.
+  &__notice {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary-subtle);
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink);
+  }
+
+  &__notice-icon {
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    color: var(--color-primary);
+  }
+
+  // Content + section navigation (a 16rem column on the right from 1024px).
+  &__layout {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 2.5rem;
+
+    +lg() {
+      margin-top: 3rem;
+      grid-template-columns: minmax(0, 1fr) 16rem;
+      gap: 4rem;
+    }
+  }
+
+  &__blocks > * + * {
+    margin-top: 3rem;
+  }
+
+  &__heading {
+    font-size: 1.5rem;
+    line-height: unquote('calc(2 / 1.5)');
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  &__intro {
+    margin-top: 0.75rem;
+    color: var(--color-ink-muted);
+  }
+
+  &__text {
+    margin-top: 0.75rem;
+    color: var(--color-ink);
+
+    > * + * {
+      margin-top: 0.75rem;
+    }
+  }
+
+  &__cta {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+
+    +sm() {
+      padding: 2rem;
+    }
+  }
+
+  &__cta-title {
+    font-size: 1.25rem;
+    line-height: unquote('calc(1.75 / 1.25)');
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  &__cta-text {
+    margin-top: 0.5rem;
+    color: var(--color-ink-muted);
+  }
+
+  &__cta-action {
+    margin-top: 1.25rem;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  line-height: unquote('calc(1.25 / 0.875)');
+  color: var(--color-ink-muted);
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    &--current {
+      font-weight: 500;
+      color: var(--color-ink);
+    }
+  }
+
+  // 44px tall link, underline tinted primary at 40 % (as the contact channel links).
+  &__link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-primary-a40);
+    text-underline-offset: 4px;
+
+    +hover() {
+      text-decoration-color: var(--color-primary);
+    }
+  }
+}
+
+// Facts (<dl>) and cards (<ul>): one column, two from 640px.
+.info-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+
+  +sm() {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.info-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card);
+
+  &__label {
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+
+  &__value {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: unquote('calc(1.75 / 1.125)');
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    line-height: unquote('calc(1.75 / 1.125)');
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  &__meta {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    font-weight: 500;
+    color: var(--color-primary);
+  }
+
+  &__text {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: unquote('calc(1.25 / 0.875)');
+    color: var(--color-ink-muted);
+  }
+}
+
+// FAQ: native <details>, one bordered panel with dividers; the chevron turns when open.
+.faq {
+  margin-top: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+
+  &__item + &__item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  &__question {
+    display: flex;
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-ink);
+    transition-property: color;
+    transition-timing-function: $tw-ease;
+    transition-duration: var(--duration-fast);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    +hover() {
+      color: var(--color-primary);
+    }
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    color: var(--color-ink-muted);
+    transition-property: transform;
+    transition-timing-function: $tw-ease;
+    transition-duration: var(--duration-fast);
+  }
+
+  &__item[open] &__chevron {
+    transform: rotate(180deg);
+  }
+
+  &__answer {
+    padding: 0 1.25rem 1rem;
+    color: var(--color-ink-muted);
+  }
+}
+
+// Other pages of the same footer column; sticky beside the content from 1024px.
+.section-nav {
+  +lg() {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+
+  &__list {
+    margin-top: 0.75rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  &__link {
+    margin-left: -1px;
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-left: 2px solid transparent;
+    padding-left: 1rem;
+    color: var(--color-ink);
+    transition-property: color, border-color;
+    transition-timing-function: $tw-ease;
+    transition-duration: var(--duration-fast);
+
+    +hover() {
+      border-color: var(--color-border-strong);
+      color: var(--color-primary);
+    }
+
+    &.is-active {
+      border-color: var(--color-primary);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+  }
+}

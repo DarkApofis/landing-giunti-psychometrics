@@ -1,5 +1,6 @@
 import { CATEGORY_IDS, type CategoryFilter, type CategoryId, type Product } from '@/types/product';
 import { matchesQuery } from './search';
+import { SECTION_IDS } from '@/data/navigation';
 
 export interface CatalogFilters {
   category: CategoryFilter;
@@ -71,4 +72,19 @@ export function filtersToSearch({ category, query }: CatalogFilters): string {
   if (q !== '') params.set(URL_PARAMS.query, q);
   const search = params.toString();
   return search === '' ? '' : `?${search}`;
+}
+
+// ── Links to the home sections from other pages ─────────────────────────────
+
+/** Sections present on every page (layout): their anchors work as they are. */
+const LAYOUT_ANCHORS: readonly string[] = [`#${SECTION_IDS.main}`, `#${SECTION_IDS.resources}`];
+
+/**
+ * Href of an in-page link (`#catalogo`, `#contatti`…) when followed from a page other than the
+ * home: it points to the home and carries the category through the URL (`/?categoria=…#catalogo`),
+ * which the catalogue reads on load. Other hrefs, and anchors to layout sections, are unchanged.
+ */
+export function hrefFromOtherPage(href: string, category?: CategoryFilter): string {
+  if (!href.startsWith('#') || LAYOUT_ANCHORS.includes(href)) return href;
+  return `/${filtersToSearch({ ...DEFAULT_FILTERS, category: category ?? 'tutti' })}${href}`;
 }

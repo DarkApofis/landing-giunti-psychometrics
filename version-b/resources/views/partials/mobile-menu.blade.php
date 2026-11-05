@@ -21,7 +21,7 @@
                 <ul class="mobile-menu__list">
                     @foreach ($mainNav as $item)
                         <li>
-                            <a class="mobile-menu__link" href="{{ $item['href'] }}" @isset($item['category']) data-category="{{ $item['category'] }}" @endisset>{{ $item['label'] }}</a>
+                            <a class="mobile-menu__link" href="{{ $homeHref($item['href'], $item['category'] ?? null) }}" @isset($item['category']) data-category="{{ $item['category'] }}" @endisset>{{ $item['label'] }}</a>
                         </li>
                     @endforeach
                 </ul>

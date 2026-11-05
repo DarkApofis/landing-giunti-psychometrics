@@ -22,7 +22,7 @@ class StatelessTest extends TestCase
     #[Test]
     public function pages_set_no_cookies(): void
     {
-        foreach (['/' => 200, '/chi-siamo' => 404] as $uri => $status) {
+        foreach (['/' => 200, '/chi-siamo' => 200, '/privacy' => 200, '/pagina-inesistente' => 404] as $uri => $status) {
             $response = $this->get($uri)->assertStatus($status);
             $this->assertSame([], $response->headers->getCookies(), "{$uri} sets cookies");
         }

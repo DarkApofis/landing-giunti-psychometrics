@@ -3,7 +3,8 @@
  * Exports the typed catalogue and all UI copy to JSON for version-b (Laravel):
  *   docs/handoff/products.json  — exactly src/data/products.ts
  *   docs/handoff/content.json   — categories, qualifications, navigation, copy (hero, catalogue,
- *                                 trust strip, contact form, cart, footer) and validation limits
+ *                                 trust strip, contact form, cart, footer), validation limits and
+ *                                 the institutional pages of the footer (src/data/pages.ts)
  * Loads the real TypeScript modules through Vite's SSR loader (Vite ships with Vitest), so the JSON
  * can never drift from the source. src/data/handoff.test.ts fails if the files are stale.
  */
@@ -38,6 +39,7 @@ try {
     footer,
     site,
     validators,
+    pages,
   ] = await Promise.all([
     load('/src/data/products.ts'),
     load('/src/data/categories.ts'),
@@ -51,6 +53,7 @@ try {
     load('/src/data/footer.ts'),
     load('/src/data/site.ts'),
     load('/src/lib/validators.ts'),
+    load('/src/data/pages.ts'),
   ]);
 
   // Functions in the copy objects become example strings (Blade will interpolate them).
@@ -81,6 +84,7 @@ try {
       social: footer.socialLinks,
       copy: footer.footerCopy,
     },
+    pages: { copy: pages.infoPageCopy, list: pages.infoPages },
   });
 
   mkdirSync(out, { recursive: true });

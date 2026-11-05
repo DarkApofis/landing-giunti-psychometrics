@@ -4,11 +4,14 @@ namespace App\View\Composers;
 
 use App\Content\ContentRepository;
 use App\Content\ProductPresenter;
+use App\Support\HomeLink;
+use Closure;
 use Illuminate\View\View;
 
 /**
  * Data every page layout needs: site metadata (SEO / Open Graph), section ids, the main navigation,
- * the cart copy and the configuration object the JS reads from
+ * the cart copy, $homeHref (links to the home sections that also work from other pages) and the
+ * configuration object the JS reads from
  * <script type="application/json" id="app-config">.
  */
 final class AppComposer
@@ -29,8 +32,28 @@ final class AppComposer
             'mainNav' => $this->content->content('mainNav'),
             'cart' => $this->content->content('cart'),
             'footer' => $this->content->content('footer'),
+            'homeHref' => $this->homeHref(),
             'appConfig' => $this->appConfig ??= $this->appConfig(),
         ]);
+    }
+
+    /**
+     * $homeHref('#catalogo', 'formazione'): unchanged on the home, "/?categoria=formazione#catalogo"
+     * on any other page (info pages, 404).
+     *
+     * @return Closure(string, ?string=): string
+     */
+    private function homeHref(): Closure
+    {
+        $ids = $this->content->content('sectionIds');
+        $layoutAnchors = ['#'.$ids['main'], '#'.$ids['resources']];
+
+        return static fn (string $href, ?string $category = null): string => HomeLink::href(
+            $href,
+            $category,
+            request()->routeIs('home'),
+            $layoutAnchors,
+        );
     }
 
     /**

@@ -1,6 +1,6 @@
 {{--
-  404 (DESIGN-SPEC §6.14; mirrors version-a/src/app/not-found.tsx). The footer links to institutional
-  pages that are not part of the demo (Chi siamo, Privacy…): instead of a bare 404, explain it and
+  404 (DESIGN-SPEC §6.14; mirrors version-a/src/app/not-found.tsx). Any path that is not a page of
+  the demo: instead of a bare 404, explain it and
   offer a way back. Not indexed.
 --}}
 @extends('layouts.app')

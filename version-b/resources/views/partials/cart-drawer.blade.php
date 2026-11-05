@@ -16,7 +16,7 @@
             <span class="cart-drawer__empty-icon"><x-icon name="shopping-bag" :size="32" /></span>
             <p class="cart-drawer__empty-title">{{ $cart['empty']['title'] }}</p>
             <p class="cart-drawer__empty-text">{{ $cart['empty']['text'] }}</p>
-            <a class="btn btn--primary cart-drawer__empty-action" href="#{{ $sectionIds['catalog'] }}" data-category="formazione" data-dialog-leave>{{ $cart['empty']['action'] }}</a>
+            <a class="btn btn--primary cart-drawer__empty-action" href="{{ $homeHref('#'.$sectionIds['catalog'], 'formazione') }}" data-category="formazione" data-dialog-leave>{{ $cart['empty']['action'] }}</a>
         </div>
 
         <div class="cart-drawer__content" data-cart-content hidden>

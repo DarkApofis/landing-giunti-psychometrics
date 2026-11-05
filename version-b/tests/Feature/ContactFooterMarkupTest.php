@@ -106,7 +106,7 @@ class ContactFooterMarkupTest extends TestCase
     #[Test]
     public function pages_outside_the_demo_get_an_italian_404_that_is_not_indexed(): void
     {
-        $document = $this->document('/chi-siamo', 404);
+        $document = $this->document('/pagina-inesistente', 404);
 
         $this->assertSame('Questa pagina non fa parte della demo', trim($this->one($document, 'h1')->textContent));
         $this->assertSame('Pagina non disponibile | Giunti Psychometrics', $document->title);

@@ -1,7 +1,8 @@
 {{--
   Footer (HANDOFF §4.5, DESIGN-SPEC §6.13): ink background, 1 → 2 → 4 columns, three labelled <nav>,
   social links that open a new tab (and say so), dynamic copyright year and the demo disclaimer.
-  "Esplora" links pre-filter the catalogue (data-category). `#risorse` is the anchor of the nav item "Risorse".
+  "Esplora" links pre-filter the catalogue (data-category); "Azienda" / "Assistenza" lead to the info
+  pages, and $homeHref makes the links to home sections work from those pages too. `#risorse` is the anchor of the nav item "Risorse".
 --}}
 <footer class="site-footer on-dark" id="{{ $sectionIds['resources'] }}">
     <div class="site-footer__grid container">
@@ -28,7 +29,7 @@
                 <h2 class="site-footer__heading" id="footer-{{ $column['title'] }}">{{ $column['title'] }}</h2>
                 <ul class="site-footer__links">
                     @foreach ($column['links'] as $link)
-                        <li><a class="site-footer__link" href="{{ $link['href'] }}" @isset($link['category']) data-category="{{ $link['category'] }}" @endisset>{{ $link['label'] }}</a></li>
+                        <li><a class="site-footer__link" href="{{ $homeHref($link['href'], $link['category'] ?? null) }}" @isset($link['category']) data-category="{{ $link['category'] }}" @endisset>{{ $link['label'] }}</a></li>
                     @endforeach
                 </ul>
             </nav>

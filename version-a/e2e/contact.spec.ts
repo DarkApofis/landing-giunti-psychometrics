@@ -186,7 +186,7 @@ test.describe('trust strip and footer', () => {
   });
 
   test('pages outside the demo show an Italian 404 with a way back', async ({ page }) => {
-    const response = await page.goto('/chi-siamo');
+    const response = await page.goto('/pagina-inesistente');
     expect(response?.status()).toBe(404);
     await expect(
       page.getByRole('heading', { name: 'Questa pagina non fa parte della demo', level: 1 }),

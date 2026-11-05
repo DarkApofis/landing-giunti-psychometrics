@@ -17,8 +17,8 @@ const catalog = `#${SECTION_IDS.catalog}`;
 const contact = `#${SECTION_IDS.contact}`;
 
 /**
- * Links to pages outside this landing (e.g. /chi-siamo) are intentional: they show the
- * information architecture and land on an Italian "not part of the demo" page (app/not-found.tsx).
+ * "Azienda", "Assistenza" and the legal links below lead to the institutional pages of
+ * src/data/pages.ts (fictional content).
  */
 export const footerColumns: readonly FooterColumn[] = [
   {

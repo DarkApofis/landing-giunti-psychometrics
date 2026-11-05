@@ -552,5 +552,5 @@ cd version-a
 E2E_BASE_URL=http://localhost:8000 npx playwright test e2e/catalog.spec.ts e2e/contact.spec.ts e2e/cart.spec.ts e2e/audit.spec.ts
 ```
 
-Diferencias esperables que no son fallos de B: rutas específicas de Next (404 de `/chi-siamo` si B no la implementa) y los nombres de
+Diferencias esperables que no son fallos de B: rutas específicas de Next y los nombres de
 chunks. Comparar además las capturas de `docs/screenshots/version-a/` con las de B en 375 / 768 / 1280.

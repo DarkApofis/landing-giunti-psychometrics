@@ -1,7 +1,9 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import type { ReactNode, Ref } from 'react';
 import { useCatalogFilters } from '@/components/providers/CatalogFiltersProvider';
+import { hrefFromOtherPage } from '@/lib/catalog';
 import type { CategoryFilter } from '@/types/product';
 
 interface CatalogLinkProps {
@@ -17,6 +19,8 @@ interface CatalogLinkProps {
 /**
  * Plain in-page anchor that also applies a catalogue category. The browser still performs the
  * native jump/smooth scroll to the hash (no JS needed for that); without JS it simply scrolls.
+ * On other pages (/chi-siamo, /faq…) the home sections do not exist: the link then goes to the
+ * home, with the category in the URL (`/?categoria=formazione#catalogo`).
  */
 export function CatalogLink({
   href,
@@ -27,10 +31,11 @@ export function CatalogLink({
   children,
 }: CatalogLinkProps) {
   const { setCategory } = useCatalogFilters();
+  const onHome = usePathname() === '/';
   return (
     <a
       ref={ref}
-      href={href}
+      href={onHome ? href : hrefFromOtherPage(href, category)}
       className={className}
       onClick={() => {
         if (category) setCategory(category);

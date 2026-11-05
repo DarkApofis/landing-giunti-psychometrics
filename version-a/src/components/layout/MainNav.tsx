@@ -14,15 +14,9 @@ export function MainNav({ items, className }: { items: readonly NavItem[]; class
       <ul className="flex items-center gap-1">
         {items.map((item) => (
           <li key={item.label}>
-            {item.category ? (
-              <CatalogLink href={item.href} category={item.category} className={linkClass}>
-                {item.label}
-              </CatalogLink>
-            ) : (
-              <a href={item.href} className={linkClass}>
-                {item.label}
-              </a>
-            )}
+            <CatalogLink href={item.href} category={item.category} className={linkClass}>
+              {item.label}
+            </CatalogLink>
           </li>
         ))}
       </ul>
