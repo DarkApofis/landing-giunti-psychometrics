@@ -118,6 +118,32 @@ test.describe('header: desktop 1280', () => {
   });
 });
 
+test.describe('header: mobile menu (768)', () => {
+  test.use({ viewport: VIEWPORTS.tablet });
+
+  test('focus trap skips "Accedi", which is hidden at md and up', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Apri il menu' }).click();
+    await expect(page.getByRole('button', { name: 'Chiudi il menu' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+
+    // From the last visible link Tab must wrap to the toggle, not escape into the page behind.
+    const cycle = ['Test', 'Formazione', 'Risorse', 'Contatti', 'Chiudi il menu', 'Test'];
+    await page.getByRole('link', { name: 'Test', exact: true }).last().focus();
+    expect(await focusedLabel(page)).toBe(cycle[0]);
+    for (const label of cycle.slice(1)) {
+      await page.keyboard.press('Tab');
+      expect(await focusedLabel(page)).toBe(label);
+    }
+    await page.keyboard.press('Shift+Tab');
+    expect(await focusedLabel(page)).toBe('Chiudi il menu');
+    await page.keyboard.press('Shift+Tab');
+    expect(await focusedLabel(page)).toBe('Contatti');
+  });
+});
+
 test.describe('header: mobile menu (375)', () => {
   test.use({ viewport: VIEWPORTS.mobile });
 

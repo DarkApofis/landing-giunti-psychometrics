@@ -62,6 +62,21 @@ describe('<ContactForm>', () => {
     );
   });
 
+  it('the field is already invalid and described by its error at the moment it receives focus', async () => {
+    const { user, nome, submit } = setup();
+    // What a screen reader reads on focus: captured synchronously in the focus event, before any later render.
+    const atFocus: Array<{ invalid: string | null; describedBy: string | null }> = [];
+    nome.addEventListener('focus', () =>
+      atFocus.push({
+        invalid: nome.getAttribute('aria-invalid'),
+        describedBy: nome.getAttribute('aria-describedby'),
+      }),
+    );
+    await user.click(submit());
+
+    expect(atFocus).toEqual([{ invalid: 'true', describedBy: expect.stringMatching(/-error$/) }]);
+  });
+
   it('focuses the first invalid field in visual order (not always "Nome")', async () => {
     const { user, nome, email, submit } = setup();
     await user.type(nome, 'Giulia');

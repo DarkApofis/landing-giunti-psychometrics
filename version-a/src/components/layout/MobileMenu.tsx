@@ -50,7 +50,13 @@ export function MobileMenu({
       }
       if (event.key !== 'Tab' || !panel || !toggle) return;
 
-      const focusables = [toggle, ...panel.querySelectorAll<HTMLElement>(FOCUSABLE)];
+      // Visible items only: "Accedi" is display:none from md up, so it can't be the last stop.
+      const focusables = [
+        toggle,
+        ...[...panel.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+          (el) => el.offsetParent !== null,
+        ),
+      ];
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
       const active = document.activeElement;

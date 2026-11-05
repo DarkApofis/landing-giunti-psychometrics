@@ -2,6 +2,7 @@
 
 import { CircleAlert, CircleCheck, LoaderCircle, Send } from 'lucide-react';
 import { useEffect, useId, useRef, useState, type ChangeEvent, type SubmitEvent } from 'react';
+import { flushSync } from 'react-dom';
 import { Button } from '@/components/ui/Button';
 import { TextArea, TextField } from '@/components/ui/FormField';
 import { contactCopy } from '@/data/contact';
@@ -100,8 +101,12 @@ export function ContactForm() {
     const errors = validateContact(state.values);
     if (hasErrors(errors)) {
       const count = Object.values(errors).filter(Boolean).length;
-      setState({ ...state, errors, submitAttempted: true });
-      setSummary(contactCopy.errorSummary(count));
+      // Commit aria-invalid and the error link before moving focus: a screen reader reads the field
+      // on focus, so it must already announce "invalid" and its message (a batched update came too late).
+      flushSync(() => {
+        setState({ ...state, errors, submitAttempted: true });
+        setSummary(contactCopy.errorSummary(count));
+      });
       const first = firstInvalidField(errors);
       if (first) focusField(first);
       return;
