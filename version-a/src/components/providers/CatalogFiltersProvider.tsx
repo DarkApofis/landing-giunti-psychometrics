@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import {
   createContext,
   useCallback,
@@ -37,27 +38,37 @@ const CatalogFiltersContext = createContext<CatalogFiltersContextValue | null>(n
 export function CatalogFiltersProvider({ children }: { children: ReactNode }) {
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS);
   const urlRead = useRef(false);
+  // The provider lives in the root layout, but only the home has a catalogue: the URL is read and
+  // written there only. Other pages submit the search natively (GET /?q=…), see SearchBox.
+  const onHome = usePathname() === '/';
 
   // NOTE: effect order matters. This writer is declared first so that, on mount,
   // it runs before the reader below and does not overwrite the incoming URL.
   useEffect(() => {
+    if (!onHome) {
+      urlRead.current = false; // back on the home, the reader goes first again
+      return;
+    }
     if (!urlRead.current) return;
     const { pathname, search, hash } = window.location;
-    const nextSearch = filtersToSearch(filters);
+    const nextSearch = filtersToSearch(filters, search);
     if (nextSearch !== search) {
       window.history.replaceState(window.history.state, '', `${pathname}${nextSearch}${hash}`);
     }
-  }, [filters]);
+  }, [filters, onHome]);
 
+  // After hydration, and again on every client navigation back to the home (Logo, footer links),
+  // the URL wins: otherwise a query typed on /faq would filter the grid behind a clean URL.
   useEffect(() => {
+    if (!onHome) return;
     urlRead.current = true;
     const fromUrl = parseFilters(window.location.search);
-    if (fromUrl.category !== DEFAULT_FILTERS.category || fromUrl.query !== DEFAULT_FILTERS.query) {
-      // Syncing from an external system (the URL) once after hydration.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFilters(fromUrl);
-    }
-  }, []);
+    // Syncing from an external system (the URL).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFilters((prev) =>
+      prev.category === fromUrl.category && prev.query === fromUrl.query ? prev : fromUrl,
+    );
+  }, [onHome]);
 
   const setCategory = useCallback(
     (category: CategoryFilter) => setFilters((prev) => ({ ...prev, category })),

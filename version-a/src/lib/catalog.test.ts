@@ -179,6 +179,21 @@ describe('filtersToSearch (state → URL)', () => {
     );
   });
 
+  it('keeps unrelated parameters of the current URL (campaign tags…) and only rewrites its own', () => {
+    expect(
+      filtersToSearch(
+        { category: 'lavoro-organizzazioni', query: '' },
+        '?utm_source=newsletter&categoria=scuola-eta-evolutiva&q=old',
+      ),
+    ).toBe('?utm_source=newsletter&categoria=lavoro-organizzazioni');
+    expect(filtersToSearch({ category: 'tutti', query: '' }, '?utm_source=x&q=old')).toBe(
+      '?utm_source=x',
+    );
+    expect(
+      filtersToSearch({ category: 'tutti', query: '' }, '?categoria=scuola-eta-evolutiva'),
+    ).toBe('');
+  });
+
   it('round-trips with parseFilters', () => {
     const state = { category: 'lavoro-organizzazioni', query: 'leader 360' } as const;
     expect(parseFilters(filtersToSearch(state))).toEqual(state);

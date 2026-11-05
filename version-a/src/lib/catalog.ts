@@ -64,9 +64,14 @@ export function parseFilters(search: string): CatalogFilters {
   };
 }
 
-/** Serialises filters; the default state gives "" so the URL stays clean. */
-export function filtersToSearch({ category, query }: CatalogFilters): string {
-  const params = new URLSearchParams();
+/**
+ * Serialises filters onto the current query string: only ?categoria and ?q are rewritten, any other
+ * parameter (utm_*, …) is kept. The default state with no other parameters gives "" (clean URL).
+ */
+export function filtersToSearch({ category, query }: CatalogFilters, currentSearch = ''): string {
+  const params = new URLSearchParams(currentSearch);
+  params.delete(URL_PARAMS.category);
+  params.delete(URL_PARAMS.query);
   if (category !== 'tutti') params.set(URL_PARAMS.category, category);
   const q = query.trim();
   if (q !== '') params.set(URL_PARAMS.query, q);
