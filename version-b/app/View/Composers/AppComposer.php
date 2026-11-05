@@ -85,6 +85,7 @@ final class AppComposer
                 'product' => [
                     'add' => __('ui.product.add'),
                     'added' => __('ui.product.added'),
+                    'maxReached' => __('ui.product.max_reached'),
                     'actionLabel' => __('ui.product.action_label'),
                     'saving' => __('ui.product.saving'),
                 ],

@@ -138,6 +138,15 @@ describe('filtersToSearch (state → URL)', () => {
     assert.equal(filtersToSearch({ category: 'scuola-eta-evolutiva', query: ' età ' }), '?categoria=scuola-eta-evolutiva&q=et%C3%A0');
   });
 
+  it('keeps unrelated parameters of the current URL (campaign tags…) and only rewrites its own', () => {
+    assert.equal(
+      filtersToSearch({ category: 'lavoro-organizzazioni', query: '' }, '?utm_source=newsletter&categoria=scuola-eta-evolutiva&q=old'),
+      '?utm_source=newsletter&categoria=lavoro-organizzazioni',
+    );
+    assert.equal(filtersToSearch({ category: 'tutti', query: '' }, '?utm_source=x&q=old'), '?utm_source=x');
+    assert.equal(filtersToSearch({ category: 'tutti', query: '' }, '?categoria=scuola-eta-evolutiva'), '');
+  });
+
   it('round-trips with parseFilters', () => {
     const state = { category: 'lavoro-organizzazioni', query: 'leader 360' };
     assert.deepEqual({ ...parseFilters(filtersToSearch(state), CATEGORY_IDS) }, state);

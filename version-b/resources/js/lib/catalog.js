@@ -56,9 +56,14 @@
     };
   }
 
-  /** Serialises filters; the default state gives "" so the URL stays clean. */
-  function filtersToSearch(filters) {
-    var params = new URLSearchParams();
+  /**
+   * Serialises filters onto the current query string: only ?categoria and ?q are rewritten, any other
+   * parameter (utm_*, …) is kept. The default state with no other parameters gives "" (clean URL).
+   */
+  function filtersToSearch(filters, currentSearch) {
+    var params = new URLSearchParams(currentSearch || '');
+    params.delete(URL_PARAMS.category);
+    params.delete(URL_PARAMS.query);
     if (filters.category !== ALL) params.set(URL_PARAMS.category, filters.category);
     var q = filters.query.trim();
     if (q !== '') params.set(URL_PARAMS.query, q);

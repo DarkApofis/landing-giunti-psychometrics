@@ -119,3 +119,22 @@ test('the dialog shows the right data for a test without discount', async ({ pag
   await expect(dialog).toContainText('14+ anni');
   await expect(dialog.locator('.format-badge--digitale')).toHaveCount(1);
 });
+
+test('"Aggiungi" at the maximum quantity says so instead of claiming it was added', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    localStorage.setItem('giunti-cart', JSON.stringify({ version: 1, items: [{ productId: 'corso-dsa', quantity: 99 }] }));
+  });
+  await page.goto('/');
+  await expect(page.locator('.cart-button__badge')).toHaveText('99');
+
+  const add = page.getByRole('button', { name: /^Aggiungi al carrello: Disturbi/ });
+  const name = (await add.getAttribute('aria-label'))!.replace(/^Aggiungi al carrello: /, '');
+  await add.click();
+
+  await expect(page.getByRole('button', { name: `Quantità massima raggiunta: ${name}` })).toBeVisible();
+  await expect(announcer(page)).toHaveText(`${name}: quantità massima (99) già nel carrello`);
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('giunti-cart') ?? '{}').items);
+  expect(stored).toEqual([{ productId: 'corso-dsa', quantity: 99 }]);
+});

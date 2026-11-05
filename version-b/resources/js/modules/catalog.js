@@ -96,7 +96,7 @@
 
     function writeUrl() {
       var location = window.location;
-      var next = lib.catalog.filtersToSearch(state);
+      var next = lib.catalog.filtersToSearch(state, location.search);
       if (next !== location.search) {
         window.history.replaceState(window.history.state, '', location.pathname + next + location.hash);
       }

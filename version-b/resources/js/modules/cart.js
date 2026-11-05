@@ -129,26 +129,36 @@
       modal.open();
     });
 
-    // "Aggiungi al carrello": add, announce, and confirm on the button for 2 s.
+    // "Aggiungi al carrello": add, announce, and confirm on the button for 2 s. At the maximum
+    // quantity nothing is added, so it says that instead ("Quantità massima raggiunta").
     $root.on('click', '[data-add-to-cart]', function () {
       var $add = $(this);
       var product = products[$add.attr('data-add-to-cart')];
       if (!product || !cart.isCartable(product)) return;
 
-      commit({ type: 'add', productId: product.id });
-      window.GP.announce(fillText(texts.added, { name: product.name }));
+      var item = state.items.filter(function (i) { return i.productId === product.id; })[0];
+      var feedback;
+      if (item && item.quantity >= cart.MAX_QUANTITY) {
+        window.GP.announce(fillText(texts.max_reached, { name: product.name, max: cart.MAX_QUANTITY }));
+        feedback = 'max';
+      } else {
+        commit({ type: 'add', productId: product.id });
+        window.GP.announce(fillText(texts.added, { name: product.name }));
+        feedback = 'added';
+      }
 
       window.clearTimeout($add.data('feedbackTimer'));
-      setAddedFeedback($add, product, true);
+      setAddedFeedback($add, product, feedback);
       $add.data('feedbackTimer', window.setTimeout(function () {
-        setAddedFeedback($add, product, false);
+        setAddedFeedback($add, product, null);
       }, FEEDBACK_MS));
     });
 
-    function setAddedFeedback($add, product, added) {
-      var action = added ? productTexts.added : productTexts.add;
+    /** feedback: 'added' (check icon + "Aggiunto"), 'max' ("Quantità massima raggiunta") or null. */
+    function setAddedFeedback($add, product, feedback) {
+      var action = feedback === 'added' ? productTexts.added : feedback === 'max' ? productTexts.maxReached : productTexts.add;
       $add
-        .toggleClass('is-added', added)
+        .toggleClass('is-added', feedback === 'added')
         .attr('aria-label', fillText(productTexts.actionLabel, { action: action, name: product.name }))
         .find('.product-card__add-text').text(action);
     }

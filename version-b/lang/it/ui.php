@@ -93,6 +93,7 @@ return [
         'details' => 'Scopri di più',
         'add' => 'Aggiungi al carrello',
         'added' => 'Aggiunto al carrello',
+        'max_reached' => 'Quantità massima raggiunta',
         // aria-label = visible text + ": " + product name (label-in-name, unique per card)
         'action_label' => ':action: :name',
     ],
@@ -111,6 +112,7 @@ return [
     // (the rest of the cart copy is in content.json → cart)
     'cart' => [
         'added' => ':name aggiunto al carrello',
+        'max_reached' => ':name: quantità massima (:max) già nel carrello',
         'removed' => ':name rimosso dal carrello',
         'remove' => 'Rimuovi :name dal carrello',
         'remove_visible' => 'Rimuovi',

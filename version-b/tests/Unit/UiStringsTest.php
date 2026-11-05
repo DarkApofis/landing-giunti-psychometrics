@@ -50,6 +50,8 @@ class UiStringsTest extends TestCase
         $this->assertSame('3 articoli nel carrello', __('ui.cart_count.many', ['count' => 3]));
         $this->assertSame('Apri il carrello, nessun articolo', __('ui.cart_button.empty'));
         $this->assertSame('Corso X aggiunto al carrello', __('ui.cart.added', ['name' => 'Corso X']));
+        $this->assertSame('Corso X: quantità massima (99) già nel carrello', __('ui.cart.max_reached', ['name' => 'Corso X', 'max' => 99]));
+        $this->assertSame('Quantità massima raggiunta', __('ui.product.max_reached'));
         $this->assertSame('Corso X rimosso dal carrello', __('ui.cart.removed', ['name' => 'Corso X']));
         $this->assertSame('8 prodotti trovati', __('ui.catalog.results.many', ['count' => 8]));
         $this->assertSame('Formazione 4 prodotti', __('ui.catalog.pill_label', ['label' => 'Formazione', 'count' => 4]));
