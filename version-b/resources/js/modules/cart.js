@@ -193,10 +193,18 @@
     });
 
     // Another tab changed the cart: reload it (and do not write it back).
+    // key === null: the other tab ran localStorage.clear().
     $(window).on('storage', function (event) {
-      if (event.originalEvent.key !== cart.STORAGE_KEY) return;
+      var key = event.originalEvent.key;
+      if (key !== cart.STORAGE_KEY && key !== null) return;
+      var hadFocus = $.contains($list[0], document.activeElement);
       restore();
       render({ announce: true });
+      // The focused line was removed remotely: keep focus in the drawer (first line or the empty action).
+      if (hadFocus && !$.contains($list[0], document.activeElement)) {
+        var $first = $list.find('[data-cart-remove]').first();
+        ($first.length ? $first : $emptyAction).trigger('focus');
+      }
     });
 
     // First paint was the empty cart (server): restore the stored one silently.

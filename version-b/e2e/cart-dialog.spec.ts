@@ -138,3 +138,23 @@ test('"Aggiungi" at the maximum quantity says so instead of claiming it was adde
   const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('giunti-cart') ?? '{}').items);
   expect(stored).toEqual([{ productId: 'corso-dsa', quantity: 99 }]);
 });
+
+test('another tab clearing the storage empties the cart; focus in the open drawer is not lost', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: /^Aggiungi al carrello: Disturbi/ }).click();
+  await cartButton(page).click();
+  await drawer(page).getByRole('button', { name: /^Rimuovi .*Disturbi/ }).focus();
+
+  await page.evaluate(() => {
+    localStorage.clear();
+    window.dispatchEvent(new StorageEvent('storage', { key: null }));
+  });
+
+  await expect(drawer(page).getByRole('listitem')).toHaveCount(0);
+  await expect(cartButton(page)).toHaveAccessibleName(/nessun articolo/);
+  const focusedInDrawer = await page.evaluate(() => {
+    const active = document.activeElement;
+    return !!active && active !== document.body && !!active.closest('dialog[open]');
+  });
+  expect(focusedInDrawer).toBe(true);
+});
